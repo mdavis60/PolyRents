@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +19,35 @@ namespace PolyRents
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
-    {
+    public partial class MainWindow : Window    {
+        private String myStatus;
+        private int clickCount = 0;
+        public String Status
+        {
+            get { return myStatus; }
+            set {
+                myStatus = value;
+                status.Text = value;
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+            Status = "ready";
+            
+        }
+
+        public void setStatusMessage(String value)
+        {
+            Status = value;
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            clickCount++;
+            setStatusMessage("" + clickCount);
+
         }
     }
 }
