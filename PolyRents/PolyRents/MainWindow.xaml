@@ -7,6 +7,31 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <StatusBar x:Name="statusBar" VerticalAlignment="Bottom" MinHeight="15" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="150" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="1"/>
+            <Separator Grid.Column="1" Width="1" />
+            <Separator Grid.Column="3" />
+            <StatusBarItem Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                <TextBlock Text="status: " FontSize="10"/>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <TextBlock x:Name="status" Text="hello World" FontSize="10" Width="110"/>
+            </StatusBarItem>
+        </StatusBar>
+
+
     </Grid>
 </Window>
