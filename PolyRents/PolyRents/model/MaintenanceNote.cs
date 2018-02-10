@@ -12,11 +12,72 @@ namespace PolyRents.model
         private string comment;
         private DateTime timestamp;
         private String reporter;
+        private Resource resource;
 
-        public string Reporter { get => reporter; set => reporter = value; }
-        public DateTime Timestamp { get => timestamp; set => timestamp = value; }
-        public string MaintenanceComment { get => comment; set => comment = value; }
-        public int Id { get => idMaintenance; set => idMaintenance = value; }
+        public MaintenanceNote()
+        {
+
+        }
+
+        public MaintenanceNote(int idMaintenance, Resource resource, string comment, DateTime timestamp, String reporter)
+        {
+            this.idMaintenance = idMaintenance;
+            this.resource = resource;
+            this.comment = comment;
+            this.timestamp = timestamp;
+        }
+
+        public int IdMaintenance
+        {
+            get
+            {
+                return idMaintenance;
+            }
+
+            set
+            {
+                idMaintenance = value;
+            }
+        }
+
+        public DateTime Timestamp
+        {
+            get
+            {
+                return timestamp;
+            }
+
+            set
+            {
+                timestamp = value;
+            }
+        }
+
+        public string Reporter
+        {
+            get
+            {
+                return reporter;
+            }
+
+            set
+            {
+                reporter = value;
+            }
+        }
+
+        internal Resource Resource
+        {
+            get
+            {
+                return resource;
+            }
+
+            set
+            {
+                resource = value;
+            }
+        }
 
         public string getNote()
         {
