@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PolyRents.repository
+namespace PolyRents.repository.concrete
 {
-    interface RenterNoteDAO
+    class MaintenanceNoteDAOImpl
     {
     }
 }

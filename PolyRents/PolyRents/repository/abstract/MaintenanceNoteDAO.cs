@@ -11,6 +11,5 @@ namespace PolyRents.repository
     {
         List<MaintenanceNote> getNotesForResource(Resource resource);
         void deleteNotesForResource(Resource resource);
-
     }
 }
