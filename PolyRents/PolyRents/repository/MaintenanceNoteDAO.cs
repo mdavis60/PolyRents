@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PolyRents.repository
 {
-    class Class1
+    interface MaintenanceNoteDAO
     {
     }
 }

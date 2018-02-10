@@ -74,6 +74,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="model\Computer.cs" />
+    <Compile Include="model\INote.cs" />
+    <Compile Include="model\MaintenanceNote.cs" />
+    <Compile Include="model\Rental.cs" />
+    <Compile Include="model\Renter.cs" />
+    <Compile Include="model\RenterNote.cs" />
+    <Compile Include="model\Resource.cs" />
+    <Compile Include="model\ResourceType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
