@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PolyRents.repository.concrete;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -22,6 +23,20 @@ namespace PolyRents
     public partial class MainWindow : Window    {
         private String myStatus;
         private int clickCount = 0;
+        private ComputingResourcesDAOImpl myComputingResources;
+
+        private ComputingResourcesDAOImpl ComputingResources
+        {
+            get
+            {
+                return myComputingResources;
+            }
+            set
+            {
+                this.myComputingResources = value;
+            }
+        }
+
         public String Status
         {
             get { return myStatus; }
@@ -48,6 +63,18 @@ namespace PolyRents
             clickCount++;
             setStatusMessage("" + clickCount);
 
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            PolyRents.ComputingResourcesDataSet computingResourcesDataSet = ((PolyRents.ComputingResourcesDataSet)(this.FindResource("computingResourcesDataSet")));
+            // Load data into the table Resources. You can modify this code as needed.
+            ComputingResources = ComputingResourcesDAOImpl.getInstance(computingResourcesDataSet);
+
+            PolyRents.ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter computingResourcesDataSetResourcesTableAdapter = new PolyRents.ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter();
+            computingResourcesDataSetResourcesTableAdapter.Fill(ComputingResources.DataSet.Resources);
+            System.Windows.Data.CollectionViewSource resourcesViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("resourcesViewSource")));
+            resourcesViewSource.View.MoveCurrentToFirst();
         }
     }
 }

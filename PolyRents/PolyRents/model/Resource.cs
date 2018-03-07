@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PolyRents.helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PolyRents.model
 {
-    abstract class Resource
+    class Resource
     {
         private int idResource;
         private ResourceType type;
@@ -39,7 +40,7 @@ namespace PolyRents.model
             }
         }
 
-        internal Status Status1
+        internal Status Status
         {
             get
             {

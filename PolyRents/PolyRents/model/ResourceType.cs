@@ -87,7 +87,6 @@ namespace PolyRents.model
             {
                 pastDueCost = value;
             }
->>>>>>> 114831b9646017edb5433849781949422859e309
         }
     }
 }
