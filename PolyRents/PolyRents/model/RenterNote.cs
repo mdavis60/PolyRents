@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PolyRents.model
 {
-    class RenterNote : INote
+    public class RenterNote : INote
     {
         private int idRenterNote;
         private Renter renter;

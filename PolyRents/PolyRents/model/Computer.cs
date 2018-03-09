@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PolyRents.model
 {
-    class Computer
+    public class Computer
     {
         private string serialNumber;
         private int stateId;

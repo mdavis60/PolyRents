@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PolyRents.model
 {
-    class Resource
+    public class Resource
     {
         private int idResource;
         private ResourceType type;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PolyRents.repository.concrete
 {
-    class MaintenanceNoteDAOImpl
+    public class MaintenanceNoteDAOImpl
     {
     }
 }

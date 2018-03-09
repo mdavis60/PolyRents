@@ -23,17 +23,32 @@ namespace PolyRents
     public partial class MainWindow : Window    {
         private String myStatus;
         private int clickCount = 0;
-        private ComputingResourcesDAOImpl myComputingResources;
 
-        private ComputingResourcesDAOImpl ComputingResources
+        private ResourceDAOImpl myResources;
+        private ResourceTypeDAOImpl myResourceTypes;
+
+        public ResourceDAOImpl Resources
         {
             get
             {
-                return myComputingResources;
+                return myResources;
             }
+            private set
+            {
+                this.myResources = value;
+            }
+        }
+
+        public ResourceTypeDAOImpl ResourceTypes
+        {
+            get
+            {
+                return myResourceTypes;
+            }
+
             set
             {
-                this.myComputingResources = value;
+                this.myResourceTypes = value;
             }
         }
 
@@ -69,10 +84,9 @@ namespace PolyRents
         {
             PolyRents.ComputingResourcesDataSet computingResourcesDataSet = ((PolyRents.ComputingResourcesDataSet)(this.FindResource("computingResourcesDataSet")));
             // Load data into the table Resources. You can modify this code as needed.
-            ComputingResources = ComputingResourcesDAOImpl.getInstance(computingResourcesDataSet);
 
             PolyRents.ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter computingResourcesDataSetResourcesTableAdapter = new PolyRents.ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter();
-            computingResourcesDataSetResourcesTableAdapter.Fill(ComputingResources.DataSet.Resources);
+            computingResourcesDataSetResourcesTableAdapter.Fill(computingResourcesDataSet.Resources);
             System.Windows.Data.CollectionViewSource resourcesViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("resourcesViewSource")));
             resourcesViewSource.View.MoveCurrentToFirst();
         }

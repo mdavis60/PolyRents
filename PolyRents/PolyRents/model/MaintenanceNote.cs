@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PolyRents.model
 {
-    class MaintenanceNote : INote
+    public class MaintenanceNote : INote
     {
         private int idMaintenance;
         private string comment;

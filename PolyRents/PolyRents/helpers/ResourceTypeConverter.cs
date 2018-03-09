@@ -8,7 +8,7 @@ using System.Data;
 
 namespace PolyRents.helpers
 {
-    class ResourceTypeConverter : IConverter<ResourceType>
+    public class ResourceTypeConverter : IConverter<ResourceType>
     {
         private ComputingResourcesDataSetTableAdapters.ResourceTypeTableAdapter tableAdapter;
 

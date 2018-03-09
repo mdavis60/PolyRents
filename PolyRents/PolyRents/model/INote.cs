@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PolyRents.model
 {
-    interface INote
+    public interface INote
     {
         DateTime getTimeStamp();
         void setTimeStamp(DateTime timeStamp);

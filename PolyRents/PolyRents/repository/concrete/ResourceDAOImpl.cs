@@ -6,12 +6,38 @@ using System.Threading.Tasks;
 using PolyRents.ComputingResourcesDataSetTableAdapters;
 using PolyRents.model;
 using System.Data;
+using PolyRents.helpers;
 
 namespace PolyRents.repository.concrete
 {
-    class ResourceDAOImpl : ResourceDAO
+    public class ResourceDAOImpl : ResourceDAO
     {
-        private ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter tableAdapter;
+        private ResourcesTableAdapter tableAdapter;
+
+        private ResourceConverter converter;
+
+        public ResourceDAOImpl()
+        {
+
+        }
+
+        public ResourceDAOImpl(ResourcesTableAdapter tableAdapter)
+        {
+            TableAdapter = tableAdapter;
+            Converter = new ResourceConverter(TableAdapter);
+        }
+
+        public ResourceConverter Converter
+        {
+            get
+            {
+                return converter;
+            }
+            private set
+            {
+                this.converter = value;
+            }
+        }
 
         public ResourcesTableAdapter TableAdapter
         {

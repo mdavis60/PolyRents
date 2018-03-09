@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PolyRents.helpers
 {
-    abstract class IConverter<T>
+    public abstract class IConverter<T>
     {
         public abstract DataTable GetDataTable();
         public abstract T ConvertSingle(DataRow row);

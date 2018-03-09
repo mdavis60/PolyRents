@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PolyRents.repository.concrete
 {
-    class ComputingResourcesDAOImpl
+    public class ComputingResourcesDAOImpl
     {
         private static ComputingResourcesDataSet myDataSet;
 
