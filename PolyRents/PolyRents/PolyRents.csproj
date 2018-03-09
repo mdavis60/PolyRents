@@ -139,8 +139,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="helpers\AbstractConverter.cs" />
+    <Compile Include="helpers\IConverter.cs" />
     <Compile Include="helpers\ResourceConverter.cs" />
+    <Compile Include="helpers\ResourceTypeConverter.cs" />
     <Compile Include="model\Status.cs" />
     <Compile Include="repository\abstract\AbstractDAO.cs" />
     <Compile Include="repository\abstract\ComputerDAO.cs" />

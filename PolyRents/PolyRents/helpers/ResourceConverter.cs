@@ -8,25 +8,17 @@ using System.Data;
 
 namespace PolyRents.helpers
 {
-    class ResourceConverter:AbstractConverter<Resource>
+    class ResourceConverter:IConverter<Resource>
     {
-        public ResourceConverter()
+        private ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter tableAdapter;
+
+        public ResourceConverter(ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter tableAdapter)
         {
+            this.tableAdapter = tableAdapter;
 
         }
 
-        public List<Resource> convertAll(DataRowCollection rows)
-        {
-            List<Resource> resources = new List<Resource>();
-            foreach (DataRow row in rows)
-            {
-                resources.Add(convertSingle(row));
-            }
-
-            return resources;
-        }
-
-        public Resource convertSingle(DataRow row)
+        public override Resource ConvertSingle(DataRow row)
         {
             Resource resource = new Resource();
             resource.IdResource = (int)(row["idResource"]);
@@ -34,6 +26,11 @@ namespace PolyRents.helpers
             resource.StatusDescription = (String)(row["statusDescription"]);
             resource.Type = null;
             return resource;
+        }
+
+        public override DataTable GetDataTable()
+        {
+            return tableAdapter.GetData();
         }
     }
 }

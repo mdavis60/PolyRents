@@ -7,9 +7,12 @@
     }
 }
 
-namespace PolyRents.ComputingResourcesDataSetTableAdapters {
-    
-    
+namespace PolyRents.ComputingResourcesDataSetTableAdapters
+{
+    partial class ResourceTypeTableAdapter
+    {
+    }
+
     public partial class ResourcesTableAdapter {
     }
 }
