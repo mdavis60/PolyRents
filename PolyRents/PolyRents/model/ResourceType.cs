@@ -9,7 +9,6 @@ namespace PolyRents.model
     class ResourceType
     {
         private int idResourceType;
-        private string type;
         private string resourceName;
         private float replacementCost;
         private float pastDueCost;
@@ -19,7 +18,7 @@ namespace PolyRents.model
 
         }
 
-        public ResourceType(string type, string resourceName, float replacementCost, float pastDueCost)
+        public ResourceType(string resourceName, float replacementCost, float pastDueCost)
         {
 
         }
@@ -37,18 +36,6 @@ namespace PolyRents.model
 
         }
 
-        public string Type
-        {
-            get
-            {
-                return type;
-            }
-
-            set
-            {
-                type = value;
-            }
-        }
 
         public string ResourceName
         {
@@ -87,7 +74,6 @@ namespace PolyRents.model
             {
                 pastDueCost = value;
             }
->>>>>>> 114831b9646017edb5433849781949422859e309
         }
     }
 }

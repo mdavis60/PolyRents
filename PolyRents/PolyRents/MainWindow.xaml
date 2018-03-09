@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PolyRents"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
+        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:ComputingResourcesDataSet x:Key="computingResourcesDataSet"/>
+        <CollectionViewSource x:Key="resourcesViewSource" Source="{Binding Resources, Source={StaticResource computingResourcesDataSet}}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource resourcesViewSource}">
         <StatusBar x:Name="statusBar" VerticalAlignment="Bottom" MinHeight="15" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -31,7 +35,15 @@
                 <TextBlock x:Name="status" Text="hello World" FontSize="10" Width="110"/>
             </StatusBarItem>
         </StatusBar>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="174,99,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="194,39,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <DataGrid x:Name="resourcesDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="10,95,107,24" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="idResourceColumn" Binding="{Binding idResource}" Header="id Resource" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="statusColumn" Binding="{Binding status}" Header="status" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="status_descriptionColumn" Binding="{Binding status description}" Header="status description" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="idResourceTypeColumn" Binding="{Binding idResourceType}" Header="id Resource Type" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
 
     </Grid>

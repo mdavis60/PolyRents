@@ -7,9 +7,12 @@
     }
 }
 
-namespace PolyRents.ComputingResourcesDataSetTableAdapters {
-    
-    
-    public partial class RenterTableAdapter {
+namespace PolyRents.ComputingResourcesDataSetTableAdapters
+{
+    partial class ResourceTypeTableAdapter
+    {
+    }
+
+    public partial class ResourcesTableAdapter {
     }
 }
