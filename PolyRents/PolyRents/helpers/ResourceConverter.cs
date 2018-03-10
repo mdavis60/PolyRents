@@ -8,14 +8,11 @@ using System.Data;
 
 namespace PolyRents.helpers
 {
-    public class ResourceConverter:IConverter<Resource>
+    class ResourceConverter:IConverter<Resource>
     {
-        private ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter tableAdapter;
-
-        public ResourceConverter(ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter tableAdapter)
+        public ResourceConverter()
         {
-            this.tableAdapter = tableAdapter;
-
+            
         }
 
         public override Resource ConvertSingle(DataRow row)
@@ -28,9 +25,16 @@ namespace PolyRents.helpers
             return resource;
         }
 
-        public override DataTable GetDataTable()
+        public override DataRow toDataRow(DataTable table, Resource toConvert)
         {
-            return tableAdapter.GetData();
+            DataRow row = table.NewRow();
+
+            row["idResource"] = toConvert.IdResource;
+            row["status"] = toConvert.Status;
+            row["statusDescription"] = toConvert.StatusDescription;
+            row["idResourceType"] = toConvert.Type.IdResourceType;
+
+            return row;
         }
     }
 }

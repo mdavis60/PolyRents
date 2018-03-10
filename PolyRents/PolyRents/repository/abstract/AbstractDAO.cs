@@ -9,7 +9,7 @@ namespace PolyRents.repository
     interface AbstractDAO<T>
     {
         List<T> getAll();
-        T getById();
+        T getById(int id);
         T updateSingle(T toUpdate);
         void deleteSingle(int id);
     }

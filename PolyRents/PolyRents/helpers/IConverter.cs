@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PolyRents.helpers
 {
     public abstract class IConverter<T>
     {
-        public abstract DataTable GetDataTable();
         public abstract T ConvertSingle(DataRow row);
+        public abstract DataRow toDataRow(DataTable table, T toConvert);
         public List<T> ConvertAll(DataRowCollection rows)
         {
             List<T> list = new List<T>();
@@ -20,11 +16,6 @@ namespace PolyRents.helpers
             }
 
             return list;
-        }
-
-        public DataColumnCollection GetColumns()
-        {
-            return GetDataTable().Columns;
         }
     }
 }

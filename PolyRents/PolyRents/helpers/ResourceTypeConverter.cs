@@ -10,11 +10,9 @@ namespace PolyRents.helpers
 {
     public class ResourceTypeConverter : IConverter<ResourceType>
     {
-        private ComputingResourcesDataSetTableAdapters.ResourceTypeTableAdapter tableAdapter;
-
-        public ResourceTypeConverter(ComputingResourcesDataSetTableAdapters.ResourceTypeTableAdapter tableAdapter)
+        public ResourceTypeConverter()
         {
-            this.tableAdapter = tableAdapter;
+
         }
 
         public override ResourceType ConvertSingle(DataRow row)
@@ -29,9 +27,16 @@ namespace PolyRents.helpers
             return resourceType;
         }
 
-        public override DataTable GetDataTable()
+        public override DataRow toDataRow(DataTable table, ResourceType toConvert)
         {
-            return tableAdapter.GetData();
+            DataRow row = table.NewRow();
+
+            row["ID"] = toConvert.IdResourceType;
+            row["ResourceName"] = toConvert.ResourceName;
+            row["Replacement Cost"] = toConvert.ReplacementCost;
+            row["Overdue Cost"] = toConvert.PastDueCost;
+
+            return row;
         }
     }
 }
