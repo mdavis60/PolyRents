@@ -139,22 +139,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="helpers\IConverter.cs" />
-    <Compile Include="helpers\ResourceConverter.cs" />
-    <Compile Include="helpers\ResourceTypeConverter.cs" />
+    <Compile Include="converters\IConverter.cs" />
+    <Compile Include="converters\ResourceConverter.cs" />
+    <Compile Include="converters\ResourceTypeConverter.cs" />
     <Compile Include="model\Status.cs" />
-    <Compile Include="repository\abstract\AbstractDAO.cs" />
-    <Compile Include="repository\abstract\ComputerDAO.cs" />
-    <Compile Include="repository\abstract\MaintenanceNoteDAO.cs" />
-    <Compile Include="repository\abstract\RentalDAO.cs" />
-    <Compile Include="repository\abstract\RenterDAO.cs" />
-    <Compile Include="repository\abstract\RenterNoteDAO.cs" />
-    <Compile Include="repository\abstract\ResourceDAO.cs" />
-    <Compile Include="repository\abstract\ResourceTypeDAO.cs" />
-    <Compile Include="repository\concrete\ComputerDAOImpl.cs" />
-    <Compile Include="repository\concrete\ComputingResourcesDAOImpl.cs" />
-    <Compile Include="repository\concrete\MaintenanceNoteDAOImpl.cs" />
-    <Compile Include="repository\concrete\ResourceDAOImpl.cs" />
+    <Compile Include="model\data providers\abstract\AbstractDAO.cs" />
+    <Compile Include="model\data providers\abstract\ComputerDAO.cs" />
+    <Compile Include="model\data providers\abstract\MaintenanceNoteDAO.cs" />
+    <Compile Include="model\data providers\abstract\RentalDAO.cs" />
+    <Compile Include="model\data providers\abstract\RenterDAO.cs" />
+    <Compile Include="model\data providers\abstract\RenterNoteDAO.cs" />
+    <Compile Include="model\data providers\abstract\ResourceDAO.cs" />
+    <Compile Include="model\data providers\abstract\ResourceTypeDAO.cs" />
+    <Compile Include="views\AddEditRenterView.xaml.cs">
+      <DependentUpon>AddEditRenterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\CheckoutView.xaml.cs">
+      <DependentUpon>CheckoutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\AddEditResourceView.xaml.cs">
+      <DependentUpon>AddEditResourceView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -175,10 +180,22 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="views\AddEditRenterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\CheckoutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\AddEditResourceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="model\Computer.cs" />
-    <Compile Include="model\INote.cs" />
+    <Compile Include="model\interfaces\INote.cs" />
     <Compile Include="model\MaintenanceNote.cs" />
     <Compile Include="model\Rental.cs" />
     <Compile Include="model\Renter.cs" />
@@ -259,6 +276,9 @@
     <EmbeddedResource Include="ComputingResources.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="viewModels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -10,8 +10,8 @@ namespace PolyRents.model
     {
         private int idResourceType;
         private string resourceName;
-        private float replacementCost;
-        private float pastDueCost;
+        private decimal replacementCost;
+        private decimal pastDueCost;
 
         public ResourceType()
         {
@@ -50,7 +50,7 @@ namespace PolyRents.model
             }
         }
 
-        public float ReplacementCost
+        public decimal ReplacementCost
         {
             get
             {
@@ -63,7 +63,7 @@ namespace PolyRents.model
             }
         }
 
-        public float PastDueCost
+        public decimal PastDueCost
         {
             get
             {

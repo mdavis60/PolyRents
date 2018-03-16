@@ -9,7 +9,7 @@ namespace PolyRents.repository
 {
     interface ResourceTypeDAO:AbstractDAO<ResourceType>
     {
-        ResourceType updateReplacementCost(ResourceType type, float newReplacementCost);
-        ResourceType updatePastDueCost(ResourceType type, float newPastDueCost);
+        ResourceType updateReplacementCost(ResourceType type, decimal newReplacementCost);
+        ResourceType updatePastDueCost(ResourceType type, decimal newPastDueCost);
     }
 }

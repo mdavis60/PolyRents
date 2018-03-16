@@ -19,10 +19,10 @@ namespace PolyRents.helpers
         {
             ResourceType resourceType = new ResourceType();
 
-            resourceType.IdResourceType = (int)row["idResourceType"];
+            resourceType.IdResourceType = (int)row["ID"];
             resourceType.ResourceName = (string)row["Resource Name"];
-            resourceType.ReplacementCost = (float)row["Replacement Cost"];
-            resourceType.PastDueCost = (float)row["Overdue Cost"];
+            resourceType.ReplacementCost = (decimal)row["Replacement Cost"];
+            resourceType.PastDueCost = (decimal)row["Overdue Cost"];
 
             return resourceType;
         }

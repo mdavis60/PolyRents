@@ -1,7 +1,10 @@
-﻿using PolyRents.repository.concrete;
+﻿using PolyRents.helpers;
+using PolyRents.model;
+using PolyRents.views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static PolyRents.ComputingResourcesDataSet;
 
 namespace PolyRents
 {
@@ -23,34 +27,11 @@ namespace PolyRents
     public partial class MainWindow : Window    {
         private String myStatus;
         private int clickCount = 0;
-
-        private ResourceDAOImpl myResources;
-        private ResourceTypeDAOImpl myResourceTypes;
-
-        public ResourceDAOImpl Resources
-        {
-            get
-            {
-                return myResources;
-            }
-            private set
-            {
-                this.myResources = value;
-            }
-        }
-
-        public ResourceTypeDAOImpl ResourceTypes
-        {
-            get
-            {
-                return myResourceTypes;
-            }
-
-            set
-            {
-                this.myResourceTypes = value;
-            }
-        }
+        private ResourceConverter resourceConverter;
+        private ResourceTypeConverter resourceTypeConverter;
+        public ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter resourcesTableAdapter;
+        public ComputingResourcesDataSetTableAdapters.ResourceTypeTableAdapter resourceTypeTableAdapter;
+        public ComputingResourcesDataSet computingResourcesDataSet;
 
         public String Status
         {
@@ -64,6 +45,14 @@ namespace PolyRents
         public MainWindow()
         {
             InitializeComponent();
+
+            computingResourcesDataSet = ((ComputingResourcesDataSet)(this.FindResource("computingResourcesDataSet")));
+            resourcesTableAdapter = ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter.getInstance();
+            resourceTypeTableAdapter = ComputingResourcesDataSetTableAdapters.ResourceTypeTableAdapter.getInstance();
+
+            resourceConverter = new ResourceConverter();
+            resourceTypeConverter = new ResourceTypeConverter();
+
             Status = "ready";
             
         }
@@ -84,11 +73,30 @@ namespace PolyRents
         {
             PolyRents.ComputingResourcesDataSet computingResourcesDataSet = ((PolyRents.ComputingResourcesDataSet)(this.FindResource("computingResourcesDataSet")));
             // Load data into the table Resources. You can modify this code as needed.
-
-            PolyRents.ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter computingResourcesDataSetResourcesTableAdapter = new PolyRents.ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter();
-            computingResourcesDataSetResourcesTableAdapter.Fill(computingResourcesDataSet.Resources);
-            System.Windows.Data.CollectionViewSource resourcesViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("resourcesViewSource")));
+ 
+            resourcesTableAdapter.Fill(computingResourcesDataSet.Resources);
+            CollectionViewSource resourcesViewSource = ((CollectionViewSource)(this.FindResource("resourcesViewSource")));
             resourcesViewSource.View.MoveCurrentToFirst();
+        }
+
+        private void windowButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddEditRenterView renterView = new AddEditRenterView();
+            renterView.Show();
+        }
+
+        private void resourcesDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            setStatusMessage(sender.ToString() + "double clicked");
+        }
+
+        private void resourceButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            Resource resource = resourceConverter.ConvertSingle((resourcesDataGrid.SelectedItem as DataRowView).Row);
+
+            AddEditResourceView resourceView = new AddEditResourceView(resource, resourceTypeTableAdapter.getAll().ToArray());
+            resourceView.Show();
         }
     }
 }

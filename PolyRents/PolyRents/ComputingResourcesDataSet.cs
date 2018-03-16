@@ -19,6 +19,16 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
     partial class ResourceTypeTableAdapter : ResourceTypeDAO
     {
         private ResourceTypeConverter converter = new ResourceTypeConverter();
+        private static ResourceTypeTableAdapter myInstance;
+
+        public static ResourceTypeTableAdapter getInstance()
+        {
+            if (myInstance == null)
+            {
+                myInstance = new ResourceTypeTableAdapter();
+            }
+            return myInstance;
+        }
 
         public void deleteSingle(int id)
         {
@@ -35,7 +45,7 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
             return converter.ConvertSingle(GetData().FindByID(id));
         }
 
-        public ResourceType updatePastDueCost(ResourceType type, float newPastDueCost)
+        public ResourceType updatePastDueCost(ResourceType type, decimal newPastDueCost)
         {
             type.PastDueCost = newPastDueCost;
 
@@ -51,7 +61,7 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
             return type;
         }
 
-        public ResourceType updateReplacementCost(ResourceType type, float newReplacementCost)
+        public ResourceType updateReplacementCost(ResourceType type, decimal newReplacementCost)
         {
             throw new System.NotImplementedException();
         }
@@ -62,6 +72,53 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
         }
     }
 
-    public partial class ResourcesTableAdapter:ResourceDAO, IConverter<Resource> {
+    public partial class ResourcesTableAdapter : ResourceDAO
+    {
+        private ResourceConverter converter = new ResourceConverter();
+        private static ResourcesTableAdapter myInstance;
+
+        public static ResourcesTableAdapter getInstance()
+        {
+            if (myInstance == null)
+            {
+                myInstance = new ResourcesTableAdapter();
+            }
+
+            return myInstance;
+        }
+
+        public void deleteSingle(int id)
+        {
+            GetData().RemoveResourcesRow(GetData().FindByidResource(id));
+        }
+
+        public List<Resource> getAll()
+        {
+            return converter.ConvertAll(GetData().Rows);
+        }
+
+        public List<Resource> getAllResoucesByStatus(Status status)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public List<Resource> getAllResourcesByResourceType(ResourceType resourceType)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Resource getById(int id)
+        {
+            return converter.ConvertSingle(GetData().FindByidResource(id));
+        }
+
+        public Resource updateSingle(Resource toUpdate)
+        {
+            ResourcesRow[] rows = new ResourcesRow[1];
+            rows[0] =(ResourcesRow) converter.toDataRow(GetData(), toUpdate);
+            GetData().LoadDataRow(rows, true);
+
+            return toUpdate;
+        }
     }
 }
