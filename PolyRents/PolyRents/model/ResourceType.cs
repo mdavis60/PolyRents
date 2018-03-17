@@ -75,5 +75,15 @@ namespace PolyRents.model
                 pastDueCost = value;
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!((obj is ResourceType)))
+            {
+                return false;
+            }
+            ResourceType other = obj as ResourceType;
+            return this.IdResourceType.Equals(other.IdResourceType);
+        }
     }
 }

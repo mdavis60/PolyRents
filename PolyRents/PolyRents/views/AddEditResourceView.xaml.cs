@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Globalization;
 using System.Windows.Markup;
+using static PolyRents.model.Status;
 
 namespace PolyRents.views
 {
@@ -24,6 +25,7 @@ namespace PolyRents.views
     public partial class AddEditResourceView : Window
     {
         private IEnumerable<ResourceType> types;
+        private IEnumerable<ResourceStatus> statuses;
         private Resource resource;
 
         public IEnumerable<ResourceType> Types
@@ -37,13 +39,19 @@ namespace PolyRents.views
                 types = value;
             }
         }
-
+        public IEnumerable<ResourceStatus> Statuses
+        {
+            get
+            {
+                return statuses;
+            }
+        }
         public String Status
         {
             get { return resource.Status.ToString(); }
             set
             {
-                resource.Status = (Status)Enum.Parse(typeof(Status), value);
+                resource.Status.SetStatus(value);
             }
         }
 
@@ -69,9 +77,13 @@ namespace PolyRents.views
 
             resourceType.ItemsSource = Types;
             resourceType.DisplayMemberPath = "ResourceName";
-
-            resourceType.SelectedItem = resource.Type.IdResourceType;
+            
             resourceType.SelectedValue = resource.Type;
+
+            statuses = resource.Status.getStatusEnumeration();
+            status.ItemsSource = Statuses;
+
+            status.SelectedValue = resource.Status.TheStatus;
         }
 
         private void resourceType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -79,6 +91,11 @@ namespace PolyRents.views
             ComboBox comboBox = (ComboBox)sender;
 
             resource.Type = comboBox.SelectedItem as ResourceType;
+        }
+
+        private void status_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
