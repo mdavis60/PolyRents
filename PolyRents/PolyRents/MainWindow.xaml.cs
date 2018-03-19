@@ -95,7 +95,7 @@ namespace PolyRents
             
             Resource resource = resourceConverter.ConvertSingle((resourcesDataGrid.SelectedItem as DataRowView).Row);
 
-            AddEditResourceView resourceView = new AddEditResourceView(resource, resourceTypeTableAdapter.getAll().ToArray());
+            AddEditResourceView resourceView = new AddEditResourceView(resource, resourceTypeTableAdapter.getAll().ToArray(), resource.Status.getStatusEnumeration());
             resourceView.Show();
         }
     }

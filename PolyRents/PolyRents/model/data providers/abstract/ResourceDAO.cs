@@ -9,7 +9,7 @@ namespace PolyRents.repository
 {
     interface ResourceDAO:AbstractDAO<Resource>
     {
-        List<Resource> getAllResoucesByStatus(Status status);
+        List<Resource> getAllResoucesByStatus(string status);
         List<Resource> getAllResourcesByResourceType(ResourceType resourceType);
     }
 }

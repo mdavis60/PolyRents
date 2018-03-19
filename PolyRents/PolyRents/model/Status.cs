@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PolyRents.model
 {
-    public class Status
+    public static class Status
     {
         public enum ResourceStatus
         {
@@ -14,53 +15,20 @@ namespace PolyRents.model
             RETIRED = 4
         }
 
-        private ResourceStatus status;
-        private String myStatus;
-
-        public ResourceStatus TheStatus
+        public static ResourceStatus stringToStatus(string inStatus)
         {
-            get
-            {
-                return status;
-            }
+            return (ResourceStatus)Enum.Parse(typeof(ResourceStatus), inStatus);
         }
 
-        public Status(string status)
+        public static string StatusToString(ResourceStatus inStatus)
         {
-            SetStatus(status);
-
+            return inStatus.ToString();
         }
 
-        public void SetStatus(string newStatus)
+        public static IEnumerable<String> getStatusEnumeration()
         {
-            if (!Enum.TryParse<ResourceStatus>(newStatus.ToUpper(), out status))
-            {
-                status = ResourceStatus.AVAILABLE;
-            }
-
-            myStatus = status.ToString();
+            return Enum.GetNames(typeof(ResourceStatus));
         }
 
-        public IEnumerable<ResourceStatus> getStatusEnumeration()
-        {
-            return (IEnumerable<ResourceStatus>)Enum.GetValues(typeof(ResourceStatus));
-            
-        }
-
-        public override string ToString()
-        {
-            return myStatus;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (!(obj is Status))
-            {
-                return false;
-            }
-
-            Status other = obj as Status;
-            return TheStatus.Equals(other.TheStatus);
-        }
     }
 }

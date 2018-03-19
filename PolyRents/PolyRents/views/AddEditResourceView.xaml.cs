@@ -1,21 +1,9 @@
 ﻿using PolyRents.model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Globalization;
-using System.Windows.Markup;
 using static PolyRents.model.Status;
+using System.ComponentModel;
 
 namespace PolyRents.views
 {
@@ -55,15 +43,15 @@ namespace PolyRents.views
             }
         }
 
-        public AddEditResourceView(Resource context = null, ResourceType[] types = null)
+        public AddEditResourceView(Resource theResource = null, ResourceType[] types = null)
         {
-            if (context == null)
+            if (theResource == null)
             {
-                context = new Resource();
+                theResource = new Resource();
             }
 
-            this.resource = context;
-            this.DataContext = context;
+            this.resource = theResource;
+            this.DataContext = theResource;
 
             if (types == null)
             {
@@ -75,27 +63,53 @@ namespace PolyRents.views
 
             InitializeComponent();
 
+            intializeFields();
+
+        }
+
+        private void intializeFields()
+        {
+            //setup types combobox item source
             resourceType.ItemsSource = Types;
             resourceType.DisplayMemberPath = "ResourceName";
-            
-            resourceType.SelectedValue = resource.Type;
 
+            //setup status combobox item source
             statuses = resource.Status.getStatusEnumeration();
             status.ItemsSource = Statuses;
 
+            //set the fields
+            idResource.Text = resource.IdResource.ToString();
+
+            resourceType.SelectedValue = resource.Type;
             status.SelectedValue = resource.Status.TheStatus;
+
+            statusDescription.Text = resource.StatusDescription;
         }
 
-        private void resourceType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
-            ComboBox comboBox = (ComboBox)sender;
+            bool fieldsChanged = false;
+            int newId = int.Parse(idResource.Text);
+            Status newStatus = status.Text;
+            ResourceType newType = resourceType.SelectedValue as ResourceType;
+            string newStatusDescription = statusDescription.Text;
+            
+            if (resource.IdResource != newId)
+            {
+                resource.IdResource = newId;
+            }
+            if (resource.Status != newStatus)
+            {
+                resource.Status = newStatus;
+                fieldsChanged = true;
+            }
+            if (resource.StatusDescription != newStatusDescription)
+            {
 
-            resource.Type = comboBox.SelectedItem as ResourceType;
-        }
+            }
 
-        private void status_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
+            base.OnClosing(e);
         }
     }
 }
