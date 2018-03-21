@@ -33,6 +33,8 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
         public void deleteSingle(int id)
         {
             GetData().Rows.Remove(GetData().FindByID(id));
+
+            Update(GetData());
         }
 
         public List<ResourceType> getAll()
@@ -58,6 +60,8 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
 
             GetData().LoadDataRow(rows, true);
 
+            Update(GetData());
+
             return type;
         }
 
@@ -70,11 +74,21 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
         {
             throw new System.NotImplementedException();
         }
+
+        public int addSingle(ResourceType toAdd)
+        {
+            return Insert(toAdd.ResourceName, toAdd.ReplacementCost, toAdd.PastDueCost);
+        }
+
+        public void deleteSingle(ResourceType toDelete)
+        {
+            
+        }
     }
 
     public partial class ResourcesTableAdapter : ResourceDAO
     {
-        private ResourceConverter converter = new ResourceConverter();
+        private ResourceConverter converter;
         private static ResourcesTableAdapter myInstance;
 
         public static ResourcesTableAdapter getInstance()
@@ -87,14 +101,26 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
             return myInstance;
         }
 
+        public ResourceConverter Converter
+        {
+            get
+            {
+                if (converter == null)
+                {
+                    converter = new ResourceConverter();
+                }
+                return converter;
+            }
+        }
+
         public void deleteSingle(int id)
         {
-            GetData().RemoveResourcesRow(GetData().FindByidResource(id));
+            DeleteQuery(id);
         }
 
         public List<Resource> getAll()
         {
-            return converter.ConvertAll(GetData().Rows);
+            return Converter.ConvertAll(GetData().Rows);
         }
 
         public List<Resource> getAllResoucesByStatus(string status)
@@ -109,16 +135,25 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
 
         public Resource getById(int id)
         {
-            return converter.ConvertSingle(GetData().FindByidResource(id));
+            return Converter.ConvertSingle(GetData().FindByidResource(id));
         }
 
         public Resource updateSingle(Resource toUpdate)
         {
-            ResourcesRow[] rows = new ResourcesRow[1];
-            rows[0] =(ResourcesRow) converter.toDataRow(GetData(), toUpdate);
-            GetData().LoadDataRow(rows, true);
-
+            UpdateQuery(toUpdate.Status.ToString(), toUpdate.StatusDescription, toUpdate.Type.IdResourceType, toUpdate.IdResource);
+            
+            Update(GetData());
             return toUpdate;
+        }
+
+        public int addSingle(Resource toAdd)
+        {
+            return Insert(Status.StatusToString(toAdd.Status), toAdd.StatusDescription, toAdd.Type.IdResourceType);
+        }
+
+        public void deleteSingle(Resource toDelete)
+        {
+            DeleteQuery(toDelete.IdResource);
         }
     }
 }

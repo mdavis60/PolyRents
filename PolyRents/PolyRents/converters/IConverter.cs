@@ -6,7 +6,7 @@ namespace PolyRents.helpers
     public abstract class IConverter<T>
     {
         public abstract T ConvertSingle(DataRow row);
-        public abstract DataRow toDataRow(DataTable table, T toConvert);
+        public abstract DataRow toDataRow(T toConvert);
         public List<T> ConvertAll(DataRowCollection rows)
         {
             List<T> list = new List<T>();

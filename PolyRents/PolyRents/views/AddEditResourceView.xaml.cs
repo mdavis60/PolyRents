@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Windows;
 using static PolyRents.model.Status;
 using System.ComponentModel;
+using System.Windows.Controls;
 
 namespace PolyRents.views
 {
@@ -12,9 +13,52 @@ namespace PolyRents.views
     /// </summary>
     public partial class AddEditResourceView : Window
     {
-        private IEnumerable<ResourceType> types;
-        private IEnumerable<ResourceStatus> statuses;
         private Resource resource;
+
+        public Resource BoundResource
+        {
+            get
+            {
+                return resource;
+            }
+        }
+
+        private Resource newResource;
+
+        private IEnumerable<ResourceType> types;
+
+        private bool resourceChanged;
+
+        public bool ResourceChanged
+        {
+            get
+            {
+                return resourceChanged;
+            }
+            private set
+            {
+                resourceChanged = value;
+            }
+        }
+
+        private bool formValid;
+
+        public bool FormValid
+        {
+            get
+            {
+                return resourceType.SelectedIndex != -1 && status.SelectedIndex != -1;
+            }
+        }
+
+        public Visibility ErrorVisible
+        {
+            get
+            {
+                return FormValid ? Visibility.Hidden : Visibility.Visible;
+            }
+        }
+
 
         public IEnumerable<ResourceType> Types
         {
@@ -27,31 +71,17 @@ namespace PolyRents.views
                 types = value;
             }
         }
-        public IEnumerable<ResourceStatus> Statuses
+
+        public IEnumerable<string> Statuses
         {
             get
             {
-                return statuses;
-            }
-        }
-        public String Status
-        {
-            get { return resource.Status.ToString(); }
-            set
-            {
-                resource.Status.SetStatus(value);
+                return Status.getStatusEnumeration();
             }
         }
 
         public AddEditResourceView(Resource theResource = null, ResourceType[] types = null)
         {
-            if (theResource == null)
-            {
-                theResource = new Resource();
-            }
-
-            this.resource = theResource;
-            this.DataContext = theResource;
 
             if (types == null)
             {
@@ -60,7 +90,13 @@ namespace PolyRents.views
 
             Types = types;
 
+            if (theResource == null)
+            {
+                theResource = new Resource();
+            }
 
+            SetResourceToView(theResource);
+            
             InitializeComponent();
 
             intializeFields();
@@ -74,42 +110,66 @@ namespace PolyRents.views
             resourceType.DisplayMemberPath = "ResourceName";
 
             //setup status combobox item source
-            statuses = resource.Status.getStatusEnumeration();
             status.ItemsSource = Statuses;
 
             //set the fields
             idResource.Text = resource.IdResource.ToString();
 
             resourceType.SelectedValue = resource.Type;
-            status.SelectedValue = resource.Status.TheStatus;
+            status.SelectedValue = Status.StatusToString(resource.Status);
 
             statusDescription.Text = resource.StatusDescription;
         }
 
+        public void SetResourceToView(Resource aResource)
+        {
+            ResourceChanged = false;
+
+            resource = aResource;
+            newResource = new Resource(aResource);
+            
+
+            if (IsInitialized)
+            {
+                intializeFields();
+            }
+        }
+
         protected override void OnClosing(CancelEventArgs e)
         {
-            bool fieldsChanged = false;
-            int newId = int.Parse(idResource.Text);
-            Status newStatus = status.Text;
-            ResourceType newType = resourceType.SelectedValue as ResourceType;
-            string newStatusDescription = statusDescription.Text;
+            e.Cancel = true;
+            base.Hide();
+        }
+
+        private void Submit(object sender, RoutedEventArgs e)
+        {
+            Button sent = sender as Button;
+
+            if (((String)sent.Name).Equals("cancelButton"))
+            {
+                Close();
+            }
+
+            if (FormValid)
+            {
+                newResource.IdResource = int.Parse(idResource.Text);
+                newResource.Type = resourceType.SelectedValue as ResourceType;
+                newResource.Status = stringToStatus(status.Text);
+                newResource.StatusDescription = statusDescription.Text;
+
+                ResourceChanged = !resource.Equals(newResource);
+
+                if (ResourceChanged)
+                {
+                    resource = newResource;
+                }
+                Close();
+            }
+            else
+            {
+                ErrorLabel.Visibility = ErrorVisible;
+            }
             
-            if (resource.IdResource != newId)
-            {
-                resource.IdResource = newId;
-            }
-            if (resource.Status != newStatus)
-            {
-                resource.Status = newStatus;
-                fieldsChanged = true;
-            }
-            if (resource.StatusDescription != newStatusDescription)
-            {
-
-            }
-
-
-            base.OnClosing(e);
         }
     }
 }

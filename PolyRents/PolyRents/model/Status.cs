@@ -29,6 +29,6 @@ namespace PolyRents.model
         {
             return Enum.GetNames(typeof(ResourceStatus));
         }
-
+        
     }
 }

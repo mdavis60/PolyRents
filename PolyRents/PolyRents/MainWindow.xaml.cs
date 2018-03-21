@@ -1,23 +1,9 @@
 ﻿using PolyRents.helpers;
-using PolyRents.model;
 using PolyRents.views;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static PolyRents.ComputingResourcesDataSet;
+using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace PolyRents
 {
@@ -26,14 +12,25 @@ namespace PolyRents
     /// </summary>
     public partial class MainWindow : Window    {
         private String myStatus;
-        private int clickCount = 0;
-        private ResourceConverter resourceConverter;
-        private ResourceTypeConverter resourceTypeConverter;
-        public ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter resourcesTableAdapter;
-        public ComputingResourcesDataSetTableAdapters.ResourceTypeTableAdapter resourceTypeTableAdapter;
-        public ComputingResourcesDataSet computingResourcesDataSet;
 
-        public String Status
+        private ManageResourcesView manageResources;
+
+        private List<Window> myWindows;
+
+        public ManageResourcesView ManageResources
+        {
+            get
+            {
+                return manageResources;
+            }
+            private set
+            {
+                manageResources = value;
+            }
+        }
+        
+
+        public String InformationStatus
         {
             get { return myStatus; }
             set {
@@ -44,59 +41,50 @@ namespace PolyRents
 
         public MainWindow()
         {
+            myWindows = new List<Window>();
+
             InitializeComponent();
 
-            computingResourcesDataSet = ((ComputingResourcesDataSet)(this.FindResource("computingResourcesDataSet")));
-            resourcesTableAdapter = ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter.getInstance();
-            resourceTypeTableAdapter = ComputingResourcesDataSetTableAdapters.ResourceTypeTableAdapter.getInstance();
-
-            resourceConverter = new ResourceConverter();
-            resourceTypeConverter = new ResourceTypeConverter();
-
-            Status = "ready";
-            
+            InformationStatus = "ready";
         }
 
-        public void setStatusMessage(String value)
+        private void checkoutButton_Click(object sender, RoutedEventArgs e)
         {
-            Status = value;
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            clickCount++;
-            setStatusMessage("" + clickCount);
 
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void returnButton_Click(object sender, RoutedEventArgs e)
         {
-            PolyRents.ComputingResourcesDataSet computingResourcesDataSet = ((PolyRents.ComputingResourcesDataSet)(this.FindResource("computingResourcesDataSet")));
-            // Load data into the table Resources. You can modify this code as needed.
- 
-            resourcesTableAdapter.Fill(computingResourcesDataSet.Resources);
-            CollectionViewSource resourcesViewSource = ((CollectionViewSource)(this.FindResource("resourcesViewSource")));
-            resourcesViewSource.View.MoveCurrentToFirst();
+
         }
 
-        private void windowButton_Click(object sender, RoutedEventArgs e)
+        private void manageResources_Click(object sender, RoutedEventArgs e)
         {
-            AddEditRenterView renterView = new AddEditRenterView();
-            renterView.Show();
+            if (manageResources == null)
+            {
+                ManageResources = new ManageResourcesView();
+                myWindows.Add(ManageResources);
+            }
+
+            ManageResources.Show();
         }
 
-        private void resourcesDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void manageRenters_Click(object sender, RoutedEventArgs e)
         {
-            setStatusMessage(sender.ToString() + "double clicked");
+
         }
 
-        private void resourceButton_Click(object sender, RoutedEventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
-            
-            Resource resource = resourceConverter.ConvertSingle((resourcesDataGrid.SelectedItem as DataRowView).Row);
+            foreach (Window window in myWindows)
+            {
+                if (window != null)
+                {
+                    window.Close();
+                }
+            }
 
-            AddEditResourceView resourceView = new AddEditResourceView(resource, resourceTypeTableAdapter.getAll().ToArray(), resource.Status.getStatusEnumeration());
-            resourceView.Show();
+            base.OnClosing(e);
         }
     }
 }

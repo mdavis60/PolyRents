@@ -1,18 +1,16 @@
 ﻿using PolyRents.model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
+using PolyRents.ComputingResourcesDataSetTableAdapters;
 
 namespace PolyRents.helpers
 {
     public class ResourceTypeConverter : IConverter<ResourceType>
     {
+        private ResourcesTableAdapter resourceTable;
+
         public ResourceTypeConverter()
         {
-
+            resourceTable = ResourcesTableAdapter.getInstance();
         }
 
         public override ResourceType ConvertSingle(DataRow row)
@@ -27,9 +25,9 @@ namespace PolyRents.helpers
             return resourceType;
         }
 
-        public override DataRow toDataRow(DataTable table, ResourceType toConvert)
+        public override DataRow toDataRow(ResourceType toConvert)
         {
-            DataRow row = table.NewRow();
+            DataRow row = resourceTable.GetData().NewRow();
 
             row["ID"] = toConvert.IdResourceType;
             row["ResourceName"] = toConvert.ResourceName;

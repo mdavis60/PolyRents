@@ -160,6 +160,9 @@
     <Compile Include="views\AddEditResourceView.xaml.cs">
       <DependentUpon>AddEditResourceView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\ManageResourcesView.xaml.cs">
+      <DependentUpon>ManageResourcesView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -189,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\AddEditResourceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\ManageResourcesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -273,9 +280,12 @@
     <Resource Include="docs\MySqlCommand.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ComputingResources.accdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <Content Include="ComputingResources.accdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\OCOB_Logo.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="viewModels\" />

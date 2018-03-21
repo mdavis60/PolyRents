@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static PolyRents.model.Status;
 
 namespace PolyRents.model
 {
@@ -11,60 +12,8 @@ namespace PolyRents.model
     {
         private int idResource;
         private ResourceType type;
-        private Status status;
+        private ResourceStatus status;
         private string statusDescription;
-
-        public Resource()
-        {
-
-        }
-
-        public Resource(int idResource, ResourceType type, Status status, string statusDescription)
-        {
-            this.idResource = idResource;
-            this.type = type;
-            this.status = status;
-            this.statusDescription = statusDescription;
-        }
-
-        public string StatusDescription
-        {
-            get
-            {
-                return statusDescription;
-            }
-
-            set
-            {
-                statusDescription = value;
-            }
-        }
-
-        internal Status Status
-        {
-            get
-            {
-                return status;
-            }
-
-            set
-            {
-                status = value;
-            }
-        }
-
-        internal ResourceType Type
-        {
-            get
-            {
-                return type;
-            }
-
-            set
-            {
-                type = value;
-            }
-        }
 
         public int IdResource
         {
@@ -77,6 +26,86 @@ namespace PolyRents.model
             {
                 idResource = value;
             }
+        }
+
+        public ResourceType Type
+        {
+            get
+            {
+                return type;
+            }
+
+            set
+            {
+                type = value;
+            }
+        }
+
+        public ResourceStatus Status
+        {
+            get
+            {
+                return status;
+            }
+
+            set
+            {
+                status = value;
+            }
+        }
+
+        public string StatusDescription
+        {
+            get
+            {
+                return statusDescription;
+            }
+
+            set
+            {
+                statusDescription = value == null ? "" : value;
+            }
+        }
+
+        public Resource()
+        {
+            Status = ResourceStatus.AVAILABLE;
+            StatusDescription = "";
+
+        }
+
+        public Resource(Resource other)
+        {
+            this.idResource = other.idResource;
+            this.type = other.type;
+            this.status = other.status;
+            this.statusDescription = other.statusDescription;
+        }
+
+        public Resource(int idResource, ResourceType type, ResourceStatus status, string statusDescription)
+        {
+            this.idResource = idResource;
+            this.type = type;
+            this.status = status;
+            this.statusDescription = statusDescription;
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (!(obj is Resource))
+            {
+                return false;
+            }
+
+            return Equals((obj as Resource));
+        }
+
+        private bool Equals(Resource other)
+        {
+            return IdResource.Equals(other.IdResource) && Status.Equals(other.Status) &&
+                other.Type != null && Type != null && Type.Equals(other.Type) &&
+                other.StatusDescription != null && StatusDescription != null && 
+                StatusDescription.Equals(other.StatusDescription);
         }
     }
 }

@@ -4,8 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-      Title="ResourceView">
+      Title="Add/Edit Resource" Height="300" Width="300">
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -18,6 +17,7 @@
             <RowDefinition Height="8*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
         <Grid Name="mainPanel" Grid.Row="1" Grid.Column="1" Margin="25,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -27,20 +27,29 @@
                 <RowDefinition Height="9*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            
             <StackPanel Name="Labels" Orientation="Vertical" Grid.Column="0" Grid.Row="0">
                 <TextBlock Text="Resource ID" Margin="0,0,0,10" Padding="0,1"/>
-                <TextBlock Text="Resource Type" Margin="0,0,0,10" Padding="0,1"/>
-                <TextBlock Text="Status" Margin="0,0,0,10" Padding="0,1"/>
-                <TextBlock Text="Status Description" Margin="0,0,0,10" Padding="0,1"/>
+                <TextBlock Text="Resource Type" Margin="0,0,0,10" Padding="0,3"/>
+                <TextBlock Text="Status" Margin="0,0,0,10" Padding="0,3"/>
+                <TextBlock Text="Notes" Margin="0,0,0,10" Padding="0,1"/>
             </StackPanel>
+            
             <StackPanel Name="Fields" Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-                <TextBox Name="idResource" Text="{Binding IdResource, Mode=TwoWay}" Margin="0,0,0,10"/>
-                <ComboBox Name="resourceType" SelectionChanged="resourceType_SelectionChanged" Margin="0,0,0,10"/>
-                <ComboBox Name="status" SelectionChanged="status_SelectionChanged" Margin="0,0,0,10"/>
-                <TextBox Name="statusDescription" Text="{Binding StatusDescription, Mode=TwoWay}" Margin="0,0,0,10"/>
+                <TextBox Name="idResource" IsEnabled="False" Margin="0,0,0,10"/>
+                <ComboBox Name="resourceType" Margin="0,0,0,10"/>
+                <ComboBox Name="status" Margin="0,0,0,10"/>
+                <TextBox Name="statusDescription" Margin="0,0,0,10" Height="70" TextWrapping="Wrap"/>
             </StackPanel>
-            <Button Grid.Row="1" Grid.Column="0" Name="Apply" Content="Apply" Width="70" Height="20"/>
-            <Button Grid.Row="1" Grid.Column="1" Name="Cancel" Content="Cancel" Width="70" Height="20"/>
+
+            <Button Grid.Row="1" Grid.Column="0" Name="applyButton" Content="Apply" Width="70" Height="20" Click="Submit" Margin="11,0" VerticalAlignment="Top">
+                <Button.IsEnabled>
+                    <Binding Path="FormValid" 
+                            Source="{x:Static Application.Current}"/>
+                </Button.IsEnabled>
+            </Button>
+            <Button Grid.Row="1" Grid.Column="1" Name="cancelButton" Content="Cancel" Width="70" Height="20" Click="Submit"/>
         </Grid>
+        <Label Name="ErrorLabel" Content="Resource Type and Status must be set" Foreground="Red" Visibility="Hidden" Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="8" Padding="5,0"/>
     </Grid>
 </Window>
