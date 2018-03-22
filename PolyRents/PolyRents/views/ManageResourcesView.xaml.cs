@@ -54,7 +54,7 @@ namespace PolyRents.views
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
-            addEdit.SetResourceToView(new Resource());
+            addEdit.SetResourceToView();
 
             addEdit.ShowDialog();
 

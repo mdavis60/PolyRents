@@ -4,6 +4,8 @@ using PolyRents.repository;
 using PolyRents.helpers;
 using System.Data;
 using static PolyRents.ComputingResourcesDataSet;
+using PolyRents.converters;
+using System;
 
 namespace PolyRents
 {
@@ -11,11 +13,91 @@ namespace PolyRents
 
     partial class ComputingResourcesDataSet
     {
+
     }
 }
 
 namespace PolyRents.ComputingResourcesDataSetTableAdapters
 {
+    partial class RenterTableAdapter : RenterDAO
+    {
+        private RenterConverter converter;
+        private static RenterTableAdapter myInstance;
+
+        private RenterConverter Converter
+        {
+            get
+            {
+                if (converter == null)
+                {
+                    converter = new RenterConverter();
+                }
+                return converter;
+            }
+        }
+
+        public static RenterTableAdapter getInstance()
+        {
+            if (myInstance == null)
+            {
+                myInstance = new RenterTableAdapter();
+            }
+
+            return myInstance;
+        }
+
+        public int addSingle(Renter toAdd)
+        {
+            return Insert(toAdd.LibraryNumber, toAdd.FirstName, toAdd.LastName, toAdd.Role, toAdd.CpEmail,toAdd.CanRent);
+        }
+
+        public void deleteSingle(int id)
+        {
+            DeleteQuery(id);
+        }
+
+        public void deleteSingle(Renter toDelete)
+        {
+            DeleteQuery(toDelete.IdRenter);
+        }
+
+        public List<Renter> getAll()
+        {
+            return Converter.ConvertAll(GetData().Rows);
+        }
+
+        public Renter getById(int id)
+        {
+            return Converter.ConvertSingle(GetData().FindByidRenter(id));
+        }
+
+        public Renter getRenterByEmail(string email)
+        {
+            return Converter.ConvertAll(GetDataByCpEmail(email).Rows)[0];
+        }
+
+        public Renter getRenterByLibraryNumber(string libNumber)
+        {
+            return Converter.ConvertAll(GetDataByLibNumber(libNumber).Rows)[0];
+        }
+
+        public Renter updateRenterCanRent(int idRenter, bool newCanRent)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Renter updateRenterLibraryNumber(int idRenter, int newlibNumber)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Renter updateSingle(Renter toUpdate)
+        {
+            UpdateQuery(toUpdate.LibraryNumber, toUpdate.FirstName, toUpdate.LastName, toUpdate.CpEmail, toUpdate.Role, toUpdate.CanRent, toUpdate.IdRenter);
+
+            return toUpdate;
+        }
+    }
     partial class ResourceTypeTableAdapter : ResourceTypeDAO
     {
         private ResourceTypeConverter converter = new ResourceTypeConverter();
@@ -78,11 +160,12 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
         public int addSingle(ResourceType toAdd)
         {
             return Insert(toAdd.ResourceName, toAdd.ReplacementCost, toAdd.PastDueCost);
+            
         }
 
         public void deleteSingle(ResourceType toDelete)
         {
-            
+            throw new System.NotImplementedException();
         }
     }
 
@@ -141,8 +224,6 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
         public Resource updateSingle(Resource toUpdate)
         {
             UpdateQuery(toUpdate.Status.ToString(), toUpdate.StatusDescription, toUpdate.Type.IdResourceType, toUpdate.IdResource);
-            
-            Update(GetData());
             return toUpdate;
         }
 

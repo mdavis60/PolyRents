@@ -140,6 +140,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="converters\IConverter.cs" />
+    <Compile Include="converters\RenterConverter.cs" />
     <Compile Include="converters\ResourceConverter.cs" />
     <Compile Include="converters\ResourceTypeConverter.cs" />
     <Compile Include="model\Status.cs" />
@@ -154,11 +155,17 @@
     <Compile Include="views\AddEditRenterView.xaml.cs">
       <DependentUpon>AddEditRenterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\CardSwipeWindow.xaml.cs">
+      <DependentUpon>CardSwipeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\CheckoutView.xaml.cs">
       <DependentUpon>CheckoutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\AddEditResourceView.xaml.cs">
       <DependentUpon>AddEditResourceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\ManageRentersView.xaml.cs">
+      <DependentUpon>ManageRentersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\ManageResourcesView.xaml.cs">
       <DependentUpon>ManageResourcesView.xaml</DependentUpon>
@@ -187,11 +194,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="views\CardSwipeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="views\CheckoutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\AddEditResourceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\ManageRentersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

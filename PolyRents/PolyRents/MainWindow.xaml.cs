@@ -14,6 +14,7 @@ namespace PolyRents
         private String myStatus;
 
         private ManageResourcesView manageResources;
+        private ManageRentersView manageRenters;
 
         private List<Window> myWindows;
 
@@ -26,6 +27,18 @@ namespace PolyRents
             private set
             {
                 manageResources = value;
+            }
+        }
+
+        public ManageRentersView ManageRenters
+        {
+            get
+            {
+                return manageRenters;
+            }
+            private set
+            {
+                manageRenters = value;
             }
         }
         
@@ -45,7 +58,18 @@ namespace PolyRents
 
             InitializeComponent();
 
+            makeWindows();
+
             InformationStatus = "ready";
+        }
+
+        private void makeWindows()
+        {
+            ManageRenters = new ManageRentersView();
+            ManageResources = new ManageResourcesView();
+
+            myWindows.Add(ManageResources);
+            myWindows.Add(ManageRenters);
         }
 
         private void checkoutButton_Click(object sender, RoutedEventArgs e)
@@ -71,7 +95,13 @@ namespace PolyRents
 
         private void manageRenters_Click(object sender, RoutedEventArgs e)
         {
+            if (manageRenters == null)
+            {
+                ManageRenters = new ManageRentersView();
+                myWindows.Add(ManageRenters);
+            }
 
+            ManageRenters.Show();
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -85,6 +115,12 @@ namespace PolyRents
             }
 
             base.OnClosing(e);
+        }
+
+        private void cardSwipWindow_Click(object sender, RoutedEventArgs e)
+        {
+            CardSwipeWindow cardSwipeWindow = new CardSwipeWindow();
+            cardSwipeWindow.Show();
         }
     }
 }

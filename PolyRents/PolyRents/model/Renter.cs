@@ -21,6 +21,18 @@ namespace PolyRents.model
 
         }
 
+        public Renter(Renter other)
+        {
+            this.idRenter = other.idRenter;
+            this.firstName = other.firstName;
+            this.lastName = other.lastName;
+            this.libraryNumber = other.libraryNumber;
+            this.cpEmail = other.cpEmail;
+            this.role = other.role;
+            this.canRent = other.canRent;
+
+        }
+
         public Renter(int id, string firstName, string lastName, string libraryNumber, string cpEmail, string role, bool canRent = true)
         {
             this.idRenter = id;

@@ -10,7 +10,7 @@ namespace PolyRents.repository
     interface RenterDAO: AbstractDAO<model.Renter>
     {
         Renter getRenterByEmail(string email);
-        Renter getRenterByLibraryNumber(int libNumber);
+        Renter getRenterByLibraryNumber(string libNumber);
         Renter updateRenterLibraryNumber(int idRenter, int newlibNumber);
         Renter updateRenterCanRent(int idRenter, bool newCanRent);
     }

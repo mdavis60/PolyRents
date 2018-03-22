@@ -40,17 +40,17 @@ namespace PolyRents {
         
         private ResourceTypeDataTable tableResourceType;
         
-        private global::System.Data.DataRelation relationResourcesTable1;
-        
-        private global::System.Data.DataRelation relationResourcesManagedLaptops;
-        
-        private global::System.Data.DataRelation relationRenterRental_History;
-        
-        private global::System.Data.DataRelation relationResourcesRental_History;
+        private global::System.Data.DataRelation relationResourceTypeResources;
         
         private global::System.Data.DataRelation relationRenterRenterComment;
         
-        private global::System.Data.DataRelation relationResourceTypeResources;
+        private global::System.Data.DataRelation relationResourcesRental_History;
+        
+        private global::System.Data.DataRelation relationRenterRental_History;
+        
+        private global::System.Data.DataRelation relationResourcesManagedLaptops;
+        
+        private global::System.Data.DataRelation relationResourcesTable1;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -374,12 +374,12 @@ namespace PolyRents {
                     this.tableResourceType.InitVars();
                 }
             }
-            this.relationResourcesTable1 = this.Relations["ResourcesTable1"];
-            this.relationResourcesManagedLaptops = this.Relations["ResourcesManagedLaptops"];
-            this.relationRenterRental_History = this.Relations["RenterRental History"];
-            this.relationResourcesRental_History = this.Relations["ResourcesRental History"];
-            this.relationRenterRenterComment = this.Relations["RenterRenterComment"];
             this.relationResourceTypeResources = this.Relations["ResourceTypeResources"];
+            this.relationRenterRenterComment = this.Relations["RenterRenterComment"];
+            this.relationResourcesRental_History = this.Relations["ResourcesRental History"];
+            this.relationRenterRental_History = this.Relations["RenterRental History"];
+            this.relationResourcesManagedLaptops = this.Relations["ResourcesManagedLaptops"];
+            this.relationResourcesTable1 = this.Relations["ResourcesTable1"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -406,30 +406,30 @@ namespace PolyRents {
             base.Tables.Add(this.tableResources);
             this.tableResourceType = new ResourceTypeDataTable();
             base.Tables.Add(this.tableResourceType);
-            this.relationResourcesTable1 = new global::System.Data.DataRelation("ResourcesTable1", new global::System.Data.DataColumn[] {
-                        this.tableResources.idResourceColumn}, new global::System.Data.DataColumn[] {
-                        this.tableMaintenanceHistory.idResourceColumn}, false);
-            this.Relations.Add(this.relationResourcesTable1);
-            this.relationResourcesManagedLaptops = new global::System.Data.DataRelation("ResourcesManagedLaptops", new global::System.Data.DataColumn[] {
-                        this.tableResources.idResourceColumn}, new global::System.Data.DataColumn[] {
-                        this.tableManagedLaptops.idResourceColumn}, false);
-            this.Relations.Add(this.relationResourcesManagedLaptops);
-            this.relationRenterRental_History = new global::System.Data.DataRelation("RenterRental History", new global::System.Data.DataColumn[] {
-                        this.tableRenter.idRenterColumn}, new global::System.Data.DataColumn[] {
-                        this.tableRental_History.idRenterColumn}, false);
-            this.Relations.Add(this.relationRenterRental_History);
-            this.relationResourcesRental_History = new global::System.Data.DataRelation("ResourcesRental History", new global::System.Data.DataColumn[] {
-                        this.tableResources.idResourceColumn}, new global::System.Data.DataColumn[] {
-                        this.tableRental_History.idResourceColumn}, false);
-            this.Relations.Add(this.relationResourcesRental_History);
-            this.relationRenterRenterComment = new global::System.Data.DataRelation("RenterRenterComment", new global::System.Data.DataColumn[] {
-                        this.tableRenter.idRenterColumn}, new global::System.Data.DataColumn[] {
-                        this.tableRenterComment.idRenterColumn}, false);
-            this.Relations.Add(this.relationRenterRenterComment);
             this.relationResourceTypeResources = new global::System.Data.DataRelation("ResourceTypeResources", new global::System.Data.DataColumn[] {
                         this.tableResourceType.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableResources.idResourceTypeColumn}, false);
             this.Relations.Add(this.relationResourceTypeResources);
+            this.relationRenterRenterComment = new global::System.Data.DataRelation("RenterRenterComment", new global::System.Data.DataColumn[] {
+                        this.tableRenter.idRenterColumn}, new global::System.Data.DataColumn[] {
+                        this.tableRenterComment.idRenterColumn}, false);
+            this.Relations.Add(this.relationRenterRenterComment);
+            this.relationResourcesRental_History = new global::System.Data.DataRelation("ResourcesRental History", new global::System.Data.DataColumn[] {
+                        this.tableResources.idResourceColumn}, new global::System.Data.DataColumn[] {
+                        this.tableRental_History.idResourceColumn}, false);
+            this.Relations.Add(this.relationResourcesRental_History);
+            this.relationRenterRental_History = new global::System.Data.DataRelation("RenterRental History", new global::System.Data.DataColumn[] {
+                        this.tableRenter.idRenterColumn}, new global::System.Data.DataColumn[] {
+                        this.tableRental_History.idRenterColumn}, false);
+            this.Relations.Add(this.relationRenterRental_History);
+            this.relationResourcesManagedLaptops = new global::System.Data.DataRelation("ResourcesManagedLaptops", new global::System.Data.DataColumn[] {
+                        this.tableResources.idResourceColumn}, new global::System.Data.DataColumn[] {
+                        this.tableManagedLaptops.idResourceColumn}, false);
+            this.Relations.Add(this.relationResourcesManagedLaptops);
+            this.relationResourcesTable1 = new global::System.Data.DataRelation("ResourcesTable1", new global::System.Data.DataColumn[] {
+                        this.tableResources.idResourceColumn}, new global::System.Data.DataColumn[] {
+                        this.tableMaintenanceHistory.idResourceColumn}, false);
+            this.Relations.Add(this.relationResourcesTable1);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2048,8 +2048,6 @@ namespace PolyRents {
             
             private global::System.Data.DataColumn columnidRenter;
             
-            private global::System.Data.DataColumn columnlibNumber;
-            
             private global::System.Data.DataColumn columnFirstName;
             
             private global::System.Data.DataColumn columnLastName;
@@ -2059,6 +2057,8 @@ namespace PolyRents {
             private global::System.Data.DataColumn columnrole;
             
             private global::System.Data.DataColumn columncanRent;
+            
+            private global::System.Data.DataColumn columnlibNumber;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
@@ -2098,14 +2098,6 @@ namespace PolyRents {
             public global::System.Data.DataColumn idRenterColumn {
                 get {
                     return this.columnidRenter;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn libNumberColumn {
-                get {
-                    return this.columnlibNumber;
                 }
             }
             
@@ -2151,6 +2143,14 @@ namespace PolyRents {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn libNumberColumn {
+                get {
+                    return this.columnlibNumber;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2186,16 +2186,16 @@ namespace PolyRents {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public RenterRow AddRenterRow(int libNumber, string FirstName, string LastName, string calpolyEmail, string role, bool canRent) {
+            public RenterRow AddRenterRow(string FirstName, string LastName, string calpolyEmail, string role, bool canRent, string libNumber) {
                 RenterRow rowRenterRow = ((RenterRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        libNumber,
                         FirstName,
                         LastName,
                         calpolyEmail,
                         role,
-                        canRent};
+                        canRent,
+                        libNumber};
                 rowRenterRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowRenterRow);
                 return rowRenterRow;
@@ -2226,12 +2226,12 @@ namespace PolyRents {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
                 this.columnidRenter = base.Columns["idRenter"];
-                this.columnlibNumber = base.Columns["libNumber"];
                 this.columnFirstName = base.Columns["FirstName"];
                 this.columnLastName = base.Columns["LastName"];
                 this.columncalpolyEmail = base.Columns["calpolyEmail"];
                 this.columnrole = base.Columns["role"];
                 this.columncanRent = base.Columns["canRent"];
+                this.columnlibNumber = base.Columns["libNumber"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2239,8 +2239,6 @@ namespace PolyRents {
             private void InitClass() {
                 this.columnidRenter = new global::System.Data.DataColumn("idRenter", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnidRenter);
-                this.columnlibNumber = new global::System.Data.DataColumn("libNumber", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnlibNumber);
                 this.columnFirstName = new global::System.Data.DataColumn("FirstName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFirstName);
                 this.columnLastName = new global::System.Data.DataColumn("LastName", typeof(string), null, global::System.Data.MappingType.Element);
@@ -2251,8 +2249,12 @@ namespace PolyRents {
                 base.Columns.Add(this.columnrole);
                 this.columncanRent = new global::System.Data.DataColumn("canRent", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncanRent);
+                this.columnlibNumber = new global::System.Data.DataColumn("libNumber", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnlibNumber);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnidRenter}, true));
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint2", new global::System.Data.DataColumn[] {
+                                this.columncalpolyEmail}, false));
                 this.columnidRenter.AutoIncrement = true;
                 this.columnidRenter.AutoIncrementSeed = -1;
                 this.columnidRenter.AutoIncrementStep = -1;
@@ -2260,8 +2262,10 @@ namespace PolyRents {
                 this.columnidRenter.Unique = true;
                 this.columnFirstName.MaxLength = 50;
                 this.columnLastName.MaxLength = 50;
+                this.columncalpolyEmail.Unique = true;
                 this.columncalpolyEmail.MaxLength = 50;
                 this.columnrole.MaxLength = 50;
+                this.columnlibNumber.MaxLength = 20;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4170,23 +4174,23 @@ namespace PolyRents {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public RenterRow RenterRow {
-                get {
-                    return ((RenterRow)(this.GetParentRow(this.Table.ParentRelations["RenterRental History"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["RenterRental History"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public ResourcesRow ResourcesRow {
                 get {
                     return ((ResourcesRow)(this.GetParentRow(this.Table.ParentRelations["ResourcesRental History"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["ResourcesRental History"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public RenterRow RenterRow {
+                get {
+                    return ((RenterRow)(this.GetParentRow(this.Table.ParentRelations["RenterRental History"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["RenterRental History"]);
                 }
             }
             
@@ -4261,22 +4265,6 @@ namespace PolyRents {
                 }
                 set {
                     this[this.tableRenter.idRenterColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public int libNumber {
-                get {
-                    try {
-                        return ((int)(this[this.tableRenter.libNumberColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'libNumber\' in table \'Renter\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableRenter.libNumberColumn] = value;
                 }
             }
             
@@ -4362,14 +4350,18 @@ namespace PolyRents {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IslibNumberNull() {
-                return this.IsNull(this.tableRenter.libNumberColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetlibNumberNull() {
-                this[this.tableRenter.libNumberColumn] = global::System.Convert.DBNull;
+            public string libNumber {
+                get {
+                    try {
+                        return ((string)(this[this.tableRenter.libNumberColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'libNumber\' in table \'Renter\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableRenter.libNumberColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4434,13 +4426,14 @@ namespace PolyRents {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public Rental_HistoryRow[] GetRental_HistoryRows() {
-                if ((this.Table.ChildRelations["RenterRental History"] == null)) {
-                    return new Rental_HistoryRow[0];
-                }
-                else {
-                    return ((Rental_HistoryRow[])(base.GetChildRows(this.Table.ChildRelations["RenterRental History"])));
-                }
+            public bool IslibNumberNull() {
+                return this.IsNull(this.tableRenter.libNumberColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetlibNumberNull() {
+                this[this.tableRenter.libNumberColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4451,6 +4444,17 @@ namespace PolyRents {
                 }
                 else {
                     return ((RenterCommentRow[])(base.GetChildRows(this.Table.ChildRelations["RenterRenterComment"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public Rental_HistoryRow[] GetRental_HistoryRows() {
+                if ((this.Table.ChildRelations["RenterRental History"] == null)) {
+                    return new Rental_HistoryRow[0];
+                }
+                else {
+                    return ((Rental_HistoryRow[])(base.GetChildRows(this.Table.ChildRelations["RenterRental History"])));
                 }
             }
         }
@@ -4698,12 +4702,12 @@ namespace PolyRents {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public MaintenanceHistoryRow[] GetMaintenanceHistoryRows() {
-                if ((this.Table.ChildRelations["ResourcesTable1"] == null)) {
-                    return new MaintenanceHistoryRow[0];
+            public Rental_HistoryRow[] GetRental_HistoryRows() {
+                if ((this.Table.ChildRelations["ResourcesRental History"] == null)) {
+                    return new Rental_HistoryRow[0];
                 }
                 else {
-                    return ((MaintenanceHistoryRow[])(base.GetChildRows(this.Table.ChildRelations["ResourcesTable1"])));
+                    return ((Rental_HistoryRow[])(base.GetChildRows(this.Table.ChildRelations["ResourcesRental History"])));
                 }
             }
             
@@ -4720,12 +4724,12 @@ namespace PolyRents {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public Rental_HistoryRow[] GetRental_HistoryRows() {
-                if ((this.Table.ChildRelations["ResourcesRental History"] == null)) {
-                    return new Rental_HistoryRow[0];
+            public MaintenanceHistoryRow[] GetMaintenanceHistoryRows() {
+                if ((this.Table.ChildRelations["ResourcesTable1"] == null)) {
+                    return new MaintenanceHistoryRow[0];
                 }
                 else {
-                    return ((Rental_HistoryRow[])(base.GetChildRows(this.Table.ChildRelations["ResourcesRental History"])));
+                    return ((MaintenanceHistoryRow[])(base.GetChildRows(this.Table.ChildRelations["ResourcesTable1"])));
                 }
             }
         }
@@ -7553,20 +7557,18 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "Renter";
             tableMapping.ColumnMappings.Add("idRenter", "idRenter");
-            tableMapping.ColumnMappings.Add("libNumber", "libNumber");
             tableMapping.ColumnMappings.Add("FirstName", "FirstName");
             tableMapping.ColumnMappings.Add("LastName", "LastName");
             tableMapping.ColumnMappings.Add("calpolyEmail", "calpolyEmail");
             tableMapping.ColumnMappings.Add("role", "role");
             tableMapping.ColumnMappings.Add("canRent", "canRent");
+            tableMapping.ColumnMappings.Add("libNumber", "libNumber");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `Renter` WHERE ((`idRenter` = ?) AND ((? = 1 AND `libNumber` IS NULL) OR (`libNumber` = ?)) AND ((? = 1 AND `FirstName` IS NULL) OR (`FirstName` = ?)) AND ((? = 1 AND `LastName` IS NULL) OR (`LastName` = ?)) AND ((? = 1 AND `calpolyEmail` IS NULL) OR (`calpolyEmail` = ?)) AND ((? = 1 AND `role` IS NULL) OR (`role` = ?)) AND ((? = 1 AND `canRent` IS NULL) OR (`canRent` = ?)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `Renter` WHERE ((`idRenter` = ?) AND ((? = 1 AND `FirstName` IS NULL) OR (`FirstName` = ?)) AND ((? = 1 AND `LastName` IS NULL) OR (`LastName` = ?)) AND ((? = 1 AND `calpolyEmail` IS NULL) OR (`calpolyEmail` = ?)) AND ((? = 1 AND `role` IS NULL) OR (`role` = ?)) AND ((? = 1 AND `canRent` IS NULL) OR (`canRent` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_idRenter", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "idRenter", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_libNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "libNumber", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_libNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "libNumber", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_FirstName", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "FirstName", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_FirstName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "FirstName", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_LastName", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastName", global::System.Data.DataRowVersion.Original, true, null));
@@ -7579,28 +7581,25 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_canRent", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "canRent", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `Renter` (`libNumber`, `FirstName`, `LastName`, `calpolyEmail`, `role" +
-                "`, `canRent`) VALUES (?, ?, ?, ?, ?, ?)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO Renter\r\n                         (libNumber, FirstName, LastName, cal" +
+                "polyEmail, role, canRent)\r\nVALUES        (?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("libNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "libNumber", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("FirstName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "FirstName", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("LastName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastName", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("calpolyEmail", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "calpolyEmail", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("role", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "role", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("canRent", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "canRent", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("libNumber", global::System.Data.OleDb.OleDbType.WChar, 20, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "libNumber", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("FirstName", global::System.Data.OleDb.OleDbType.WChar, 50, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "FirstName", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("LastName", global::System.Data.OleDb.OleDbType.WChar, 50, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastName", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("calpolyEmail", global::System.Data.OleDb.OleDbType.WChar, 50, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "calpolyEmail", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("role", global::System.Data.OleDb.OleDbType.WChar, 50, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "role", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("canRent", global::System.Data.OleDb.OleDbType.Boolean, 2, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "canRent", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `Renter` SET `libNumber` = ?, `FirstName` = ?, `LastName` = ?, `calpolyEmail` = ?, `role` = ?, `canRent` = ? WHERE ((`idRenter` = ?) AND ((? = 1 AND `libNumber` IS NULL) OR (`libNumber` = ?)) AND ((? = 1 AND `FirstName` IS NULL) OR (`FirstName` = ?)) AND ((? = 1 AND `LastName` IS NULL) OR (`LastName` = ?)) AND ((? = 1 AND `calpolyEmail` IS NULL) OR (`calpolyEmail` = ?)) AND ((? = 1 AND `role` IS NULL) OR (`role` = ?)) AND ((? = 1 AND `canRent` IS NULL) OR (`canRent` = ?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `Renter` SET `FirstName` = ?, `LastName` = ?, `calpolyEmail` = ?, `role` = ?, `canRent` = ? WHERE ((`idRenter` = ?) AND ((? = 1 AND `FirstName` IS NULL) OR (`FirstName` = ?)) AND ((? = 1 AND `LastName` IS NULL) OR (`LastName` = ?)) AND ((? = 1 AND `calpolyEmail` IS NULL) OR (`calpolyEmail` = ?)) AND ((? = 1 AND `role` IS NULL) OR (`role` = ?)) AND ((? = 1 AND `canRent` IS NULL) OR (`canRent` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("libNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "libNumber", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("FirstName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "FirstName", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("LastName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastName", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("calpolyEmail", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "calpolyEmail", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("role", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "role", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("canRent", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "canRent", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_idRenter", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "idRenter", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_libNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "libNumber", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_libNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "libNumber", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_FirstName", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "FirstName", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_FirstName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "FirstName", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_LastName", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastName", global::System.Data.DataRowVersion.Original, true, null));
@@ -7623,12 +7622,41 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
+            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[5];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT idRenter, libNumber, FirstName, LastName, calpolyEmail, role, canRent FROM" +
-                " Renter";
+            this._commandCollection[0].CommandText = "SELECT        idRenter, FirstName, LastName, calpolyEmail, role, canRent, libNumb" +
+                "er\r\nFROM            Renter";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "DELETE FROM `Renter` WHERE (`idRenter` = ?) ";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("idRenter", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "idRenter", global::System.Data.DataRowVersion.Original, false, null));
+            this._commandCollection[2] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT FirstName, LastName, calpolyEmail, canRent, idRenter, libNumber, role FROM" +
+                " Renter WHERE (calpolyEmail = ?)";
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[2].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("calpolyEmail", global::System.Data.OleDb.OleDbType.WChar, 50, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "calpolyEmail", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[3] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].CommandText = "SELECT FirstName, LastName, calpolyEmail, canRent, idRenter, libNumber, role FROM" +
+                " Renter WHERE (libNumber = ?)";
+            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[3].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("libNumber", global::System.Data.OleDb.OleDbType.WChar, 20, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "libNumber", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[4] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[4].Connection = this.Connection;
+            this._commandCollection[4].CommandText = "UPDATE       Renter\r\nSET                libNumber = ?, FirstName = ?, LastName = " +
+                "?, calpolyEmail = ?, role = ?, canRent = ?\r\nWHERE        (idRenter = ?)";
+            this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[4].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("libNumber", global::System.Data.OleDb.OleDbType.WChar, 20, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "libNumber", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("FirstName", global::System.Data.OleDb.OleDbType.WChar, 50, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "FirstName", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("LastName", global::System.Data.OleDb.OleDbType.WChar, 50, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastName", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("calpolyEmail", global::System.Data.OleDb.OleDbType.WChar, 50, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "calpolyEmail", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("role", global::System.Data.OleDb.OleDbType.WChar, 50, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "role", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("canRent", global::System.Data.OleDb.OleDbType.Boolean, 2, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "canRent", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_idRenter", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "idRenter", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7650,6 +7678,40 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual ComputingResourcesDataSet.RenterDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            ComputingResourcesDataSet.RenterDataTable dataTable = new ComputingResourcesDataSet.RenterDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ComputingResourcesDataSet.RenterDataTable GetDataByCpEmail(string calpolyEmail) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            if ((calpolyEmail == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(calpolyEmail));
+            }
+            ComputingResourcesDataSet.RenterDataTable dataTable = new ComputingResourcesDataSet.RenterDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ComputingResourcesDataSet.RenterDataTable GetDataByLibNumber(string libNumber) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            if ((libNumber == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(libNumber));
+            }
             ComputingResourcesDataSet.RenterDataTable dataTable = new ComputingResourcesDataSet.RenterDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -7688,41 +7750,39 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_idRenter, int Original_libNumber, string Original_FirstName, string Original_LastName, string Original_calpolyEmail, string Original_role, bool Original_canRent) {
+        public virtual int Delete(int Original_idRenter, string Original_FirstName, string Original_LastName, string Original_calpolyEmail, string Original_role, bool Original_canRent) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_idRenter));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_libNumber));
             if ((Original_FirstName == null)) {
                 throw new global::System.ArgumentNullException("Original_FirstName");
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_FirstName));
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_FirstName));
             }
             if ((Original_LastName == null)) {
                 throw new global::System.ArgumentNullException("Original_LastName");
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_LastName));
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_LastName));
             }
             if ((Original_calpolyEmail == null)) {
                 throw new global::System.ArgumentNullException("Original_calpolyEmail");
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[8].Value = ((string)(Original_calpolyEmail));
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_calpolyEmail));
             }
             if ((Original_role == null)) {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((string)(Original_role));
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((string)(Original_role));
             }
-            this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[12].Value = ((bool)(Original_canRent));
+            this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[10].Value = ((bool)(Original_canRent));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7743,8 +7803,13 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int libNumber, string FirstName, string LastName, string calpolyEmail, string role, bool canRent) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(libNumber));
+        public virtual int Insert(string libNumber, string FirstName, string LastName, string calpolyEmail, string role, bool canRent) {
+            if ((libNumber == null)) {
+                throw new global::System.ArgumentNullException("libNumber");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(libNumber));
+            }
             if ((FirstName == null)) {
                 throw new global::System.ArgumentNullException("FirstName");
             }
@@ -7790,67 +7855,64 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int libNumber, string FirstName, string LastName, string calpolyEmail, string role, bool canRent, int Original_idRenter, int Original_libNumber, string Original_FirstName, string Original_LastName, string Original_calpolyEmail, string Original_role, bool Original_canRent) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(libNumber));
+        public virtual int Update(string FirstName, string LastName, string calpolyEmail, string role, bool canRent, int Original_idRenter, string Original_FirstName, string Original_LastName, string Original_calpolyEmail, string Original_role, bool Original_canRent) {
             if ((FirstName == null)) {
                 throw new global::System.ArgumentNullException("FirstName");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(FirstName));
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(FirstName));
             }
             if ((LastName == null)) {
                 throw new global::System.ArgumentNullException("LastName");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(LastName));
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(LastName));
             }
             if ((calpolyEmail == null)) {
                 throw new global::System.ArgumentNullException("calpolyEmail");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(calpolyEmail));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(calpolyEmail));
             }
             if ((role == null)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(role));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(role));
             }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((bool)(canRent));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_idRenter));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_libNumber));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((bool)(canRent));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_idRenter));
             if ((Original_FirstName == null)) {
                 throw new global::System.ArgumentNullException("Original_FirstName");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_FirstName));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_FirstName));
             }
             if ((Original_LastName == null)) {
                 throw new global::System.ArgumentNullException("Original_LastName");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_LastName));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_LastName));
             }
             if ((Original_calpolyEmail == null)) {
                 throw new global::System.ArgumentNullException("Original_calpolyEmail");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(Original_calpolyEmail));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(Original_calpolyEmail));
             }
             if ((Original_role == null)) {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(Original_role));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((string)(Original_role));
             }
-            this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[18].Value = ((bool)(Original_canRent));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((bool)(Original_canRent));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7865,6 +7927,90 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, false)]
+        public virtual int DeleteQuery(int idRenter) {
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[1];
+            command.Parameters[0].Value = ((int)(idRenter));
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
+        public virtual int UpdateQuery(string libNumber, string FirstName, string LastName, string calpolyEmail, string role, global::System.Nullable<bool> canRent, int Original_idRenter) {
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[4];
+            if ((libNumber == null)) {
+                command.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[0].Value = ((string)(libNumber));
+            }
+            if ((FirstName == null)) {
+                command.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[1].Value = ((string)(FirstName));
+            }
+            if ((LastName == null)) {
+                command.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[2].Value = ((string)(LastName));
+            }
+            if ((calpolyEmail == null)) {
+                command.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[3].Value = ((string)(calpolyEmail));
+            }
+            if ((role == null)) {
+                command.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[4].Value = ((string)(role));
+            }
+            if ((canRent.HasValue == true)) {
+                command.Parameters[5].Value = ((bool)(canRent.Value));
+            }
+            else {
+                command.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            command.Parameters[6].Value = ((int)(Original_idRenter));
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
         }
     }
     
@@ -9329,30 +9475,12 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._computersTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.computers.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._renterCommentTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.RenterComment.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._computersTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._maintenanceHistoryTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.MaintenanceHistory.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._maintenanceHistoryTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._managedLaptopsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ManagedLaptops.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._managedLaptopsTableAdapter.Update(updatedRows));
+                    result = (result + this._renterCommentTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -9365,12 +9493,30 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._renterCommentTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.RenterComment.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._managedLaptopsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ManagedLaptops.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._renterCommentTableAdapter.Update(updatedRows));
+                    result = (result + this._managedLaptopsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._maintenanceHistoryTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.MaintenanceHistory.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._maintenanceHistoryTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._computersTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.computers.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._computersTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -9408,27 +9554,11 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._computersTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.computers.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._renterCommentTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.RenterComment.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._computersTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._maintenanceHistoryTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.MaintenanceHistory.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._maintenanceHistoryTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._managedLaptopsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ManagedLaptops.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._managedLaptopsTableAdapter.Update(addedRows));
+                    result = (result + this._renterCommentTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -9440,11 +9570,27 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._renterCommentTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.RenterComment.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._managedLaptopsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ManagedLaptops.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._renterCommentTableAdapter.Update(addedRows));
+                    result = (result + this._managedLaptopsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._maintenanceHistoryTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.MaintenanceHistory.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._maintenanceHistoryTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._computersTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.computers.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._computersTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -9458,27 +9604,11 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private int UpdateDeletedRows(ComputingResourcesDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._renterCommentTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.RenterComment.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._computersTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.computers.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._renterCommentTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._rental_HistoryTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Rental_History.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._rental_HistoryTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._managedLaptopsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ManagedLaptops.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._managedLaptopsTableAdapter.Update(deletedRows));
+                    result = (result + this._computersTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -9490,11 +9620,27 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._computersTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.computers.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._managedLaptopsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ManagedLaptops.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._computersTableAdapter.Update(deletedRows));
+                    result = (result + this._managedLaptopsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._rental_HistoryTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Rental_History.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._rental_HistoryTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._renterCommentTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.RenterComment.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._renterCommentTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }

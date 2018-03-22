@@ -56,6 +56,7 @@
 
                 <Button Name="manageResourcesButton" Content="Manage Resources" Width="150" Margin="0,0,0,10" Click="manageResources_Click"/>
                 <Button Name="manageRentersButton" Content="Manage Renters" Width="150" Margin="0,0,0,10" Click="manageRenters_Click"/>
+                <Button Name="cardSwipWindow" Content="cardSwipe" Width="150" Margin="0,0,0,10" Click="cardSwipWindow_Click"/>
                 
             </WrapPanel>
         </Grid>

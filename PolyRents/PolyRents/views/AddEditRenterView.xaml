@@ -30,25 +30,26 @@
             </Grid.RowDefinitions>
             <StackPanel Name="Labels" Orientation="Vertical" Grid.Column="0" Grid.Row="0">
                 <TextBlock Text="Renter ID" Margin="0,0,0,10" Padding="0,1"/>
-                <TextBlock Text="Library Number" Margin="0,0,0,10" Padding="0,1"/>
                 <TextBlock Text="First Name" Margin="0,0,0,10" Padding="0,1"/>
                 <TextBlock Text="Last Name" Margin="0,0,0,10" Padding="0,1"/>
-                <TextBlock Text="Cal Poly Email" Margin="0,0,0,10" Padding="0,1"/>
+                <TextBlock Text="Cal Poly Email" Margin="0,0,0,10" Padding="0,1" IsEnabled="False"/>
+                <TextBlock Text="Library Number" Margin="0,0,0,10" Padding="0,1"/>
                 <TextBlock Text="Role" Margin="0,0,0,10" Padding="0,1"/>
                 <TextBlock Text="Can Rent" Padding="0,1"/>
             </StackPanel>
             <StackPanel Name="Fields" Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-                <TextBox Name="idRenter" Text="{Binding IdRenter, Mode=TwoWay}" Margin="0,0,0,10"/>
-                <TextBox Name="libNumber" Text="{Binding LibraryNumber, Mode=TwoWay}" Margin="0,0,0,10"/>
-                <TextBox Name="firstName" Text="{Binding FirstName, Mode=TwoWay}" Margin="0,0,0,10"/>
-                <TextBox Name="lastName" Text="{Binding LastName, Mode=TwoWay}" Margin="0,0,0,10"/>
-                <TextBox Name="cpEmail" Text="{Binding CpEmail, Mode=TwoWay}" Margin="0,0,0,10"/>
-                <TextBox Name="role" Text="{Binding Role, Mode=TwoWay}" Margin="0,0,0,10"/>
-                <CheckBox Name="canRent" HorizontalAlignment="Center" IsChecked="{Binding CanRent, Mode=TwoWay}"/>
+                <TextBox Name="idRenter" Margin="0,0,0,10" IsEnabled="False"/>
+                <TextBox Name="firstName" Margin="0,0,0,10"/>
+                <TextBox Name="lastName" Margin="0,0,0,10"/>
+                <TextBox Name="cpEmail" Margin="0,0,0,10"/>
+                <TextBox Name="libNumber"  Margin="0,0,0,10"/>
+                <ComboBox Name="role"  Margin="0,0,0,10"/>
+                <CheckBox Name="canRent" HorizontalAlignment="Center"/>
             </StackPanel>
-            <Button Grid.Row="1" Grid.Column="0" Name="Apply" Content="Apply" Width="70" Height="20"/>
-            <Button Grid.Row="1" Grid.Column="1" Name="Cancel" Content="Cancel" Width="70" Height="20"/>
+            <Button Name="applyButton" Grid.Row="1" Grid.Column="0" Content="Apply" Width="70" Height="20" Click="Submit"/>
+            <Button Name="cancelButton" Grid.Row="1" Grid.Column="1" Content="Cancel" Width="70" Height="20" Click="Submit"/>
         </Grid>
+        <Label Name="ErrorLabel" Content="Role must be set" Foreground="Red" Visibility="Hidden" Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="8" Padding="5,0"/>
     </Grid>
    
 </Window>

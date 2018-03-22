@@ -121,8 +121,12 @@ namespace PolyRents.views
             statusDescription.Text = resource.StatusDescription;
         }
 
-        public void SetResourceToView(Resource aResource)
+        public void SetResourceToView(Resource aResource = null)
         {
+            if (aResource == null)
+            {
+                aResource = new Resource();
+            }
             ResourceChanged = false;
 
             resource = aResource;
