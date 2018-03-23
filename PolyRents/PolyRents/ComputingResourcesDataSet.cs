@@ -19,6 +19,80 @@ namespace PolyRents
 
 namespace PolyRents.ComputingResourcesDataSetTableAdapters
 {
+    partial class Rental_HistoryTableAdapter : RentalDAO
+    {
+        private RentalConverter converter;
+        private static Rental_HistoryTableAdapter myInstance;
+
+        private RentalConverter Converter
+        {
+            get
+            {
+                if (converter == null)
+                {
+                    converter = new RentalConverter();
+                }
+                return converter;
+            }
+        }
+
+        public static Rental_HistoryTableAdapter getInstance()
+        {
+            if (myInstance == null)
+            {
+                myInstance = new Rental_HistoryTableAdapter();
+            }
+
+            return myInstance;
+        }
+
+        public int addSingle(Rental toAdd)
+        {
+            return Insert(toAdd.Renter.IdRenter, toAdd.Resource.IdResource, toAdd.CheckoutTime, toAdd.CheckinTime);
+        }
+
+        public void deleteSingle(int id)
+        {
+            DeleteQuery(id);
+        }
+
+        public void deleteSingle(Rental toDelete)
+        {
+            DeleteQuery(toDelete.IdRental);
+        }
+
+        public List<Rental> getAll()
+        {
+            return Converter.ConvertAll(GetData().Rows);
+        }
+
+        public List<Rental> getAllRentalsByRenter(Renter renter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Rental> getAllRentalsOnDate(DateTime checkout)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Rental getById(int id)
+        {
+            return Converter.ConvertSingle(GetData().FindByID(id));
+        }
+
+        public List<Rental> getResourceRentalHistory(Resource resource)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Rental updateSingle(Rental toUpdate)
+        {
+            UpdateQuery(toUpdate.Renter.IdRenter, toUpdate.Resource.IdResource, toUpdate.CheckoutTime, toUpdate.CheckinTime, toUpdate.IdRental);
+
+            return toUpdate;
+        }
+    }
     partial class RenterTableAdapter : RenterDAO
     {
         private RenterConverter converter;
@@ -48,7 +122,7 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
 
         public int addSingle(Renter toAdd)
         {
-            return Insert(toAdd.LibraryNumber, toAdd.FirstName, toAdd.LastName, toAdd.Role, toAdd.CpEmail,toAdd.CanRent);
+            return Insert(toAdd.LibraryNumber, toAdd.FirstName, toAdd.LastName, toAdd.CpEmail, toAdd.Role, toAdd.CanRent);
         }
 
         public void deleteSingle(int id)

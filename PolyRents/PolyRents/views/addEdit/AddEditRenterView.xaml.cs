@@ -14,6 +14,7 @@ namespace PolyRents.views
     public partial class AddEditRenterView : Window
     {
         private Renter renter;
+        CardSwipeWindow cardSwipe;
 
         public Renter BoundRenter
         {
@@ -83,6 +84,8 @@ namespace PolyRents.views
             SetRenterToView(theRenter);
 
             InitializeComponent();
+
+            intializeFields();
         }
 
         private void intializeFields()
@@ -165,6 +168,26 @@ namespace PolyRents.views
         {
             e.Cancel = true;
             base.Hide();
+        }
+
+        private void swipeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (cardSwipe == null)
+            {
+                cardSwipe = new CardSwipeWindow();
+            }
+            
+            cardSwipe.ShowDialog();
+
+            if(!cardSwipe.CancelPressed)
+            {
+                CardData cardData = cardSwipe.CardInfo;
+
+                libNumber.Text = cardData.LibraryNumber;
+                role.SelectedValue = cardData.Role;
+            }
+
+            cardSwipe.resetFlags();
         }
     }
 }

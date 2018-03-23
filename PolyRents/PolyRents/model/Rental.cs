@@ -28,6 +28,15 @@ namespace PolyRents.model
             this.checkinTime = checkinTime;
         }
 
+        public Rental(Rental rental)
+        {
+            idRental = rental.idRental;
+            renter = rental.renter;
+            resource = rental.resource;
+            checkoutTime = rental.checkoutTime;
+            checkinTime = rental.checkinTime;
+        }
+
         public int IdRental
         {
             get
@@ -41,7 +50,7 @@ namespace PolyRents.model
             }
         }
 
-        internal Renter Renter
+        public Renter Renter
         {
             get
             {
@@ -54,7 +63,7 @@ namespace PolyRents.model
             }
         }
 
-        internal Resource Resource
+        public Resource Resource
         {
             get
             {
@@ -91,6 +100,31 @@ namespace PolyRents.model
             {
                 checkinTime = value;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Rental))
+            {
+                return false;
+            }
+
+            Rental other = obj as Rental;
+
+
+            if (!((Renter == null && other.Renter == null) && (Renter != null && other.Renter != null)))
+            {
+                return false;
+            }
+
+            if (!((Resource == null && other.Resource == null) && (Resource != null && other.Resource != null)))
+            {
+                return false;
+            }
+
+            return idRental.Equals(other.idRental) && Renter.Equals(other.Renter) &&
+                Resource.Equals(other.Resource) && CheckinTime.Equals(other.checkinTime) &&
+                CheckoutTime.Equals(other.CheckoutTime);
         }
     }
 }

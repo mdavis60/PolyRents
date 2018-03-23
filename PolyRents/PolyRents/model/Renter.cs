@@ -18,7 +18,11 @@ namespace PolyRents.model
 
         public Renter()
         {
-
+            FirstName = "";
+            LastName = "";
+            CpEmail = "";
+            LibraryNumber = "";
+            canRent = true;
         }
 
         public Renter(Renter other)
@@ -82,6 +86,14 @@ namespace PolyRents.model
             }
         }
 
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
+
         public string LibraryNumber
         {
             get
@@ -132,6 +144,20 @@ namespace PolyRents.model
             {
                 canRent = value;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Renter))
+            {
+                return false;
+            }
+
+            Renter other = obj as Renter;
+
+            return IdRenter.Equals(other.IdRenter) && 
+                LibraryNumber.Equals(other.libraryNumber) &&
+                cpEmail.Equals(other.cpEmail);
         }
     }
 }

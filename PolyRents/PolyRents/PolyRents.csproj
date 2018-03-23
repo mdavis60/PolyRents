@@ -140,9 +140,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="converters\IConverter.cs" />
+    <Compile Include="converters\RentalConverter.cs" />
     <Compile Include="converters\RenterConverter.cs" />
     <Compile Include="converters\ResourceConverter.cs" />
     <Compile Include="converters\ResourceTypeConverter.cs" />
+    <Compile Include="model\CardData.cs" />
     <Compile Include="model\Status.cs" />
     <Compile Include="model\data providers\abstract\AbstractDAO.cs" />
     <Compile Include="model\data providers\abstract\ComputerDAO.cs" />
@@ -152,7 +154,7 @@
     <Compile Include="model\data providers\abstract\RenterNoteDAO.cs" />
     <Compile Include="model\data providers\abstract\ResourceDAO.cs" />
     <Compile Include="model\data providers\abstract\ResourceTypeDAO.cs" />
-    <Compile Include="views\AddEditRenterView.xaml.cs">
+    <Compile Include="views\addEdit\AddEditRenterView.xaml.cs">
       <DependentUpon>AddEditRenterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\CardSwipeWindow.xaml.cs">
@@ -161,13 +163,16 @@
     <Compile Include="views\CheckoutView.xaml.cs">
       <DependentUpon>CheckoutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\AddEditResourceView.xaml.cs">
+    <Compile Include="views\addEdit\AddEditResourceView.xaml.cs">
       <DependentUpon>AddEditResourceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\ManageRentersView.xaml.cs">
+    <Compile Include="views\CheckoutWindow.xaml.cs">
+      <DependentUpon>CheckoutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\manage\ManageRentersView.xaml.cs">
       <DependentUpon>ManageRentersView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\ManageResourcesView.xaml.cs">
+    <Compile Include="views\manage\ManageResourcesView.xaml.cs">
       <DependentUpon>ManageResourcesView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -190,7 +195,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="views\AddEditRenterView.xaml">
+    <Page Include="views\addEdit\AddEditRenterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,15 +207,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\AddEditResourceView.xaml">
+    <Page Include="views\addEdit\AddEditResourceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\ManageRentersView.xaml">
+    <Page Include="views\CheckoutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\ManageResourcesView.xaml">
+    <Page Include="views\manage\ManageRentersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\manage\ManageResourcesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

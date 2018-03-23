@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PolyRents.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace PolyRents.views
 {
@@ -19,22 +21,67 @@ namespace PolyRents.views
     /// </summary>
     public partial class CardSwipeWindow : Window
     {
-        long libNumber;
-        string role;
-        bool shiftDown;
+        private string libNumber;
+        private string role;
+
+        private string rawInput;
+
+        private bool shiftDown;
+        private bool readStarted;
+        private bool readEnded;
+        private bool libNumberRead;
+
+        private CardData cardData;
+
+
+        private bool cancelPressed;
+
+        public bool CancelPressed
+        {
+            get
+            {
+                return cancelPressed;
+            }
+            private set
+            {
+                cancelPressed = value;
+            }
+        }
+
+        public bool CardDataChanged
+        {
+            get
+            {
+                return readEnded;
+            }
+        }
+
+        public CardData CardInfo
+        {
+            get
+            {
+                return cardData;
+            }
+        }
+
         public CardSwipeWindow()
         {
+            cardData = new CardData();
+
             InitializeComponent();
 
-            Keyboard.AddKeyDownHandler(stuff, keyDownHandler);
-            Keyboard.AddKeyUpHandler(stuff, keyUpHandler);
-            libNumber = 0;
-            role = "";
+            rawDataTextBox.Focus();
 
+            Keyboard.AddKeyDownHandler(rawDataTextBox, keyDownHandler);
+            Keyboard.AddKeyUpHandler(rawDataTextBox, keyUpHandler);
 
-            
+            cardData = new CardData();
+
+            DataContext = cardData;
+
+            resetFlags();
         }
-        // %2015010312644^STUDENT?
+        
         private void keyUpHandler(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.LeftShift)
@@ -43,79 +90,91 @@ namespace PolyRents.views
             }
         }
 
-        public void keyDownHandler(object sender, KeyEventArgs e)
+        private void keyDownHandler(object sender, KeyEventArgs e)
         {
-            switch (e.Key)
-            {
-                case Key.LeftShift:
-                    shiftDown = true;
-                    break;
-                case Key.D0:
-                    libNumber += 0;
-                    libNumber *= 10;
-                    keyboardInfo.Text = libNumber.ToString();
-                    break;
-                case Key.D1:
-                    libNumber += 1;
-                    libNumber *= 10;
-                    keyboardInfo.Text = libNumber.ToString();
-                    break;
-                case Key.D2:
-                    libNumber += 2;
-                    libNumber *= 10;
-                    keyboardInfo.Text = libNumber.ToString();
-                    break;
-                case Key.D3:
-                    libNumber += 3;
-                    libNumber *= 10;
-                    keyboardInfo.Text = libNumber.ToString();
-                    break;
-                case Key.D4:
-                    libNumber += 4;
-                    libNumber *= 10;
-                    keyboardInfo.Text = libNumber.ToString();
-                    break;
-                case Key.D5:
-                    if (!shiftDown)
-                    {
-                        libNumber += 5;
-                        libNumber *= 10;
-                        keyboardInfo.Text = libNumber.ToString();
-                    }
-                    break;
-                case Key.D6:
-                    if (!shiftDown)
-                    {
-                        libNumber += 6;
-                        libNumber *= 10;
-                        keyboardInfo.Text = libNumber.ToString();
-                    }
-                    break;
-                case Key.D7:
-                    libNumber += 7;
-                    libNumber *= 10;
-                    keyboardInfo.Text = libNumber.ToString();
-                    break;
-                case Key.D8:
-                    libNumber += 8;
-                    libNumber *= 10;
-                    keyboardInfo.Text = libNumber.ToString();
-                    break;
-                case Key.D9:
-                    libNumber += 9;
-                    libNumber *= 10;
-                    keyboardInfo.Text = libNumber.ToString();
-                    break;
-                case Key.OemQuestion:
-                    libNumber /= 10;
-                    keyboardInfo.Text = libNumber.ToString();
-                    libNumber = 0;
-                    break;
+            Key key = e.Key;
+            int keyVal = (int) e.Key;
 
+            if (keyVal >= 34 && keyVal <= 43)
+            {
+                handleNumber(key);
+            }
+            else if (key == Key.LeftShift)
+            {
+                shiftDown = true;
+            }
+            else if (keyVal >= 44 && keyVal <=69)
+            {
+                handleLetters(key);
+            }
+            else if (key == Key.OemQuestion)
+            {
+                //End of read
+                readEnded = true;
+                cardData = new CardData(libNumber, role);
+            }
+            else if (key == Key.Enter)
+            {
+                Close();
+            }
+            
+        }
+
+        private void handleLetters(Key key)
+        {
+            role += key.ToString();
+        }
+
+        private void handleNumber(Key key)
+        {
+            if (libNumberRead)
+            {
+                throw new Exception("Library number finished reading and read a new number");
+            }
+
+            if (shiftDown)
+            {
+                if (key == Key.D5)
+                {
+                    readStarted = true;
+                }
+                else if (key == Key.D6)
+                {
+                    libNumberRead = true;
+                }
+                else
+                {
+                    throw new Exception("Unexpected key pressed while shift pressed. Key: " + key.ToString());
+                }
+            }
+            else
+            {
+                libNumber += key.ToString().Substring(1, 1);
             }
         }
 
+        public void resetFlags()
+        {
+            libNumber = "";
+            role = "";
 
+            CancelPressed = false;
+            shiftDown = false;
+            readStarted = false;
+            readEnded = false;
+            libNumberRead = false;
+        }
 
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            resetFlags();
+            CancelPressed = true;
+            Close();
+        }
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            e.Cancel = true;
+            base.Hide();
+        }
     }
 }

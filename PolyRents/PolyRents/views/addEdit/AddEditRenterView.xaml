@@ -5,8 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PolyRents.views"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-      Title="Add/Edit Renter">
+      Title="Add/Edit Renter"  Height="300" Width="400">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -46,8 +45,11 @@
                 <ComboBox Name="role"  Margin="0,0,0,10"/>
                 <CheckBox Name="canRent" HorizontalAlignment="Center"/>
             </StackPanel>
-            <Button Name="applyButton" Grid.Row="1" Grid.Column="0" Content="Apply" Width="70" Height="20" Click="Submit"/>
-            <Button Name="cancelButton" Grid.Row="1" Grid.Column="1" Content="Cancel" Width="70" Height="20" Click="Submit"/>
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Name="applyButton"  Content="Apply" Width="70" Height="20" Click="Submit" HorizontalAlignment="Left" Margin="0,0,10,0"/>
+                <Button Name="swipeButton"  Content="Swipe" Width="70" Height="20" Click="swipeButton_Click" HorizontalAlignment="Center"/>
+                <Button Name="cancelButton" Content="Cancel" Width="70" Height="20" Click="Submit" HorizontalContentAlignment="Center" Margin="10,0,0,0" />
+            </StackPanel>
         </Grid>
         <Label Name="ErrorLabel" Content="Role must be set" Foreground="Red" Visibility="Hidden" Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="8" Padding="5,0"/>
     </Grid>
