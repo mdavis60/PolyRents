@@ -1,14 +1,16 @@
 # PolyRents
 Resource checkout system for the OCOB helpdesk.
 ## Diagrams
-### Class Diagram
-![Alt text](docs/ClassDiagram.png?raw=true "Class Diagram")
 
 ### Component Diagram
 ![Alt text](docs/ComponentDiagram.png?raw=true "Component Diagram")
 
 ### ER Diagram
 ![Alt text](docs/PolyRentsERDiagram.png?raw=true "ER Diagram")
+
+
+### Class Diagram
+![Alt text](docs/ClassDiagram.png?raw=true "Class Diagram")
 
 ## Further Info
 ### Library Numbers Explained
