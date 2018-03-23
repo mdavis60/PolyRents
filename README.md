@@ -12,7 +12,8 @@ Resource checkout system for the OCOB helpdesk.
 
 ## Check Digit Algorithm explained
 
-![Alt text](docs/Mod10Opt1.jpg?raw=true "Mod10 Algorithm")
+<img src="docs/Mod10Opt1.jpg" width="595" height="770"/>
+
 ```java
 public int calculateCheckDigit()
 {
