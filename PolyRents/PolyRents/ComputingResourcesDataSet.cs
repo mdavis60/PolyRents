@@ -282,7 +282,8 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
 
         public List<Resource> getAllResoucesByStatus(string status)
         {
-            throw new System.NotImplementedException();
+            return Converter.ConvertAll(GetByStatus(status).Rows);
+
         }
 
         public List<Resource> getAllResourcesByResourceType(ResourceType resourceType)

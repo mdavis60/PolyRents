@@ -5,6 +5,7 @@ using System.Windows;
 using System.ComponentModel;
 using System.Collections.Generic;
 using PolyRents.ComputingResourcesDataSetTableAdapters;
+using PolyRents.views.manage;
 
 namespace PolyRents
 {
@@ -16,6 +17,7 @@ namespace PolyRents
 
         private ManageResourcesView manageResources;
         private ManageRentersView manageRenters;
+        private ManageRentalsView manageRentals;
         private CheckoutWindow checkout;
 
         private Rental_HistoryTableAdapter rentals;
@@ -57,6 +59,18 @@ namespace PolyRents
                 checkout = value;
             }
         }
+
+        public ManageRentalsView ManageRentals
+        {
+            get
+            {
+                return manageRentals;
+            }
+            private set
+            {
+                manageRentals = value;
+            }
+        }
         
 
         public String InformationStatus
@@ -86,10 +100,12 @@ namespace PolyRents
             ManageRenters = new ManageRentersView();
             ManageResources = new ManageResourcesView();
             Checkout = new CheckoutWindow();
+            ManageRentals = new ManageRentalsView();
 
             myWindows.Add(ManageResources);
             myWindows.Add(ManageRenters);
             myWindows.Add(Checkout);
+            myWindows.Add(ManageRentals);
         }
 
         private void checkoutButton_Click(object sender, RoutedEventArgs e)
@@ -133,6 +149,17 @@ namespace PolyRents
             }
 
             ManageRenters.Show();
+        }
+
+        private void manageRentals_Click(object sender, RoutedEventArgs e)
+        {
+            if (manageRentals == null)
+            {
+                ManageRentals = new ManageRentalsView();
+                myWindows.Add(ManageRentals);
+            }
+
+            ManageRentals.Show();
         }
 
         protected override void OnClosing(CancelEventArgs e)

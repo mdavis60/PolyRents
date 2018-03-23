@@ -169,6 +169,9 @@
     <Compile Include="views\CheckoutWindow.xaml.cs">
       <DependentUpon>CheckoutWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\manage\ManageRentalsView.xaml.cs">
+      <DependentUpon>ManageRentalsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\manage\ManageRentersView.xaml.cs">
       <DependentUpon>ManageRentersView.xaml</DependentUpon>
     </Compile>
@@ -212,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\CheckoutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\manage\ManageRentalsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
