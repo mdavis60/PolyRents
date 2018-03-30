@@ -19,6 +19,25 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
+        <Grid Name="mainViewArea" Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="8*"/>
+            </Grid.RowDefinitions>
+
+            <Image Source="Images\OCOB_Logo.jpg"/>
+            <WrapPanel Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Name="checkoutButton" Content="Checkout" Width="150" Margin="0,0,0,10" Click="checkoutButton_Click"/>
+                <Button Name="returnButton" Content="Return" Width="150" Margin="0,0,0,10" Click="returnButton_Click"/>
+
+                <Button Name="manageResourcesButton" Content="Manage Resources" Width="150" Margin="0,0,0,10" Click="manageResources_Click"/>
+                <Button Name="manageRentalsButton" Content="Manage Rentals" Width="150" Margin="0,0,0,10" Click="manageRentals_Click"/>
+                <Button Name="manageRentersButton" Content="Manage Renters" Width="150" Margin="0,0,0,10" Click="manageRenters_Click"/>
+                <Button Name="cardSwipWindow" Content="cardSwipe" Width="150" Margin="0,0,0,10" Click="cardSwipWindow_Click"/>
+
+            </WrapPanel>
+        </Grid>
+
         <StatusBar x:Name="statusBar" VerticalAlignment="Bottom" MinHeight="15" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" Grid.Row="2" Grid.ColumnSpan="3">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -43,25 +62,5 @@
                 <TextBlock x:Name="status" FontSize="10" Width="110"/>
             </StatusBarItem>
         </StatusBar>
-        <Grid Name="mainViewArea" Grid.Column="1" Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="8*"/>
-            </Grid.RowDefinitions>
-
-            <Image Source="Images\OCOB_Logo.jpg"/>
-            <WrapPanel Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Button Name="checkoutButton" Content="Checkout" Width="150" Margin="0,0,0,10" Click="checkoutButton_Click"/>
-                <Button Name="returnButton" Content="Return" Width="150" Margin="0,0,0,10" Click="returnButton_Click"/>
-
-                <Button Name="manageResourcesButton" Content="Manage Resources" Width="150" Margin="0,0,0,10" Click="manageResources_Click"/>
-                <Button Name="manageRentalsButton" Content="Manage Rentals" Width="150" Margin="0,0,0,10" Click="manageRentals_Click"/>
-                <Button Name="manageRentersButton" Content="Manage Renters" Width="150" Margin="0,0,0,10" Click="manageRenters_Click"/>
-                <Button Name="cardSwipWindow" Content="cardSwipe" Width="150" Margin="0,0,0,10" Click="cardSwipWindow_Click"/>
-                
-            </WrapPanel>
-        </Grid>
-        
-
     </Grid>
 </Window>

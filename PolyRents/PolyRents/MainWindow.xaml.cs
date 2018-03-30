@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using PolyRents.ComputingResourcesDataSetTableAdapters;
 using PolyRents.views.manage;
+using System.Timers;
+using System.Threading.Tasks;
 
 namespace PolyRents
 {
@@ -13,12 +15,53 @@ namespace PolyRents
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window    {
+
         private String myStatus;
+        private Timer statusTimer;
+
+        public String Status
+        {
+            get
+            {
+                return myStatus;
+            }
+            set
+            {
+                myStatus = value;
+                status.Text = value;
+                status.ToolTip = value == "" ? null : value;
+            }
+        }
+
+        public void OnLoggerMessageChanged(object sender, MessageEventArgs e)
+        {
+            statusTimer.Stop();
+            Status = e.Message;
+
+            if (e.Level == "FATAL")
+            {
+                return;
+            }
+
+            statusTimer.Start();
+        }
+
+        private void OnTimedEvent(Object source, ElapsedEventArgs e)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                Status = "";
+            });
+        }
 
         private ManageResourcesView manageResources;
         private ManageRentersView manageRenters;
         private ManageRentalsView manageRentals;
         private CheckoutWindow checkout;
+
+        private Logger logger = Logger.getInstance();
+
+        public delegate void OnMessageChanged(string message);
 
         private Rental_HistoryTableAdapter rentals;
 
@@ -86,6 +129,11 @@ namespace PolyRents
         {
             myWindows = new List<Window>();
 
+            statusTimer = new Timer(15000);
+            statusTimer.Elapsed += OnTimedEvent;
+
+            logger.MessageChanged += new MessageChangedHandler(OnLoggerMessageChanged);
+
             InitializeComponent();
 
             makeWindows();
@@ -94,7 +142,7 @@ namespace PolyRents
 
             InformationStatus = "ready";
         }
-
+        
         private void makeWindows()
         {
             ManageRenters = new ManageRentersView();
