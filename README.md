@@ -4,13 +4,24 @@ Resource checkout system for the OCOB helpdesk.
 
 ### Component Diagram
 ![Alt text](docs/ComponentDiagram.png?raw=true "Component Diagram")
+#### MVVC Example Code
+[View - ManageRentals](https://github.com/mdavis60/PolyRents/blob/master/PolyRents/PolyRents/views/manage/ManageRentalsView.xaml)
+
+[ViewModel -ManageRentalsView](https://github.com/mdavis60/PolyRents/blob/master/PolyRents/PolyRents/views/manage/ManageRentalsView.xaml.cs)
+
+[Model - Rental](https://github.com/mdavis60/PolyRents/blob/master/PolyRents/PolyRents/model/Rental.cs)
+
+[DataAccessLayer - ComputingResourcesDataSet.Rental_HistoryTableAdapter](https://github.com/mdavis60/PolyRents/blob/883152b2dcd978c83803fb3d8dddfab118e5886f/PolyRents/PolyRents/ComputingResourcesDataSet.cs#L22-L95)
 
 ### ER Diagram
 ![Alt text](docs/PolyRentsERDiagram.png?raw=true "ER Diagram")
 
 
+
 ### Class Diagram
 ![Alt text](docs/ClassDiagram.png?raw=true "Class Diagram")
+[Auto Generated Table Adapters](https://github.com/mdavis60/PolyRents/blob/master/PolyRents/PolyRents/ComputingResourcesDataSet.Designer.cs)
+[Table Adapter Class extensions](https://github.com/mdavis60/PolyRents/blob/master/PolyRents/PolyRents/ComputingResourcesDataSet.cs)
 
 ## Further Info
 ### Library Numbers Explained
