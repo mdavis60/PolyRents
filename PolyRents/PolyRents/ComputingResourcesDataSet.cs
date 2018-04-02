@@ -24,6 +24,8 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
         private RentalConverter converter;
         private static Rental_HistoryTableAdapter myInstance;
 
+        private Logger logger = Logger.getInstance();
+
         private RentalConverter Converter
         {
             get
@@ -53,12 +55,26 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
 
         public void deleteSingle(int id)
         {
-            DeleteQuery(id);
+            try
+            {
+                DeleteQuery(id);
+            }
+            catch(Exception ex)
+            {
+                logger.Debug(ex.Message);
+            }
         }
 
         public void deleteSingle(Rental toDelete)
         {
-            DeleteQuery(toDelete.IdRental);
+            try
+            {
+                DeleteQuery(toDelete.IdRental);
+            }
+            catch (Exception ex)
+            {
+                logger.Debug(ex.Message);
+            }
         }
 
         public List<Rental> getAll()
@@ -78,7 +94,9 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
 
         public Rental getById(int id)
         {
-            return Converter.ConvertSingle(GetData().FindByID(id));
+            Rental_HistoryRow row = GetData().FindByID(id);
+
+            return row == null ? null : Converter.ConvertSingle(row);
         }
 
         public List<Rental> getResourceRentalHistory(Resource resource)
@@ -88,7 +106,12 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
 
         public Rental updateSingle(Rental toUpdate)
         {
-            UpdateQuery(toUpdate.Renter.IdRenter, toUpdate.Resource.IdResource, toUpdate.CheckoutTime, toUpdate.CheckinTime, toUpdate.IdRental);
+            int updateResult = UpdateQuery(toUpdate.Renter.IdRenter, toUpdate.Resource.IdResource, toUpdate.CheckoutTime, toUpdate.CheckinTime, toUpdate.IdRental);
+
+            if (updateResult != 1)
+            {
+                logger.Debug(string.Format("Update result on rental {0} returned {1}", toUpdate.IdRental, updateResult));
+            }
 
             return toUpdate;
         }
@@ -97,6 +120,8 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
     {
         private RenterConverter converter;
         private static RenterTableAdapter myInstance;
+
+        private Logger logger = Logger.getInstance();
 
         private RenterConverter Converter
         {
@@ -147,12 +172,26 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
 
         public Renter getRenterByEmail(string email)
         {
-            return Converter.ConvertAll(GetDataByCpEmail(email).Rows)[0];
+            DataRowCollection rows = GetDataByCpEmail(email).Rows;
+
+            if (rows.Count != 1)
+            {
+                logger.Error(string.Format("get by email query with email {0} returned {1} results", email, rows.Count));
+            }
+            
+            return rows.Count == 0 ? null: Converter.ConvertAll(rows)[0];
         }
 
         public Renter getRenterByLibraryNumber(string libNumber)
         {
-            return Converter.ConvertAll(GetDataByLibNumber(libNumber).Rows)[0];
+            DataRowCollection rows = GetDataByLibNumber(libNumber).Rows;
+
+            if (rows.Count != 1)
+            {
+                logger.Error(string.Format("get by libnumber query with libnumber {0} returned {1} results", libNumber, rows.Count));
+            }
+
+            return rows.Count == 0 ? null: Converter.ConvertAll(GetDataByLibNumber(libNumber).Rows)[0];
         }
 
         public Renter updateRenterCanRent(int idRenter, bool newCanRent)
@@ -167,7 +206,16 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
 
         public Renter updateSingle(Renter toUpdate)
         {
-            UpdateQuery(toUpdate.LibraryNumber, toUpdate.FirstName, toUpdate.LastName, toUpdate.CpEmail, toUpdate.Role, toUpdate.CanRent, toUpdate.IdRenter);
+            int updateCount = UpdateQuery(toUpdate.LibraryNumber, toUpdate.FirstName, toUpdate.LastName, toUpdate.CpEmail, toUpdate.Role, toUpdate.CanRent, toUpdate.IdRenter);
+
+            if (updateCount == 0)
+            {
+                logger.Debug(string.Format("update Renter failed on renter with id {0}", toUpdate.IdRenter));
+            }
+            if (updateCount > 1)
+            {
+                logger.Error(string.Format("update Renter updated {1} renters with renter with id {0}", toUpdate.IdRenter, updateCount));
+            }
 
             return toUpdate;
         }
@@ -260,6 +308,8 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
         private ResourceConverter converter;
         private static ResourcesTableAdapter myInstance;
 
+        private Logger logger = Logger.getInstance();
+
         public static ResourcesTableAdapter getInstance()
         {
             if (myInstance == null)
@@ -305,7 +355,15 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
 
         public Resource getById(int id)
         {
-            return Converter.ConvertSingle(GetData().FindByidResource(id));
+            ResourcesRow row = GetData().FindByidResource(id);
+
+            if (row == null)
+            {
+                logger.Warning("get resource by id returned no results");
+                return new Resource();
+            }
+
+            return Converter.ConvertSingle(row);
         }
 
         public Resource updateSingle(Resource toUpdate)
