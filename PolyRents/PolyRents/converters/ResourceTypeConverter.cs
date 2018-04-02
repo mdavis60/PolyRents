@@ -6,11 +6,11 @@ namespace PolyRents.helpers
 {
     public class ResourceTypeConverter : IConverter<ResourceType>
     {
-        private ResourcesTableAdapter resourceTable;
+        private ResourceTypeTableAdapter types;
 
         public ResourceTypeConverter()
         {
-            resourceTable = ResourcesTableAdapter.getInstance();
+            types = ResourceTypeTableAdapter.getInstance();
         }
 
         public override ResourceType ConvertSingle(DataRow row)
@@ -27,7 +27,7 @@ namespace PolyRents.helpers
 
         public override DataRow toDataRow(ResourceType toConvert)
         {
-            DataRow row = resourceTable.GetData().NewRow();
+            DataRow row = types.GetData().NewRow();
 
             row["ID"] = toConvert.IdResourceType;
             row["ResourceName"] = toConvert.ResourceName;

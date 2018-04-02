@@ -174,7 +174,7 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
     }
     partial class ResourceTypeTableAdapter : ResourceTypeDAO
     {
-        private ResourceTypeConverter converter = new ResourceTypeConverter();
+        private ResourceTypeConverter converter;
         private static ResourceTypeTableAdapter myInstance;
 
         public static ResourceTypeTableAdapter getInstance()
@@ -186,6 +186,18 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
             return myInstance;
         }
 
+        private ResourceTypeConverter Converter
+        {
+            get
+            {
+                if (converter == null)
+                {
+                    converter = new ResourceTypeConverter();
+                }
+                return converter;
+            }
+        }
+
         public void deleteSingle(int id)
         {
             GetData().Rows.Remove(GetData().FindByID(id));
@@ -195,12 +207,12 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
 
         public List<ResourceType> getAll()
         {
-            return converter.ConvertAll(GetData().Rows);
+            return Converter.ConvertAll(GetData().Rows);
         }
 
         public ResourceType getById(int id)
         {
-            return converter.ConvertSingle(GetData().FindByID(id));
+            return Converter.ConvertSingle(GetData().FindByID(id));
         }
 
         public ResourceType updatePastDueCost(ResourceType type, decimal newPastDueCost)
