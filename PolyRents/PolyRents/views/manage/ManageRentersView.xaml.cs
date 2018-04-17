@@ -19,6 +19,7 @@ using PolyRents.ComputingResourcesDataSetTableAdapters;
 using System.Data;
 using System.ComponentModel;
 using PolyRents.converters;
+using System.Collections;
 
 namespace PolyRents.views
 {
@@ -31,6 +32,8 @@ namespace PolyRents.views
         private RenterConverter renterConverter;
 
         private AddEditRenterView addEdit;
+        private ConfirmationDialog deleteConfirmation;
+        private InformationWindow infoWindow;
 
         public ManageRentersView()
         {
@@ -96,11 +99,44 @@ namespace PolyRents.views
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (renterDataGrid.SelectedItem != null)
+            if (renterDataGrid.SelectedItem == null)
             {
-                Renter toDelete = renterConverter.ConvertSingle((renterDataGrid.SelectedItem as DataRowView).Row);
+                return;
+            }
+
+            String confirmMessage = "Are you sure you want to delete this renter entry?";
+
+            if (renterDataGrid.SelectedItems != null && renterDataGrid.SelectedItems.Count > 1)
+            {
+                confirmMessage = "Are you sure you want to delete these " + renterDataGrid.SelectedItems.Count + " renter entries?";
+            }
+
+            if (deleteConfirmation == null)
+            {
+                deleteConfirmation = new ConfirmationDialog("Delete Renter Confirmation");
+            }
+
+            deleteConfirmation.setMessage(confirmMessage);
+
+            deleteConfirmation.ShowDialog();
+
+            if (!deleteConfirmation.YesClicked)
+            {
+                return;
+            }
+
+            deleteRentersHelper(renterDataGrid.SelectedItems);
+            updateDataGrid();
+        }
+
+        private void deleteRentersHelper(IList rowsToDelete)
+        {
+            Renter toDelete;
+
+            foreach (DataRowView row in rowsToDelete)
+            {
+                toDelete = renterConverter.ConvertSingle((renterDataGrid.SelectedItem as DataRowView).Row);
                 renters.deleteSingle(toDelete);
-                updateDataGrid();
             }
         }
 

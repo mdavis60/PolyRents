@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PolyRents.views"
         xmlns:PolyRents="clr-namespace:PolyRents"
         mc:Ignorable="d"
-        Title="Manage Renters" Height="500" Width="500" Loaded="Window_Loaded">
+        Title="Manage Renters" Height="500" Width="500" Loaded="Window_Loaded" >
     <Window.Resources>
         <PolyRents:ComputingResourcesDataSet x:Key="computingResourcesDataSet"/>
         <CollectionViewSource x:Key="renterViewSource" Source="{Binding Renter, Source={StaticResource computingResourcesDataSet}}"/>
@@ -35,14 +35,8 @@
             
             <WrapPanel Grid.Row="0" Grid.ColumnSpan="2">
                 <Label Content="Renters" FontSize="16" FontWeight="Bold"/>
-                <DataGrid x:Name="renterDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn x:Name="firstNameColumn"    Binding="{Binding FirstName}"       Header="First Name"         Width="SizeToHeader"/>
-                        <DataGridTextColumn x:Name="lastNameColumn"     Binding="{Binding LastName}"        Header="Last Name"          Width="SizeToHeader"/>
-                        <DataGridTextColumn x:Name="calpolyEmailColumn" Binding="{Binding calpolyEmail}"    Header="Cal Poly Email"     Width="SizeToHeader"/>
-                        <DataGridTextColumn x:Name="libNumberColumn"    Binding="{Binding libNumber}"       Header="Library Number"     Width="SizeToHeader"/>
-                        <DataGridCheckBoxColumn x:Name="canRentColumn"  Binding="{Binding canRent}"         Header="Can Rent"           Width="SizeToHeader"/>
-                    </DataGrid.Columns>
+                <DataGrid x:Name="renterDataGrid" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" IsReadOnly="True">
+                    
                 </DataGrid>
             </WrapPanel>
 

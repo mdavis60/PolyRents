@@ -19,14 +19,26 @@
         </Grid.ColumnDefinitions>
         <Grid Name="mainView" Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="6*"/>
                 <RowDefinition Height="4*"/>
+                <RowDefinition Height="6*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Vertical" Grid.Row="0">
+                <Label Content="Resource" FontSize="14" FontWeight="Bold"/>
+                <WrapPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <Label Content="Resource" Width="75" FontSize="10"/>
+                    <TextBox Name="resourceId" Width="150" LostFocus="resourceId_LostFocus"/>
+                </WrapPanel>
+                <WrapPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <Label Content="Resource Type" Width="75" FontSize="10"/>
+                    <TextBox Name="resourceType" Width="150" TabIndex="1"/>
+                </WrapPanel>
+            </StackPanel>
+            
+            <StackPanel Orientation="Vertical" Grid.Row="1">
                 <Label Content="Renter" FontSize="14" FontWeight="Bold"/>
                 <WrapPanel Orientation="Horizontal" Margin="0,0,0,10">
                     <Label Content="Name" Width="75" FontSize="10"/>
@@ -38,25 +50,13 @@
                 </WrapPanel>
                 <WrapPanel Orientation="Horizontal" Margin="0,0,0,10">
                     <Label Content="Library Code" Width="75" FontSize="10"/>
-                    <TextBox Name="renterLibNumber" Width="150" IsEnabled="False" />
+                    <TextBox Name="renterLibNumber" Width="150" IsEnabled="False" TabIndex="2"/>
                 </WrapPanel>
                 <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Name="swipeButton" Content="Swipe" Width="70" Margin="0,0,10,0" Click="swipeButton_Click"/>
                     <Button Name="searchButton" Content="Search..." Width="70" Margin="10,0,0,0" />
                 </WrapPanel>
             </StackPanel>
-            <StackPanel Orientation="Vertical" Grid.Row="1">
-                <Label Content="Resource" FontSize="14" FontWeight="Bold"/>
-                <WrapPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <Label Content="Resource" Width="75" FontSize="10"/>
-                    <TextBox Name="resourceId" Width="150" LostFocus="resourceId_LostFocus"/>
-                </WrapPanel>
-                <WrapPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <Label Content="Resource Type" Width="75" FontSize="10"/>
-                    <TextBox Name="resourceType" Width="150" />
-                </WrapPanel>
-            </StackPanel>
-
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Bottom">
                 <Button Name="okButton" Content="Ok" Width="70" Margin="0,0,10,0" Click="Submit"/>
                 <Button Name="cancelButton" Content="Cancel" Width="70" Margin="10,0,0,0" Click="Submit"/>

@@ -38,15 +38,9 @@
 
             <WrapPanel Grid.Row="0" Grid.ColumnSpan="2">
                 <Label Content="Resources" FontSize="16" FontWeight="Bold"/>
-                
-                <DataGrid x:Name="resourcesDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn x:Name="idResourceColumn"           Binding="{Binding idResource}"          Header="ID"        Width="*" MinWidth="75"/>
-                        <DataGridTextColumn x:Name="idResourceTypeColumn"       Binding="{Binding idResourceType}"      Header="Resource Type"   Width="*" MinWidth="100"/>
-                        <DataGridTextColumn x:Name="statusColumn"               Binding="{Binding status}"              Header="Status"             Width="*" MinWidth="75"/>
-                        <DataGridTextColumn x:Name="status_descriptionColumn"   Binding="{Binding status description}"  Header="Comments" Width="*" MinWidth="150"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+
+                <DataGrid x:Name="resourcesDataGrid" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" 
+                          RowDetailsVisibilityMode="VisibleWhenSelected" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" IsReadOnly="True"/>
             </WrapPanel>
 
         </Grid>

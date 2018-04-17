@@ -19,6 +19,7 @@ using PolyRents.ComputingResourcesDataSetTableAdapters;
 using System.Data;
 using System.ComponentModel;
 using PolyRents.converters;
+using System.Collections;
 
 namespace PolyRents.views.manage
 {
@@ -31,6 +32,8 @@ namespace PolyRents.views.manage
         private RentalConverter rentalConverter;
 
         private CheckoutWindow checkout;
+        private ConfirmationDialog deleteConfirmation;
+        private InformationWindow infoWindow;
 
         public ManageRentalsView()
         {
@@ -96,18 +99,51 @@ namespace PolyRents.views.manage
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (rental_HistoryDataGrid.SelectedItem != null)
+            if (rental_HistoryDataGrid.SelectedItem == null)
             {
-                Rental toDelete = rentalConverter.ConvertSingle((rental_HistoryDataGrid.SelectedItem as DataRowView).Row);
-                rentals.deleteSingle(toDelete);
-                updateDataGrid();
+                return;
             }
+
+            String confirmMessage = "Are you sure you want to delete this rental entry?";
+
+            if (rental_HistoryDataGrid.SelectedItems != null && rental_HistoryDataGrid.SelectedItems.Count > 1)
+            {
+                confirmMessage = "Are you sure you want to delete these " + rental_HistoryDataGrid.SelectedItems.Count + " rental entries?";
+            }
+
+            if (deleteConfirmation == null)
+            {
+                deleteConfirmation = new ConfirmationDialog("Delete Rental Confirmation");
+            }
+
+            deleteConfirmation.setMessage(confirmMessage);
+
+            deleteConfirmation.ShowDialog();
+
+            if (!deleteConfirmation.YesClicked)
+            {
+                return;
+            }
+
+            deleteRentalsHelper(rental_HistoryDataGrid.SelectedItems);
+            updateDataGrid();
         }
 
         private void updateDataGrid()
         {
             rental_HistoryDataGrid.ItemsSource = null;
             rental_HistoryDataGrid.ItemsSource = rentals.GetData();
+        }
+
+        private void deleteRentalsHelper(IList rowsToDelete)
+        {
+            Rental toDelete;
+
+            foreach (DataRowView row in rowsToDelete)
+            {
+                toDelete = rentalConverter.ConvertSingle((rental_HistoryDataGrid.SelectedItem as DataRowView).Row);
+                rentals.deleteSingle(toDelete);
+            }
         }
 
         protected override void OnClosing(CancelEventArgs e)

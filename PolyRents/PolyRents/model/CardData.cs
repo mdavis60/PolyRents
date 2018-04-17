@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace PolyRents.model
@@ -15,6 +16,8 @@ namespace PolyRents.model
 
         private String libNumber;
         private String role;
+
+        private static Regex reg = new Regex(@"\%(\d{ 13})\^(.{7})\?");
 
         public String RawInput
         {
@@ -118,6 +121,11 @@ namespace PolyRents.model
 
         public int calculateCheckDigit()
         {
+            return calculateCheckDigit(libNumber);
+        }
+
+        private static int calculateCheckDigit(string libNumber)
+        {
             int sum = 0;
 
             int stepNum = 0;
@@ -138,7 +146,7 @@ namespace PolyRents.model
                 sum += stepNum;
 
             }
-            
+
             return 10 - sum % 10;
         }
 
@@ -154,6 +162,32 @@ namespace PolyRents.model
             int roleLength = lastIndex - roleIndex;
 
             return rawInput.Substring(roleIndex, roleLength);
+        }
+
+        public static bool rawDataIsValid(String rawData)
+        {
+            return reg.IsMatch(rawData);
+        }
+        
+        public static string getRoleFromRawData(string rawData)
+        {
+            if (rawDataIsValid(rawData))
+            {
+                return reg.Match(rawData).NextMatch().Value;
+            }
+
+            return "";
+        }
+
+        public static string getLibNumberFromRawData(string rawData)
+        {
+            if (rawDataIsValid(rawData))
+            {
+                string encodedNumber = reg.Match(rawData).Value;
+                return encodedNumber + calculateCheckDigit(encodedNumber);
+            }
+
+            return "";
         }
 
         private String makeMockRawData(String libNumber, String role)

@@ -161,14 +161,17 @@
     <Compile Include="views\CardSwipeWindow.xaml.cs">
       <DependentUpon>CardSwipeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\CheckoutView.xaml.cs">
-      <DependentUpon>CheckoutView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="views\addEdit\AddEditResourceView.xaml.cs">
       <DependentUpon>AddEditResourceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\CheckoutWindow.xaml.cs">
       <DependentUpon>CheckoutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\ConfirmationDialog.xaml.cs">
+      <DependentUpon>ConfirmationDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\InformationWindow.xaml.cs">
+      <DependentUpon>InformationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\manage\ManageRentalsView.xaml.cs">
       <DependentUpon>ManageRentalsView.xaml</DependentUpon>
@@ -207,15 +210,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\CheckoutView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="views\addEdit\AddEditResourceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\CheckoutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\ConfirmationDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\InformationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

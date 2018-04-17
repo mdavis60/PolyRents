@@ -18,6 +18,7 @@ using PolyRents.views;
 using PolyRents.ComputingResourcesDataSetTableAdapters;
 using System.Data;
 using System.ComponentModel;
+using System.Collections;
 
 namespace PolyRents.views
 {
@@ -33,6 +34,8 @@ namespace PolyRents.views
         private ResourceTypeConverter typeConverter;
 
         private AddEditResourceView addEdit;
+        private ConfirmationDialog deleteConfirmation;
+        private InformationWindow infoWindow;
 
         public ManageResourcesView()
         {
@@ -87,12 +90,34 @@ namespace PolyRents.views
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (resourcesDataGrid.SelectedItem != null)
+            if (resourcesDataGrid.SelectedItem == null)
             {
-                Resource toDelete = resourceConverter.ConvertSingle((resourcesDataGrid.SelectedItem as DataRowView).Row);
-                resources.deleteSingle(toDelete);
-                updateDataGrid();
+                return;
             }
+
+            String confirmMessage = "Are you sure you want to delete this rental entry?";
+
+            if (resourcesDataGrid.SelectedItems != null && resourcesDataGrid.SelectedItems.Count > 1)
+            {
+                confirmMessage = "Are you sure you want to delete these " + resourcesDataGrid.SelectedItems.Count + " rental entries?";
+            }
+
+            if (deleteConfirmation == null)
+            {
+                deleteConfirmation = new ConfirmationDialog("Delete Rental Confirmation");
+            }
+
+            deleteConfirmation.setMessage(confirmMessage);
+
+            deleteConfirmation.ShowDialog();
+
+            if (!deleteConfirmation.YesClicked)
+            {
+                return;
+            }
+
+            deleteResourcesHelper(resourcesDataGrid.SelectedItems);
+            updateDataGrid();
         }
 
         private void detailsButton_Click(object sender, RoutedEventArgs e)
@@ -114,7 +139,17 @@ namespace PolyRents.views
             resourcesDataGrid.ItemsSource = null;
             resourcesDataGrid.ItemsSource = resources.GetData();
         }
-        
+
+        private void deleteResourcesHelper(IList rowsToDelete)
+        {
+            Resource toDelete;
+
+            foreach (DataRowView row in rowsToDelete)
+            {
+                toDelete = resourceConverter.ConvertSingle((resourcesDataGrid.SelectedItem as DataRowView).Row);
+                resources.deleteSingle(toDelete);
+            }
+        }
 
         protected override void OnClosing(CancelEventArgs e)
         {

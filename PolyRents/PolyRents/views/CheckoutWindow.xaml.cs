@@ -189,7 +189,7 @@ namespace PolyRents.views
                 resource = resources.getById(id);
             }
 
-            resourceType.Text = resource.Type == null ?
+            resourceType.Text = resource == null || resource.Type == null ?
                 "" : resource.Type.ResourceName;
         }
     }
