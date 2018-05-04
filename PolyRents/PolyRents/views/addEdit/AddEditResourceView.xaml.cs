@@ -5,6 +5,7 @@ using System.Windows;
 using static PolyRents.model.Status;
 using System.ComponentModel;
 using System.Windows.Controls;
+using PolyRents.helpers;
 
 namespace PolyRents.views
 {
@@ -14,6 +15,9 @@ namespace PolyRents.views
     public partial class AddEditResourceView : Window
     {
         private Resource resource;
+        private bool isEdit;
+
+        private Logger logger = Logger.getInstance();
 
         public Resource BoundResource
         {
@@ -80,7 +84,7 @@ namespace PolyRents.views
             }
         }
 
-        public AddEditResourceView(Resource theResource = null, ResourceType[] types = null)
+        public AddEditResourceView(Resource theResource = null, ResourceType[] types = null, bool isEdit = false)
         {
 
             if (types == null)
@@ -94,6 +98,8 @@ namespace PolyRents.views
             {
                 theResource = new Resource();
             }
+
+            this.isEdit = isEdit;
 
             SetResourceToView(theResource);
             
@@ -118,16 +124,19 @@ namespace PolyRents.views
             resourceType.SelectedValue = resource.Type;
             status.SelectedValue = Status.StatusToString(resource.Status);
 
+            resourceType.IsEnabled = !isEdit;
+
             statusDescription.Text = resource.StatusDescription;
         }
 
-        public void SetResourceToView(Resource aResource = null)
+        public void SetResourceToView(Resource aResource = null, bool isEdit = false)
         {
             if (aResource == null)
             {
                 aResource = new Resource();
             }
             ResourceChanged = false;
+            this.isEdit = isEdit;
 
             resource = aResource;
             newResource = new Resource(aResource);
@@ -139,11 +148,7 @@ namespace PolyRents.views
             }
         }
 
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            e.Cancel = true;
-            base.Hide();
-        }
+        
 
         private void Submit(object sender, RoutedEventArgs e)
         {
@@ -151,7 +156,9 @@ namespace PolyRents.views
 
             if (((String)sent.Name).Equals("cancelButton"))
             {
+                ResourceChanged = false;
                 Close();
+                return;
             }
 
             if (FormValid)
@@ -174,6 +181,14 @@ namespace PolyRents.views
                 ErrorLabel.Visibility = ErrorVisible;
             }
             
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            logger.Debug("Add/Edit Resource Custom closing method triggered\n" +
+                "\tSender " + sender.ToString());
+            e.Cancel = true;
+            Hide();
         }
     }
 }

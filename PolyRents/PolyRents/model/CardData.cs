@@ -17,7 +17,7 @@ namespace PolyRents.model
         private String libNumber;
         private String role;
 
-        private static Regex reg = new Regex(@"\%(\d{ 13})\^(.{7})\?");
+        private static Regex reg = new Regex(@"\%(\d{13})\^(.{7})\?");
 
         public String RawInput
         {
@@ -173,7 +173,7 @@ namespace PolyRents.model
         {
             if (rawDataIsValid(rawData))
             {
-                return reg.Match(rawData).NextMatch().Value;
+                return reg.Match(rawData).Groups[2].Value;
             }
 
             return "";
@@ -183,11 +183,16 @@ namespace PolyRents.model
         {
             if (rawDataIsValid(rawData))
             {
-                string encodedNumber = reg.Match(rawData).Value;
+                string encodedNumber = reg.Match(rawData).Groups[1].Value;
                 return encodedNumber + calculateCheckDigit(encodedNumber);
             }
 
             return "";
+        }
+
+        public static string completeLibNumber(string libNumber)
+        {
+            return libNumber + calculateCheckDigit(libNumber);
         }
 
         private String makeMockRawData(String libNumber, String role)

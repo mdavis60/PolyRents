@@ -64,6 +64,7 @@ namespace PolyRents
         public delegate void OnMessageChanged(string message);
 
         private Rental_HistoryTableAdapter rentals;
+        private ResourcesTableAdapter resources;
 
         private List<Window> myWindows;
 
@@ -139,6 +140,7 @@ namespace PolyRents
             makeWindows();
 
             rentals = Rental_HistoryTableAdapter.getInstance();
+            resources = ResourcesTableAdapter.getInstance();
 
             InformationStatus = "ready";
         }
@@ -164,11 +166,14 @@ namespace PolyRents
                 myWindows.Add(Checkout);
             }
 
+            Checkout.SetRentalToView();
+
             Checkout.ShowDialog();
 
             if (Checkout.RentalChanged)
             {
                 rentals.addSingle(Checkout.BoundRental);
+                resources.updateSingle(Checkout.BoundRental.Resource);
             }
         }
 
@@ -179,11 +184,7 @@ namespace PolyRents
 
         private void manageResources_Click(object sender, RoutedEventArgs e)
         {
-            if (manageResources == null)
-            {
-                ManageResources = new ManageResourcesView();
-                myWindows.Add(ManageResources);
-            }
+            ManageResources = new ManageResourcesView();
 
             ManageResources.Show();
         }

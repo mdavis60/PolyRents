@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PolyRents.views"
         mc:Ignorable="d"
-        Title="CheckoutWindow" Height="400" Width="300">
+        Title="CheckoutWindow" Height="400" Width="300" IsVisibleChanged="Window_IsVisibleChanged">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -34,7 +34,7 @@
                 </WrapPanel>
                 <WrapPanel Orientation="Horizontal" Margin="0,0,0,10">
                     <Label Content="Resource Type" Width="75" FontSize="10"/>
-                    <TextBox Name="resourceType" Width="150" TabIndex="1"/>
+                    <TextBox Name="resourceType" Width="150"/>
                 </WrapPanel>
             </StackPanel>
             
@@ -50,7 +50,7 @@
                 </WrapPanel>
                 <WrapPanel Orientation="Horizontal" Margin="0,0,0,10">
                     <Label Content="Library Code" Width="75" FontSize="10"/>
-                    <TextBox Name="renterLibNumber" Width="150" IsEnabled="False" TabIndex="2"/>
+                    <TextBox Name="renterLibNumber" Width="150" TabIndex="1" GotFocus="renterLibNumber_GotFocus" LostFocus="renterLibNumber_LostFocus"/>
                 </WrapPanel>
                 <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Name="swipeButton" Content="Swipe" Width="70" Margin="0,0,10,0" Click="swipeButton_Click"/>

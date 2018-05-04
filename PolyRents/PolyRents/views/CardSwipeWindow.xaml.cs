@@ -82,7 +82,7 @@ namespace PolyRents.views
             resetFlags();
         }
         
-        private void keyUpHandler(object sender, KeyEventArgs e)
+        public void keyUpHandler(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.LeftShift)
             {
@@ -90,7 +90,7 @@ namespace PolyRents.views
             }
         }
 
-        private void keyDownHandler(object sender, KeyEventArgs e)
+        public void keyDownHandler(object sender, KeyEventArgs e)
         {
             Key key = e.Key;
             int keyVal = (int) e.Key;
@@ -173,6 +173,7 @@ namespace PolyRents.views
         }
         protected override void OnClosing(CancelEventArgs e)
         {
+            rawDataTextBox.Focus();
             e.Cancel = true;
             base.Hide();
         }

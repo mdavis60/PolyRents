@@ -141,7 +141,7 @@ namespace PolyRents.views.manage
 
             foreach (DataRowView row in rowsToDelete)
             {
-                toDelete = rentalConverter.ConvertSingle((rental_HistoryDataGrid.SelectedItem as DataRowView).Row);
+                toDelete = rentalConverter.ConvertSingle(row.Row);
                 rentals.deleteSingle(toDelete);
             }
         }

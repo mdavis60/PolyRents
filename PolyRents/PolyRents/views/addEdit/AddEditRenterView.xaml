@@ -41,8 +41,8 @@
                 <TextBox Name="firstName" Margin="0,0,0,10"/>
                 <TextBox Name="lastName" Margin="0,0,0,10"/>
                 <TextBox Name="cpEmail" Margin="0,0,0,10"/>
-                <TextBox Name="libNumber"  Margin="0,0,0,10"/>
-                <ComboBox Name="role"  Margin="0,0,0,10"/>
+                <TextBox Name="libNumberText"  Margin="0,0,0,10" GotFocus="libNumber_GotFocus" LostFocus="libNumber_LostFocus"/>
+                <ComboBox Name="roleSelector"  Margin="0,0,0,10"/>
                 <CheckBox Name="canRent" HorizontalAlignment="Center"/>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">

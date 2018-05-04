@@ -167,7 +167,14 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
 
         public Renter getById(int id)
         {
-            return Converter.ConvertSingle(GetData().FindByidRenter(id));
+            RenterRow renterRow = GetData().FindByidRenter(id);
+
+            if (renterRow == null)
+            {
+                logger.Warning("Get Renter by Id return no results id: " + id);
+                return null;
+            }
+            return Converter.ConvertSingle(renterRow);
         }
 
         public Renter getRenterByEmail(string email)
@@ -224,6 +231,7 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
     {
         private ResourceTypeConverter converter;
         private static ResourceTypeTableAdapter myInstance;
+        private Logger logger = Logger.getInstance();
 
         public static ResourceTypeTableAdapter getInstance()
         {
@@ -260,7 +268,15 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
 
         public ResourceType getById(int id)
         {
-            return Converter.ConvertSingle(GetData().FindByID(id));
+            ResourceTypeRow resourceTypeRow = GetData().FindByID(id);
+
+            if (resourceTypeRow == null)
+            {
+                logger.Warning("Get Resource type by id returned no results. id: " + id);
+                return null;
+            }
+
+            return Converter.ConvertSingle(resourceTypeRow);
         }
 
         public ResourceType updatePastDueCost(ResourceType type, decimal newPastDueCost)
@@ -360,7 +376,7 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
             if (row == null)
             {
                 logger.Warning("get resource by id returned no results");
-                return new Resource();
+                return null;
             }
 
             return Converter.ConvertSingle(row);

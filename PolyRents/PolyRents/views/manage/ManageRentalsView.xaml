@@ -22,7 +22,7 @@
             <RowDefinition Height="8*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="1" Grid.Column="1" DataContext="{StaticResource rental_HistoryViewSource}">
+        <Grid x:Name="grid" Grid.Row="1" Grid.Column="1" DataContext="{StaticResource rental_HistoryViewSource}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -32,12 +32,13 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+            <WrapPanel x:Name="stackPanel" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Vertical" ItemWidth="{Binding ActualWidth, ElementName=stackPanel, Mode=OneWay}"> 
                 <Label Content="Rentals" FontSize="16" FontWeight="Bold"/>
 
                 <DataGrid x:Name="rental_HistoryDataGrid" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" 
-                          RowDetailsVisibilityMode="VisibleWhenSelected" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" IsReadOnly="True"/>
-            </StackPanel>
+                          RowDetailsVisibilityMode="VisibleWhenSelected" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" IsReadOnly="True" VerticalAlignment="Bottom"
+                          />
+            </WrapPanel>
 
             <Button x:Name="newButton" Content="New..." HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" Width="75" Click="newButton_Click"/>
             <Button x:Name="editButton" Content="Edit..." HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" Margin="0,0,10,0" Width="75" Click="editButton_Click"/>

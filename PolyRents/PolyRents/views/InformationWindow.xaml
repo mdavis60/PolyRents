@@ -29,7 +29,7 @@
                 <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Name="infoText" Grid.ColumnSpan="3" Grid.Row="0" Text="Text not set" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Name="infoText" Grid.ColumnSpan="3" Grid.Row="0" Text="Text not set" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
 
             <Button Name="okButton" Grid.Row="1" Grid.Column="0" Content="Ok" IsDefault="True" Margin="10,15" Click="button_Click"/>
             <Button Name="cancelButton" Grid.Row="1" Grid.Column="1" Content="Cancel" IsCancel="True" Margin="10,15" Click="button_Click"/>

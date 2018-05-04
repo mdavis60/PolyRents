@@ -81,7 +81,7 @@ namespace PolyRents.views
                 toEdit = renterConverter.ConvertSingle((renterDataGrid.SelectedItem as DataRowView).Row);
             }
 
-            addEdit.SetRenterToView(toEdit);
+            addEdit.SetRenterToView(toEdit, true);
 
             addEdit.ShowDialog();
 
@@ -135,7 +135,7 @@ namespace PolyRents.views
 
             foreach (DataRowView row in rowsToDelete)
             {
-                toDelete = renterConverter.ConvertSingle((renterDataGrid.SelectedItem as DataRowView).Row);
+                toDelete = renterConverter.ConvertSingle(row.Row);
                 renters.deleteSingle(toDelete);
             }
         }

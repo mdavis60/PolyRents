@@ -6,6 +6,8 @@ using static PolyRents.model.Status;
 using System.ComponentModel;
 using System.Windows.Controls;
 using PolyRents.ComputingResourcesDataSetTableAdapters;
+using PolyRents.helpers;
+using System.Windows.Input;
 
 namespace PolyRents.views
 {
@@ -14,14 +16,30 @@ namespace PolyRents.views
     /// </summary>
     public partial class CheckoutWindow : Window
     {
+        private Logger logger = Logger.getInstance();
+
         private Rental rental;
         private Renter renter;
         private Resource resource;
+
+        private string libNumber;
+        private string role;
+
+        private string rawInput;
+
+        private bool shiftDown;
+        private bool readStarted;
+        private bool readEnded;
+        private bool libNumberRead;
 
         private CardSwipeWindow cardSwipe;
 
         private RenterTableAdapter renters;
         private ResourcesTableAdapter resources;
+
+        private InformationWindow infoWindow;
+
+        private bool readDataFlag;
 
         public Rental BoundRental
         {
@@ -53,7 +71,8 @@ namespace PolyRents.views
         {
             get
             {
-                return renterLibNumber.Text != "" && resourceId.Text != "";
+                return renterLibNumber.Text != "" && resourceId.Text != ""  
+                    && resourceType.Text != "";
             }
         }
 
@@ -80,6 +99,98 @@ namespace PolyRents.views
             InitializeComponent();
 
             initializeFields();
+        }
+
+        private void keyUpHandler(object sender, KeyEventArgs e)
+        {
+            if (!readDataFlag)
+            {
+                return;
+            }
+
+            if (e.Key == Key.LeftShift)
+            {
+                shiftDown = false;
+            }
+        }
+
+        private void keyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (!readDataFlag)
+            {
+                return;
+            }
+
+            Key key = e.Key;
+            int keyVal = (int)e.Key;
+
+            if (keyVal >= 34 && keyVal <= 43)
+            {
+                handleNumber(key);
+            }
+            else if (key == Key.LeftShift)
+            {
+                shiftDown = true;
+            }
+            else if (keyVal >= 44 && keyVal <= 69)
+            {
+                handleLetters(key);
+            }
+            else if (key == Key.OemQuestion)
+            {
+                //End of read
+                readEnded = true;
+                libNumber = CardData.completeLibNumber(libNumber);
+            }
+            else if (key == Key.Enter)
+            {
+                okButton.Focus();
+            }
+
+        }
+
+        private void handleLetters(Key key)
+        {
+            role += key.ToString();
+        }
+
+        private void handleNumber(Key key)
+        {
+            if (libNumberRead)
+            {
+                throw new Exception("Library number finished reading and read a new number");
+            }
+
+            if (shiftDown)
+            {
+                if (key == Key.D5)
+                {
+                    readStarted = true;
+                }
+                else if (key == Key.D6)
+                {
+                    libNumberRead = true;
+                }
+                else
+                {
+                    throw new Exception("Unexpected key pressed while shift pressed. Key: " + key.ToString());
+                }
+            }
+            else
+            {
+                libNumber += key.ToString().Substring(1, 1);
+            }
+        }
+
+        public void resetFlags()
+        {
+            libNumber = "";
+            role = "";
+            
+            shiftDown = false;
+            readStarted = false;
+            readEnded = false;
+            libNumberRead = false;
         }
 
         public void SetRentalToView(Rental aRental = null)
@@ -132,6 +243,7 @@ namespace PolyRents.views
             {
                 renter = renters.getRenterByLibraryNumber(renterLibNumber.Text);
                 Resource resource = resources.getById(int.Parse(resourceId.Text));
+                resource.Status = stringToStatus("CHECKED_OUT");
 
                 newRental.Renter = renter;
                 newRental.Resource = resource;
@@ -182,15 +294,91 @@ namespace PolyRents.views
         {
             TextBox sent = sender as TextBox;
 
+            if (sent.Text == "")
+            {
+                return;
+            }
+
             int id = 0;
 
-            if(int.TryParse(sent.Text, out id))
+            if (int.TryParse(sent.Text, out id))
             {
                 resource = resources.getById(id);
             }
 
-            resourceType.Text = resource == null || resource.Type == null ?
+            if (resource == null)
+            {
+                resourceType.Text = "";
+                
+                if (infoWindow == null)
+                {
+                    infoWindow = new InformationWindow("Invalid Resource Id");
+                }
+
+                infoWindow.setInfoText("The resource with  id " + resourceId.Text + " was not found");
+                infoWindow.ShowDialog();
+
+                return;
+            }
+
+            resourceType.Text = resource.Type == null ?
                 "" : resource.Type.ResourceName;
         }
+
+        private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            logger.Debug(DateTime.Now.ToShortTimeString() + ": Checkout window content rendered called");
+
+            Boolean visible = (Boolean)e.NewValue;
+
+            if (visible)
+            {
+                rental.Renter = null;
+                rental.Resource = null;
+
+                initializeFields();
+            }
+            resetFlags();
+
+            resourceId.Focus();
+        }
+
+        private void renterLibNumber_GotFocus(object sender, RoutedEventArgs e)
+        {
+            readDataFlag = true;
+
+            Keyboard.AddKeyDownHandler(renterLibNumber, keyDownHandler);
+            Keyboard.AddKeyUpHandler(renterLibNumber, keyUpHandler);
+        }
+
+        private void renterLibNumber_LostFocus(object sender, RoutedEventArgs e)
+        {
+            readDataFlag = false;
+
+            Keyboard.RemoveKeyDownHandler(renterLibNumber, keyDownHandler);
+            Keyboard.RemoveKeyUpHandler(renterLibNumber, keyUpHandler);
+
+            renter = renters.getRenterByLibraryNumber(libNumber);
+
+            if (renter == null)
+            {
+                if (infoWindow == null)
+                {
+                    infoWindow = new InformationWindow("Unrecognized Library Number");
+                }
+
+                infoWindow.setInfoText("A renter with the library number:\n" + libNumber + "\nwas not found");
+                infoWindow.ShowDialog();
+
+                renterLibNumber.Text = libNumber;
+
+                return;
+            }
+
+            renterName.Text = renter.FullName;
+            renterLibNumber.Text = renter.LibraryNumber;
+            renterEmail.Text = renter.CpEmail;
+        }
+        
     }
 }

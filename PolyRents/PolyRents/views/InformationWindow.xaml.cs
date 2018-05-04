@@ -33,6 +33,15 @@ namespace PolyRents.views
             }
         }
 
+        public InformationWindow(String title)
+        {
+            InitializeComponent();
+
+            OkClicked = false;
+
+            this.Title = title;
+        }
+
         public InformationWindow(String title, String infoMessage)
         {
             InitializeComponent();
@@ -53,7 +62,7 @@ namespace PolyRents.views
             Button b = sender as Button;
 
             OkClicked = b.Name.Equals("okButton");
-            Close();
+            Hide();
         }
     }
 }

@@ -19,6 +19,7 @@ using PolyRents.ComputingResourcesDataSetTableAdapters;
 using System.Data;
 using System.ComponentModel;
 using System.Collections;
+using System.Timers;
 
 namespace PolyRents.views
 {
@@ -37,6 +38,10 @@ namespace PolyRents.views
         private ConfirmationDialog deleteConfirmation;
         private InformationWindow infoWindow;
 
+        private Timer updateTimer;
+
+        private Logger logger = Logger.getInstance();
+
         public ManageResourcesView()
         {
             resources = ResourcesTableAdapter.getInstance();
@@ -44,6 +49,11 @@ namespace PolyRents.views
 
             resourceConverter = new ResourceConverter();
             typeConverter = new ResourceTypeConverter();
+
+            updateTimer = new Timer(5000);
+            updateTimer.AutoReset = true;
+            updateTimer.Elapsed += (sender, args) => timerTick();
+            updateTimer.Enabled = true;
 
             InitializeComponent();
 
@@ -77,7 +87,7 @@ namespace PolyRents.views
                 toEdit = resourceConverter.ConvertSingle((resourcesDataGrid.SelectedItem as DataRowView).Row);
             }
 
-            addEdit.SetResourceToView(toEdit);
+            addEdit.SetResourceToView(toEdit, true);
 
             addEdit.ShowDialog();
 
@@ -134,10 +144,22 @@ namespace PolyRents.views
             resourcesViewSource.View.MoveCurrentToFirst();
         }
 
+        private void timerTick()
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                updateDataGrid();
+            });
+        }
+
         private void updateDataGrid()
         {
+            int index = resourcesDataGrid.SelectedIndex;
+
             resourcesDataGrid.ItemsSource = null;
             resourcesDataGrid.ItemsSource = resources.GetData();
+
+            resourcesDataGrid.SelectedIndex = index;
         }
 
         private void deleteResourcesHelper(IList rowsToDelete)
@@ -146,15 +168,9 @@ namespace PolyRents.views
 
             foreach (DataRowView row in rowsToDelete)
             {
-                toDelete = resourceConverter.ConvertSingle((resourcesDataGrid.SelectedItem as DataRowView).Row);
+                toDelete = resourceConverter.ConvertSingle((row as DataRowView).Row);
                 resources.deleteSingle(toDelete);
             }
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            e.Cancel = true;
-            base.Hide();
         }
     }
 }
