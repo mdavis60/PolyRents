@@ -19,104 +19,26 @@ namespace PolyRents.model
 
         private static Regex reg = new Regex(@"\%(\d{13})\^(.{7})\?");
 
-        public String RawInput
-        {
-            get
-            {
-                return rawInput;
-            }
-
-            private set
-            {
-                rawInput = value;
-            }
-        }
-
-        public long EncodedNumber
-        {
-            get
-            {
-                return encodedNumber;
-            }
-            private set
-            {
-                encodedNumber = value;
-            }
-        }
-
-        public int CheckDigit
-        {
-            get
-            {
-                return checkDigit;
-            }
-            private set
-            {
-                checkDigit = value;
-            }
-        }
-
-        public String LibraryNumber
+        public string LibraryNumber
         {
             get
             {
                 return libNumber;
             }
-            set
-            {
-                libNumber = value;
-            }
         }
 
-        public String Role
+        public string Role
         {
             get
             {
                 return role;
             }
-            set
-            {
-                role = value;
-            }
         }
 
-
-        public CardData()
+        public CardData(string rawInput)
         {
-            libNumber = "";
-            role = "";
-        }
-
-        public CardData(String libNumber, String role)
-        {
-            setData(libNumber, role);
-        }
-
-        public CardData(String rawInput)
-        {
-            RawInput = rawInput;
-
-            LibraryNumber = parseLibraryNumber();
-            Role = parseRole();
-
-            long.TryParse(libNumber, out encodedNumber);
-
-            CheckDigit = calculateCheckDigit();
-
-            LibraryNumber += CheckDigit;
-        }
-
-        public void setData(String libNumber, String role)
-        {
-            LibraryNumber = libNumber;
-            Role = role;
-            long.TryParse(libNumber, out encodedNumber);
-
-            RawInput = makeMockRawData(libNumber, role);
-
-            CheckDigit = calculateCheckDigit();
-
-            LibraryNumber += CheckDigit;
+            libNumber = getLibNumberFromRawData(rawInput);
+            role = getRoleFromRawData(rawInput);
         }
 
         public int calculateCheckDigit()
@@ -144,24 +66,9 @@ namespace PolyRents.model
                 }
 
                 sum += stepNum;
-
             }
 
             return 10 - sum % 10;
-        }
-
-        private String parseLibraryNumber()
-        {
-            return rawInput.Substring(1, 13);
-        }
-
-        private String parseRole()
-        {
-            int roleIndex = rawInput.IndexOf("^") + 1;
-            int lastIndex = rawInput.IndexOf("?");
-            int roleLength = lastIndex - roleIndex;
-
-            return rawInput.Substring(roleIndex, roleLength);
         }
 
         public static bool rawDataIsValid(String rawData)
@@ -194,24 +101,5 @@ namespace PolyRents.model
         {
             return libNumber + calculateCheckDigit(libNumber);
         }
-
-        private String makeMockRawData(String libNumber, String role)
-        {
-            return "%" + libNumber + "^" + role + "?";
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (!(obj is CardData))
-            {
-                return false;
-            }
-
-            CardData other = obj as CardData;
-
-            return LibraryNumber.Equals(other.LibraryNumber) &&
-                Role.Equals(other.Role);
-        }
-
     }
 }
