@@ -6,6 +6,7 @@ using static PolyRents.model.Status;
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
+using PolyRents.helpers;
 
 namespace PolyRents.views
 {
@@ -16,6 +17,7 @@ namespace PolyRents.views
     {
         private Renter renter;
         CardSwipeWindow cardSwipe;
+        private CardDataReader cardDataReader;
 
         private string libNumber;
         private string role;
@@ -122,6 +124,7 @@ namespace PolyRents.views
 
             canRent.IsChecked = renter.CanRent;
 
+            cardDataReader = new CardDataReader(applyButton);
         }
 
         public void SetRenterToView(Renter aRenter = null, bool isEdit = false)
@@ -205,84 +208,17 @@ namespace PolyRents.views
 
         private void keyUpHandler(object sender, KeyEventArgs e)
         {
-            if (!readDataFlag)
+            if (readDataFlag)
             {
-                return;
-            }
-
-            if (e.Key == Key.LeftShift)
-            {
-                shiftDown = false;
+                cardDataReader.keyUpHandler(sender, e);
             }
         }
 
         private void keyDownHandler(object sender, KeyEventArgs e)
         {
-            if (!readDataFlag)
+            if (readDataFlag)
             {
-                return;
-            }
-
-            Key key = e.Key;
-            int keyVal = (int)e.Key;
-
-            if (keyVal >= 34 && keyVal <= 43)
-            {
-                handleNumber(key);
-            }
-            else if (key == Key.LeftShift)
-            {
-                shiftDown = true;
-            }
-            else if (keyVal >= 44 && keyVal <= 69)
-            {
-                handleLetters(key);
-            }
-            else if (key == Key.OemQuestion)
-            {
-                //End of read
-                readEnded = true;
-            }
-            else if (key == Key.Enter)
-            {
-                libNumber = CardData.completeLibNumber(libNumber);
-                libNumberText.Text = libNumber;
-                roleSelector.SelectedValue = role;
-                applyButton.Focus();
-            }
-
-        }
-
-        private void handleLetters(Key key)
-        {
-            role += key.ToString();
-        }
-
-        private void handleNumber(Key key)
-        {
-            if (libNumberRead)
-            {
-                throw new Exception("Library number finished reading and read a new number");
-            }
-
-            if (shiftDown)
-            {
-                if (key == Key.D5)
-                {
-                    readStarted = true;
-                }
-                else if (key == Key.D6)
-                {
-                    libNumberRead = true;
-                }
-                else
-                {
-                    throw new Exception("Unexpected key pressed while shift pressed. Key: " + key.ToString());
-                }
-            }
-            else
-            {
-                libNumber += key.ToString().Substring(1, 1);
+                cardDataReader.keyDownHandler(sender, e);
             }
         }
 
@@ -295,6 +231,8 @@ namespace PolyRents.views
             readStarted = false;
             readEnded = false;
             libNumberRead = false;
+
+            cardDataReader.resetFlags();
         }
 
         private void libNumber_GotFocus(object sender, RoutedEventArgs e)
@@ -309,6 +247,9 @@ namespace PolyRents.views
         private void libNumber_LostFocus(object sender, RoutedEventArgs e)
         {
             readDataFlag = false;
+
+            libNumberText.Text = cardDataReader.CardInfo.LibraryNumber;
+            roleSelector.SelectedValue = cardDataReader.CardInfo.Role;
 
             Keyboard.RemoveKeyDownHandler(libNumberText, keyDownHandler);
             Keyboard.RemoveKeyUpHandler(libNumberText, keyUpHandler);

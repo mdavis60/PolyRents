@@ -144,6 +144,7 @@
     <Compile Include="converters\RenterConverter.cs" />
     <Compile Include="converters\ResourceConverter.cs" />
     <Compile Include="converters\ResourceTypeConverter.cs" />
+    <Compile Include="helpers\CardDataReader.cs" />
     <Compile Include="helpers\Logger.cs" />
     <Compile Include="model\CardData.cs" />
     <Compile Include="model\Status.cs" />
