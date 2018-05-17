@@ -14,7 +14,7 @@ namespace PolyRents.views
     /// <summary>
     /// Interaction logic for CheckoutWindow.xaml
     /// </summary>
-    public partial class CheckoutWindow : Window
+    public partial class CheckoutWindow : Page
     {
         private Logger logger = Logger.getInstance();
 
@@ -36,10 +36,12 @@ namespace PolyRents.views
 
         private RenterTableAdapter renters;
         private ResourcesTableAdapter resources;
+        private Rental_HistoryTableAdapter rentals;
 
         private InformationWindow infoWindow;
 
         private bool readDataFlag;
+        private bool isEdit;
 
         public Rental BoundRental
         {
@@ -84,7 +86,7 @@ namespace PolyRents.views
             }
         }
 
-        public CheckoutWindow(Rental theRental = null)
+        public CheckoutWindow(Rental theRental = null, bool isEdit=false)
         {
             if (theRental == null)
             {
@@ -93,8 +95,8 @@ namespace PolyRents.views
 
             renters = RenterTableAdapter.getInstance();
             resources = ResourcesTableAdapter.getInstance();
-
-            SetRentalToView(theRental);
+            
+            SetRentalToView(theRental, isEdit);
 
             InitializeComponent();
 
@@ -193,12 +195,14 @@ namespace PolyRents.views
             libNumberRead = false;
         }
 
-        public void SetRentalToView(Rental aRental = null)
+        public void SetRentalToView(Rental aRental = null, bool isEdit=false)
         {
             if (aRental == null)
             {
                 aRental = new Rental();
             }
+            this.isEdit = isEdit;
+
             rentalChanged = false;
 
             rental = aRental;
@@ -235,7 +239,7 @@ namespace PolyRents.views
 
             if (((String)sent.Name).Equals("cancelButton"))
             {
-                Close();
+                NavigationService.GoBack();
                 return;
             }
 
@@ -255,39 +259,19 @@ namespace PolyRents.views
 
                 if (RentalChanged)
                 {
-                    rental = newRental;
+                    if (isEdit)
+                    {
+                        rentals.updateSingle(BoundRental);
+                    }
+                    else
+                    {
+                        rentals.addSingle(BoundRental);
+                    }
+                    resources.updateSingle(BoundRental.Resource);
                 }
-                Close();
+
+                NavigationService.GoBack();
             }
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            e.Cancel = true;
-            base.Hide();
-        }
-
-        private void swipeButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (cardSwipe == null)
-            {
-                cardSwipe = new CardSwipeWindow();
-            }
-
-            cardSwipe.ShowDialog();
-
-            if (!cardSwipe.CancelPressed)
-            {
-                CardData cardData = cardSwipe.CardInfo;
-                
-                renter = renters.getRenterByLibraryNumber(cardData.LibraryNumber);
-
-                renterName.Text = renter.FullName;
-                renterLibNumber.Text = renter.LibraryNumber;
-                renterEmail.Text = renter.CpEmail;
-            }
-
-            cardSwipe.resetFlags();
         }
 
         private void resourceId_LostFocus(object sender, RoutedEventArgs e)
@@ -323,24 +307,6 @@ namespace PolyRents.views
 
             resourceType.Text = resource.Type == null ?
                 "" : resource.Type.ResourceName;
-        }
-
-        private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            logger.Debug(DateTime.Now.ToShortTimeString() + ": Checkout window content rendered called");
-
-            Boolean visible = (Boolean)e.NewValue;
-
-            if (visible)
-            {
-                rental.Renter = null;
-                rental.Resource = null;
-
-                initializeFields();
-            }
-            resetFlags();
-
-            resourceId.Focus();
         }
 
         private void renterLibNumber_GotFocus(object sender, RoutedEventArgs e)

@@ -26,7 +26,7 @@ namespace PolyRents.views
     /// <summary>
     /// Interaction logic for ManageRentersView.xaml
     /// </summary>
-    public partial class ManageRentersView : Window
+    public partial class ManageRentersView : Page
     {
         private RenterTableAdapter renters;
         private RenterConverter renterConverter;
@@ -61,9 +61,9 @@ namespace PolyRents.views
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
-            addEdit.SetRenterToView();
+            addEdit = new AddEditRenterView();
 
-            addEdit.ShowDialog();
+            NavigationService.Navigate(addEdit);
 
             if (addEdit.RenterChanged)
             {
@@ -81,9 +81,9 @@ namespace PolyRents.views
                 toEdit = renterConverter.ConvertSingle((renterDataGrid.SelectedItem as DataRowView).Row);
             }
 
-            addEdit.SetRenterToView(toEdit, true);
+            addEdit = new AddEditRenterView(toEdit, true);
 
-            addEdit.ShowDialog();
+            NavigationService.Navigate(addEdit);
 
             if (addEdit.RenterChanged)
             {
@@ -144,13 +144,6 @@ namespace PolyRents.views
         {
             renterDataGrid.ItemsSource = null;
             renterDataGrid.ItemsSource = renters.GetData();
-        }
-
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            e.Cancel = true;
-            base.Hide();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<Window
+﻿<Page
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:PolyRents.views"
         xmlns:PolyRents="clr-namespace:PolyRents" x:Class="PolyRents.views.ManageResourcesView"
         mc:Ignorable="d"
-        Title="Manage Resources" Height="500" Width="500" Loaded="Window_Loaded">
-    <Window.Resources>
+        Title="Manage Resources" Loaded="Window_Loaded">
+    <Page.Resources>
         <PolyRents:ComputingResourcesDataSet x:Key="computingResourcesDataSet"/>
         <CollectionViewSource x:Key="resourcesViewSource" Source="{Binding Resources, Source={StaticResource computingResourcesDataSet}}"/>
-    </Window.Resources>
+    </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -45,4 +45,4 @@
 
         </Grid>
     </Grid>
-</Window>
+</Page>

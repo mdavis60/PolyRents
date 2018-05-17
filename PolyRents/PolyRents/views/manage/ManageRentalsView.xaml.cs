@@ -26,7 +26,7 @@ namespace PolyRents.views.manage
     /// <summary>
     /// Interaction logic for ManageRentalsView.xaml
     /// </summary>
-    public partial class ManageRentalsView : Window
+    public partial class ManageRentalsView : Page
     {
         private Rental_HistoryTableAdapter rentals;
         private RentalConverter rentalConverter;
@@ -61,15 +61,7 @@ namespace PolyRents.views.manage
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
-            checkout.SetRentalToView();
-
-            checkout.ShowDialog();
-
-            if (checkout.RentalChanged)
-            {
-                rentals.addSingle(checkout.BoundRental);
-                updateDataGrid();
-            }
+            checkout = new CheckoutWindow();
         }
 
         private void editButton_Click(object sender, RoutedEventArgs e)
@@ -81,9 +73,8 @@ namespace PolyRents.views.manage
                 toEdit = rentalConverter.ConvertSingle((rental_HistoryDataGrid.SelectedItem as DataRowView).Row);
             }
 
-            checkout.SetRentalToView(toEdit);
-
-            checkout.ShowDialog();
+            checkout = new CheckoutWindow(toEdit, true);
+            
 
             if (checkout.RentalChanged)
             {
@@ -144,12 +135,6 @@ namespace PolyRents.views.manage
                 toDelete = rentalConverter.ConvertSingle(row.Row);
                 rentals.deleteSingle(toDelete);
             }
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            e.Cancel = true;
-            base.Hide();
         }
     }
 }

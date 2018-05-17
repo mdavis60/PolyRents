@@ -12,7 +12,7 @@ namespace PolyRents.views
     /// <summary>
     /// Interaction logic for AddEditRenterView.xaml
     /// </summary>
-    public partial class AddEditRenterView : Window
+    public partial class AddEditRenterView : Page
     {
         private Renter renter;
         CardSwipeWindow cardSwipe;
@@ -94,11 +94,9 @@ namespace PolyRents.views
                 theRenter = new Renter();
             }
 
-            this.isEdit = isEdit;
-
             Roles = new String[] {"STUDENT", "FACULTY"};
 
-            SetRenterToView(theRenter);
+            SetRenterToView(theRenter, isEdit);
 
             InitializeComponent();
 
@@ -152,7 +150,7 @@ namespace PolyRents.views
 
             if (((String)sent.Name).Equals("cancelButton"))
             {
-                Close();
+                NavigationService.GoBack();
             }
 
             if (FormValid)
@@ -175,7 +173,7 @@ namespace PolyRents.views
                 {
                     renter = newRenter;
                 }
-                Close();
+                NavigationService.GoBack();
             }
             else
             {
@@ -184,11 +182,6 @@ namespace PolyRents.views
 
         }
 
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            e.Cancel = true;
-            base.Hide();
-        }
 
         private void swipeButton_Click(object sender, RoutedEventArgs e)
         {

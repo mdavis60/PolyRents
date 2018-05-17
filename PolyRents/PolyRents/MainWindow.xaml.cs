@@ -54,69 +54,10 @@ namespace PolyRents
             });
         }
 
-        private ManageResourcesView manageResources;
-        private ManageRentersView manageRenters;
-        private ManageRentalsView manageRentals;
-        private CheckoutWindow checkout;
-
         private Logger logger = Logger.getInstance();
 
         public delegate void OnMessageChanged(string message);
-
-        private Rental_HistoryTableAdapter rentals;
-        private ResourcesTableAdapter resources;
-
-        private List<Window> myWindows;
-
-        public ManageResourcesView ManageResources
-        {
-            get
-            {
-                return manageResources;
-            }
-            private set
-            {
-                manageResources = value;
-            }
-        }
-
-        public ManageRentersView ManageRenters
-        {
-            get
-            {
-                return manageRenters;
-            }
-            private set
-            {
-                manageRenters = value;
-            }
-        }
-
-        public CheckoutWindow Checkout
-        {
-            get
-            {
-                return checkout;
-            }
-            set
-            {
-                checkout = value;
-            }
-        }
-
-        public ManageRentalsView ManageRentals
-        {
-            get
-            {
-                return manageRentals;
-            }
-            private set
-            {
-                manageRentals = value;
-            }
-        }
         
-
         public String InformationStatus
         {
             get { return myStatus; }
@@ -128,7 +69,6 @@ namespace PolyRents
 
         public MainWindow()
         {
-            myWindows = new List<Window>();
 
             statusTimer = new Timer(15000);
             statusTimer.Elapsed += OnTimedEvent;
@@ -137,97 +77,7 @@ namespace PolyRents
 
             InitializeComponent();
 
-            makeWindows();
-
-            rentals = Rental_HistoryTableAdapter.getInstance();
-            resources = ResourcesTableAdapter.getInstance();
-
             InformationStatus = "ready";
-        }
-        
-        private void makeWindows()
-        {
-            ManageRenters = new ManageRentersView();
-            ManageResources = new ManageResourcesView();
-            Checkout = new CheckoutWindow();
-            ManageRentals = new ManageRentalsView();
-
-            myWindows.Add(ManageResources);
-            myWindows.Add(ManageRenters);
-            myWindows.Add(Checkout);
-            myWindows.Add(ManageRentals);
-        }
-
-        private void checkoutButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (checkout == null)
-            {
-                Checkout = new CheckoutWindow();
-                myWindows.Add(Checkout);
-            }
-
-            Checkout.SetRentalToView();
-
-            Checkout.ShowDialog();
-
-            if (Checkout.RentalChanged)
-            {
-                rentals.addSingle(Checkout.BoundRental);
-                resources.updateSingle(Checkout.BoundRental.Resource);
-            }
-        }
-
-        private void returnButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void manageResources_Click(object sender, RoutedEventArgs e)
-        {
-            ManageResources = new ManageResourcesView();
-
-            ManageResources.Show();
-        }
-
-        private void manageRenters_Click(object sender, RoutedEventArgs e)
-        {
-            if (manageRenters == null)
-            {
-                ManageRenters = new ManageRentersView();
-                myWindows.Add(ManageRenters);
-            }
-
-            ManageRenters.Show();
-        }
-
-        private void manageRentals_Click(object sender, RoutedEventArgs e)
-        {
-            if (manageRentals == null)
-            {
-                ManageRentals = new ManageRentalsView();
-                myWindows.Add(ManageRentals);
-            }
-
-            ManageRentals.Show();
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            foreach (Window window in myWindows)
-            {
-                if (window != null)
-                {
-                    window.Close();
-                }
-            }
-
-            base.OnClosing(e);
-        }
-
-        private void cardSwipWindow_Click(object sender, RoutedEventArgs e)
-        {
-            CardSwipeWindow cardSwipeWindow = new CardSwipeWindow();
-            cardSwipeWindow.Show();
         }
     }
 }

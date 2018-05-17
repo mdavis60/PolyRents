@@ -26,7 +26,7 @@ namespace PolyRents.views
     /// <summary>
     /// Interaction logic for ManageResourcesView.xaml
     /// </summary>
-    public partial class ManageResourcesView : Window
+    public partial class ManageResourcesView : Page
     {
         private ResourcesTableAdapter resources;
         private ResourceConverter resourceConverter;
@@ -56,20 +56,13 @@ namespace PolyRents.views
             updateTimer.Enabled = true;
 
             InitializeComponent();
-
-            initializeData();
-        }
-
-        private void initializeData()
-        {
-            addEdit = new AddEditResourceView(types:types.getAll().ToArray());
         }
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
-            addEdit.SetResourceToView();
+            addEdit = new AddEditResourceView(types: types.getAll().ToArray());
 
-            addEdit.ShowDialog();
+            NavigationService.Navigate(addEdit);
 
             if (addEdit.ResourceChanged)
             {
@@ -86,10 +79,9 @@ namespace PolyRents.views
             {
                 toEdit = resourceConverter.ConvertSingle((resourcesDataGrid.SelectedItem as DataRowView).Row);
             }
+            addEdit = new AddEditResourceView(toEdit, types.getAll().ToArray(), true);
 
-            addEdit.SetResourceToView(toEdit, true);
-
-            addEdit.ShowDialog();
+            NavigationService.Navigate(addEdit);
 
             if (addEdit.ResourceChanged)
             {

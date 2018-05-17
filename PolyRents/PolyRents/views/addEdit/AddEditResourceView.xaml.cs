@@ -12,7 +12,7 @@ namespace PolyRents.views
     /// <summary>
     /// Interaction logic for ResourceView.xaml
     /// </summary>
-    public partial class AddEditResourceView : Window
+    public partial class AddEditResourceView : Page
     {
         private Resource resource;
         private bool isEdit;
@@ -148,7 +148,7 @@ namespace PolyRents.views
             }
         }
 
-        
+
 
         private void Submit(object sender, RoutedEventArgs e)
         {
@@ -157,7 +157,7 @@ namespace PolyRents.views
             if (((String)sent.Name).Equals("cancelButton"))
             {
                 ResourceChanged = false;
-                Close();
+                NavigationService.GoBack();
                 return;
             }
 
@@ -174,21 +174,13 @@ namespace PolyRents.views
                 {
                     resource = newResource;
                 }
-                Close();
+                NavigationService.GoBack();
             }
             else
             {
                 ErrorLabel.Visibility = ErrorVisible;
             }
-            
-        }
 
-        private void Window_Closing(object sender, CancelEventArgs e)
-        {
-            logger.Debug("Add/Edit Resource Custom closing method triggered\n" +
-                "\tSender " + sender.ToString());
-            e.Cancel = true;
-            Hide();
         }
     }
 }
