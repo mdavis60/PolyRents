@@ -33,7 +33,6 @@ namespace PolyRents.views
 
         private AddEditRenterView addEdit;
         private ConfirmationDialog deleteConfirmation;
-        private InformationWindow infoWindow;
 
         public ManageRentersView()
         {
@@ -64,12 +63,6 @@ namespace PolyRents.views
             addEdit = new AddEditRenterView();
 
             NavigationService.Navigate(addEdit);
-
-            if (addEdit.RenterChanged)
-            {
-                renters.addSingle(addEdit.BoundRenter);
-                updateDataGrid();
-            }
         }
 
         private void editButton_Click(object sender, RoutedEventArgs e)
@@ -84,12 +77,6 @@ namespace PolyRents.views
             addEdit = new AddEditRenterView(toEdit, true);
 
             NavigationService.Navigate(addEdit);
-
-            if (addEdit.RenterChanged)
-            {
-                renters.updateSingle(addEdit.BoundRenter);
-                updateDataGrid();
-            }
         }
 
         private void detailsButton_Click(object sender, RoutedEventArgs e)
@@ -111,13 +98,8 @@ namespace PolyRents.views
                 confirmMessage = "Are you sure you want to delete these " + renterDataGrid.SelectedItems.Count + " renter entries?";
             }
 
-            if (deleteConfirmation == null)
-            {
-                deleteConfirmation = new ConfirmationDialog("Delete Renter Confirmation");
-            }
-
-            deleteConfirmation.setMessage(confirmMessage);
-
+            deleteConfirmation = new ConfirmationDialog("Delete Renter Confirmation", confirmMessage);
+            
             deleteConfirmation.ShowDialog();
 
             if (!deleteConfirmation.YesClicked)

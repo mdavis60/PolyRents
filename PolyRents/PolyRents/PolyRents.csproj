@@ -159,22 +159,22 @@
     <Compile Include="views\addEdit\AddEditRenterView.xaml.cs">
       <DependentUpon>AddEditRenterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\CardSwipeWindow.xaml.cs">
-      <DependentUpon>CardSwipeWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="views\addEdit\AddEditResourceView.xaml.cs">
       <DependentUpon>AddEditResourceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\CheckoutWindow.xaml.cs">
+    <Compile Include="views\addEdit\CheckoutWindow.xaml.cs">
       <DependentUpon>CheckoutWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\ConfirmationDialog.xaml.cs">
+    <Compile Include="views\addEdit\ReturnView.xaml.cs">
+      <DependentUpon>ReturnView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\dialogs\ConfirmationDialog.xaml.cs">
       <DependentUpon>ConfirmationDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\InformationWindow.xaml.cs">
+    <Compile Include="views\dialogs\InformationWindow.xaml.cs">
       <DependentUpon>InformationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\manage\ManageRentalsView.xaml.cs">
@@ -210,19 +210,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\CardSwipeWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="views\addEdit\AddEditResourceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\CheckoutWindow.xaml">
+    <Page Include="views\addEdit\CheckoutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\ConfirmationDialog.xaml">
+    <Page Include="views\addEdit\ReturnView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\dialogs\ConfirmationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -230,7 +230,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\InformationWindow.xaml">
+    <Page Include="views\dialogs\InformationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

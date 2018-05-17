@@ -1,4 +1,5 @@
 ﻿using PolyRents.ComputingResourcesDataSetTableAdapters;
+using PolyRents.views.addEdit;
 using PolyRents.views.manage;
 using System;
 using System.Collections.Generic;
@@ -26,11 +27,24 @@ namespace PolyRents.views
         private ManageRentersView manageRenters;
         private ManageRentalsView manageRentals;
         private CheckoutWindow checkout;
+        private ReturnView returns;
 
         private Rental_HistoryTableAdapter rentals;
         private ResourcesTableAdapter resources;
 
         private List<Window> myWindows;
+
+        public ReturnView Return
+        {
+            get
+            {
+                return returns;
+            }
+            set
+            {
+                returns = value;
+            }
+        }
 
         public ManageResourcesView ManageResources
         {
@@ -101,7 +115,9 @@ namespace PolyRents.views
 
         private void returnButton_Click(object sender, RoutedEventArgs e)
         {
+            Return = new ReturnView();
 
+            NavigationService.Navigate(Return);
         }
 
         private void manageResources_Click(object sender, RoutedEventArgs e)

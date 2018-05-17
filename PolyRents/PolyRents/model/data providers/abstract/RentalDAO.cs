@@ -12,5 +12,6 @@ namespace PolyRents.repository
         List<Rental> getAllRentalsOnDate(DateTime checkout);
         List<Rental> getAllRentalsByRenter(Renter renter);
         List<Rental> getResourceRentalHistory(Resource resource);
+        List<Rental> getRentalByResourceId(int id);
     }
 }

@@ -62,7 +62,7 @@ namespace PolyRents.views
             Button b = sender as Button;
 
             OkClicked = b.Name.Equals("okButton");
-            Hide();
+            Close();
         }
     }
 }

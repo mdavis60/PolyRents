@@ -67,12 +67,7 @@ namespace PolyRents.views
             Button b = sender as Button;
 
             YesClicked = b.Name.Equals("yesButton");
-            softClose();
-        }
-
-        private void softClose()
-        {
-            Hide();
+            Close();
         }
     }
 }

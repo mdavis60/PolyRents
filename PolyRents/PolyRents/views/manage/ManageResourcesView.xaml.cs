@@ -36,9 +36,6 @@ namespace PolyRents.views
 
         private AddEditResourceView addEdit;
         private ConfirmationDialog deleteConfirmation;
-        private InformationWindow infoWindow;
-
-        private Timer updateTimer;
 
         private Logger logger = Logger.getInstance();
 
@@ -49,11 +46,6 @@ namespace PolyRents.views
 
             resourceConverter = new ResourceConverter();
             typeConverter = new ResourceTypeConverter();
-
-            updateTimer = new Timer(5000);
-            updateTimer.AutoReset = true;
-            updateTimer.Elapsed += (sender, args) => timerTick();
-            updateTimer.Enabled = true;
 
             InitializeComponent();
         }
@@ -104,12 +96,7 @@ namespace PolyRents.views
                 confirmMessage = "Are you sure you want to delete these " + resourcesDataGrid.SelectedItems.Count + " rental entries?";
             }
 
-            if (deleteConfirmation == null)
-            {
-                deleteConfirmation = new ConfirmationDialog("Delete Rental Confirmation");
-            }
-
-            deleteConfirmation.setMessage(confirmMessage);
+            deleteConfirmation = new ConfirmationDialog("Delete Rental Confirmation", confirmMessage);
 
             deleteConfirmation.ShowDialog();
 
@@ -134,14 +121,6 @@ namespace PolyRents.views
             resources.Fill(computingResourcesDataSet.Resources);
             CollectionViewSource resourcesViewSource = ((CollectionViewSource)(this.FindResource("resourcesViewSource")));
             resourcesViewSource.View.MoveCurrentToFirst();
-        }
-
-        private void timerTick()
-        {
-            this.Dispatcher.Invoke(() =>
-            {
-                updateDataGrid();
-            });
         }
 
         private void updateDataGrid()

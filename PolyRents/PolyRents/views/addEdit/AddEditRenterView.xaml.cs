@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 using PolyRents.helpers;
+using PolyRents.ComputingResourcesDataSetTableAdapters;
 
 namespace PolyRents.views
 {
@@ -16,22 +17,16 @@ namespace PolyRents.views
     public partial class AddEditRenterView : Page
     {
         private Renter renter;
-        CardSwipeWindow cardSwipe;
         private CardDataReader cardDataReader;
 
         private string libNumber;
         private string role;
 
-        private string rawInput;
-
-        private bool shiftDown;
-        private bool readStarted;
-        private bool readEnded;
-        private bool libNumberRead;
-
         private bool readDataFlag;
 
         private bool isEdit;
+
+        private RenterTableAdapter renters;
 
         public Renter BoundRenter
         {
@@ -97,6 +92,8 @@ namespace PolyRents.views
             }
 
             Roles = new String[] {"STUDENT", "FACULTY"};
+
+            renters = RenterTableAdapter.getInstance();
 
             SetRenterToView(theRenter, isEdit);
 
@@ -175,6 +172,14 @@ namespace PolyRents.views
                 if (RenterChanged)
                 {
                     renter = newRenter;
+                    if (isEdit)
+                    {
+                        renters.updateSingle(renter);
+                    }
+                    else
+                    {
+                        renters.addSingle(renter);
+                    }
                 }
                 NavigationService.GoBack();
             }
@@ -183,27 +188,6 @@ namespace PolyRents.views
                 ErrorLabel.Visibility = ErrorVisible;
             }
 
-        }
-
-
-        private void swipeButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (cardSwipe == null)
-            {
-                cardSwipe = new CardSwipeWindow();
-            }
-            
-            cardSwipe.ShowDialog();
-
-            if(!cardSwipe.CancelPressed)
-            {
-                CardData cardData = cardSwipe.CardInfo;
-
-                libNumberText.Text = cardData.LibraryNumber;
-                roleSelector.SelectedValue = cardData.Role;
-            }
-
-            cardSwipe.resetFlags();
         }
 
         private void keyUpHandler(object sender, KeyEventArgs e)
@@ -226,12 +210,7 @@ namespace PolyRents.views
         {
             libNumber = "";
             role = "";
-
-            shiftDown = false;
-            readStarted = false;
-            readEnded = false;
-            libNumberRead = false;
-
+            
             cardDataReader.resetFlags();
         }
 
@@ -248,8 +227,11 @@ namespace PolyRents.views
         {
             readDataFlag = false;
 
-            libNumberText.Text = cardDataReader.CardInfo.LibraryNumber;
-            roleSelector.SelectedValue = cardDataReader.CardInfo.Role;
+            if (cardDataReader.CardInfo != null)
+            {
+                libNumberText.Text = cardDataReader.CardInfo.LibraryNumber;
+                roleSelector.SelectedValue = cardDataReader.CardInfo.Role;
+            }
 
             Keyboard.RemoveKeyDownHandler(libNumberText, keyDownHandler);
             Keyboard.RemoveKeyUpHandler(libNumberText, keyUpHandler);

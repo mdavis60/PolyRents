@@ -7110,7 +7110,7 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[3];
+            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[4];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT ID, idRenter, idResource, checkout, checkin FROM [Rental History]";
@@ -7122,14 +7122,23 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
             this._commandCollection[1].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
             this._commandCollection[2] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "UPDATE `Rental History` SET `idRenter` = ?, `idResource` = ?, `checkout` = ?, `ch" +
-                "eckin` = ? WHERE (`ID` = ?) ";
+            this._commandCollection[2].CommandText = @"SELECT        [Rental History].ID, [Rental History].idRenter, [Rental History].idResource, [Rental History].checkout, [Rental History].checkin
+FROM            ([Rental History] INNER JOIN
+                         Resources ON [Rental History].idResource = Resources.idResource)
+WHERE        (Resources.status = ?) AND ([Rental History].idResource = ?)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[2].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("idRenter", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "idRenter", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[2].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("status", global::System.Data.OleDb.OleDbType.WChar, 30, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "status", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[2].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("idResource", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "idResource", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("checkout", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "checkout", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("checkin", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "checkin", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
+            this._commandCollection[3] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].CommandText = "UPDATE `Rental History` SET `idRenter` = ?, `idResource` = ?, `checkout` = ?, `ch" +
+                "eckin` = ? WHERE (`ID` = ?) ";
+            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[3].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("idRenter", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "idRenter", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[3].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("idResource", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "idResource", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[3].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("checkout", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "checkout", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[3].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("checkin", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "checkin", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[3].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7151,6 +7160,29 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual ComputingResourcesDataSet.Rental_HistoryDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            ComputingResourcesDataSet.Rental_HistoryDataTable dataTable = new ComputingResourcesDataSet.Rental_HistoryDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ComputingResourcesDataSet.Rental_HistoryDataTable GetRentalByResourceId(string status, global::System.Nullable<int> idResource) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            if ((status == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(status));
+            }
+            if ((idResource.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(idResource.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
             ComputingResourcesDataSet.Rental_HistoryDataTable dataTable = new ComputingResourcesDataSet.Rental_HistoryDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -7391,7 +7423,7 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int UpdateQuery(global::System.Nullable<int> idRenter, global::System.Nullable<int> idResource, global::System.Nullable<global::System.DateTime> checkout, global::System.Nullable<global::System.DateTime> checkin, int Original_ID) {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[2];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[3];
             if ((idRenter.HasValue == true)) {
                 command.Parameters[0].Value = ((int)(idRenter.Value));
             }

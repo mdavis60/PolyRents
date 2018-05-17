@@ -23,16 +23,8 @@ namespace PolyRents.views
         private Resource resource;
 
         private string libNumber;
-        private string role;
-
-        private string rawInput;
-
-        private bool shiftDown;
-        private bool readStarted;
-        private bool readEnded;
-        private bool libNumberRead;
-
-        private CardSwipeWindow cardSwipe;
+        
+        private CardDataReader cardDataReader;
 
         private RenterTableAdapter renters;
         private ResourcesTableAdapter resources;
@@ -95,6 +87,7 @@ namespace PolyRents.views
 
             renters = RenterTableAdapter.getInstance();
             resources = ResourcesTableAdapter.getInstance();
+            rentals = Rental_HistoryTableAdapter.getInstance();
             
             SetRentalToView(theRental, isEdit);
 
@@ -105,94 +98,24 @@ namespace PolyRents.views
 
         private void keyUpHandler(object sender, KeyEventArgs e)
         {
-            if (!readDataFlag)
+            if (readDataFlag)
             {
-                return;
-            }
-
-            if (e.Key == Key.LeftShift)
-            {
-                shiftDown = false;
+                cardDataReader.keyUpHandler(sender, e);
             }
         }
 
         private void keyDownHandler(object sender, KeyEventArgs e)
         {
-            if (!readDataFlag)
+            if (readDataFlag)
             {
-                return;
-            }
-
-            Key key = e.Key;
-            int keyVal = (int)e.Key;
-
-            if (keyVal >= 34 && keyVal <= 43)
-            {
-                handleNumber(key);
-            }
-            else if (key == Key.LeftShift)
-            {
-                shiftDown = true;
-            }
-            else if (keyVal >= 44 && keyVal <= 69)
-            {
-                handleLetters(key);
-            }
-            else if (key == Key.OemQuestion)
-            {
-                //End of read
-                readEnded = true;
-                libNumber = CardData.completeLibNumber(libNumber);
-            }
-            else if (key == Key.Enter)
-            {
-                okButton.Focus();
-            }
-
-        }
-
-        private void handleLetters(Key key)
-        {
-            role += key.ToString();
-        }
-
-        private void handleNumber(Key key)
-        {
-            if (libNumberRead)
-            {
-                throw new Exception("Library number finished reading and read a new number");
-            }
-
-            if (shiftDown)
-            {
-                if (key == Key.D5)
-                {
-                    readStarted = true;
-                }
-                else if (key == Key.D6)
-                {
-                    libNumberRead = true;
-                }
-                else
-                {
-                    throw new Exception("Unexpected key pressed while shift pressed. Key: " + key.ToString());
-                }
-            }
-            else
-            {
-                libNumber += key.ToString().Substring(1, 1);
+                cardDataReader.keyDownHandler(sender, e);
             }
         }
 
         public void resetFlags()
         {
             libNumber = "";
-            role = "";
-            
-            shiftDown = false;
-            readStarted = false;
-            readEnded = false;
-            libNumberRead = false;
+            cardDataReader.resetFlags();
         }
 
         public void SetRentalToView(Rental aRental = null, bool isEdit=false)
@@ -231,6 +154,8 @@ namespace PolyRents.views
                 resourceId.Text = rental.Resource.IdResource.ToString();
                 resourceType.Text = rental.Resource.Type.ResourceName;
             }
+
+            cardDataReader = new CardDataReader(okButton);
         }
 
         private void Submit(object sender, RoutedEventArgs e)
@@ -261,13 +186,13 @@ namespace PolyRents.views
                 {
                     if (isEdit)
                     {
-                        rentals.updateSingle(BoundRental);
+                        rentals.updateSingle(newRental);
                     }
                     else
                     {
-                        rentals.addSingle(BoundRental);
+                        rentals.addSingle(newRental);
                     }
-                    resources.updateSingle(BoundRental.Resource);
+                    resources.updateSingle(newRental.Resource);
                 }
 
                 NavigationService.GoBack();
@@ -294,10 +219,7 @@ namespace PolyRents.views
             {
                 resourceType.Text = "";
                 
-                if (infoWindow == null)
-                {
-                    infoWindow = new InformationWindow("Invalid Resource Id");
-                }
+                infoWindow = new InformationWindow("Invalid Resource Id");
 
                 infoWindow.setInfoText("The resource with  id " + resourceId.Text + " was not found");
                 infoWindow.ShowDialog();
@@ -324,15 +246,19 @@ namespace PolyRents.views
             Keyboard.RemoveKeyDownHandler(renterLibNumber, keyDownHandler);
             Keyboard.RemoveKeyUpHandler(renterLibNumber, keyUpHandler);
 
+            if (cardDataReader.CardInfo == null)
+            {
+                return;
+            }
+
+            libNumber = cardDataReader.CardInfo.LibraryNumber;
+
             renter = renters.getRenterByLibraryNumber(libNumber);
 
             if (renter == null)
             {
-                if (infoWindow == null)
-                {
-                    infoWindow = new InformationWindow("Unrecognized Library Number");
-                }
-
+                infoWindow = new InformationWindow("Unrecognized Library Number");
+                
                 infoWindow.setInfoText("A renter with the library number:\n" + libNumber + "\nwas not found");
                 infoWindow.ShowDialog();
 

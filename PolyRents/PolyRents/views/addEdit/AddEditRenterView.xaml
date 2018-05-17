@@ -47,8 +47,7 @@
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Name="applyButton"  Content="Apply" Width="70" Height="20" Click="Submit" HorizontalAlignment="Left" Margin="0,0,10,0"/>
-                <Button Name="swipeButton"  Content="Swipe" Width="70" Height="20" Click="swipeButton_Click" HorizontalAlignment="Center"/>
-                <Button Name="cancelButton" Content="Cancel" Width="70" Height="20" Click="Submit" HorizontalContentAlignment="Center" Margin="10,0,0,0" />
+                <Button Name="cancelButton" Content="Cancel" Width="70" Height="20" Click="Submit" HorizontalAlignment="Right" Margin="10,0,0,0" />
             </StackPanel>
         </Grid>
         <Label Name="ErrorLabel" Content="Role must be set" Foreground="Red" Visibility="Hidden" Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="8" Padding="5,0"/>

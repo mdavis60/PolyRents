@@ -115,6 +115,19 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
 
             return toUpdate;
         }
+
+        public List<Rental> getRentalByResourceId(int id)
+        {
+            DataRowCollection rows = GetRentalByResourceId("CHECKED_OUT", id).Rows;
+
+            if (rows.Count <1)
+            {
+                logger.Info("Get Rental by Resource returned 0 results");
+                return null;
+            }
+
+            return Converter.ConvertAll(rows);
+        }
     }
     partial class RenterTableAdapter : RenterDAO
     {

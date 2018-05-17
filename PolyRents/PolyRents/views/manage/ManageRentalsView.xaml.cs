@@ -33,7 +33,6 @@ namespace PolyRents.views.manage
 
         private CheckoutWindow checkout;
         private ConfirmationDialog deleteConfirmation;
-        private InformationWindow infoWindow;
 
         public ManageRentalsView()
         {
@@ -74,13 +73,8 @@ namespace PolyRents.views.manage
             }
 
             checkout = new CheckoutWindow(toEdit, true);
-            
 
-            if (checkout.RentalChanged)
-            {
-                rentals.updateSingle(checkout.BoundRental);
-                updateDataGrid();
-            }
+            NavigationService.Navigate(checkout);
         }
 
         private void detailsButton_Click(object sender, RoutedEventArgs e)
@@ -102,12 +96,7 @@ namespace PolyRents.views.manage
                 confirmMessage = "Are you sure you want to delete these " + rental_HistoryDataGrid.SelectedItems.Count + " rental entries?";
             }
 
-            if (deleteConfirmation == null)
-            {
-                deleteConfirmation = new ConfirmationDialog("Delete Rental Confirmation");
-            }
-
-            deleteConfirmation.setMessage(confirmMessage);
+            deleteConfirmation = new ConfirmationDialog("Delete Rental Confirmation", confirmMessage);
 
             deleteConfirmation.ShowDialog();
 

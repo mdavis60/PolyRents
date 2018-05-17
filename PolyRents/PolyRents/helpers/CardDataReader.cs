@@ -1,9 +1,5 @@
 ﻿using PolyRents.helpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PolyRents.model;
 using System.Windows.Input;
 using System.Windows.Controls;
@@ -17,22 +13,12 @@ namespace PolyRents.helpers
 
         //helper fields for reading data
         private bool shiftDown;
-        private bool readStarted;
-        private bool readEnded;
         private bool libNumberRead;
 
         private bool readDataFlag;
         
         private CardData cardData;
         private Control nextField;
-
-        public bool CardDataChanged
-        {
-            get
-            {
-                return readEnded;
-            }
-        }
 
         public CardData CardInfo
         {
@@ -64,7 +50,6 @@ namespace PolyRents.helpers
                 if (key == Key.D5)
                 {
                     rawInput = "%";
-                    readStarted = true;
                 }
                 else if (key == Key.D6)
                 {
@@ -102,7 +87,6 @@ namespace PolyRents.helpers
             else if (key == Key.OemQuestion)
             {
                 //End of read
-                readEnded = true;
                 rawInput += "?";
                 cardData = new CardData(rawInput);
 
@@ -124,8 +108,6 @@ namespace PolyRents.helpers
         public void resetFlags()
         {
             shiftDown = false;
-            readStarted = false;
-            readEnded = false;
             libNumberRead = false;
         }
     }
