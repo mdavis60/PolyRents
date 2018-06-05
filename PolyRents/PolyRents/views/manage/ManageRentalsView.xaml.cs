@@ -20,6 +20,7 @@ using System.Data;
 using System.ComponentModel;
 using PolyRents.converters;
 using System.Collections;
+using PolyRents.model.collections;
 
 namespace PolyRents.views.manage
 {
@@ -28,15 +29,17 @@ namespace PolyRents.views.manage
     /// </summary>
     public partial class ManageRentalsView : Page
     {
-        private Rental_HistoryTableAdapter rentals;
+        private Rental_HistoryTableAdapter rentalAdapter;
         private RentalConverter rentalConverter;
+
+        public Rentals Rentals { get; set; }
 
         private CheckoutWindow checkout;
         private ConfirmationDialog deleteConfirmation;
 
         public ManageRentalsView()
         {
-            rentals = Rental_HistoryTableAdapter.getInstance();
+            rentalAdapter = Rental_HistoryTableAdapter.getInstance();
             rentalConverter = new RentalConverter();
 
             InitializeComponent();
@@ -53,14 +56,23 @@ namespace PolyRents.views.manage
             ComputingResourcesDataSet computingResourcesDataSet = ((ComputingResourcesDataSet)(this.FindResource("computingResourcesDataSet")));
 
             // Load data into the table Rental. You can modify this code as needed.
-            rentals.Fill(computingResourcesDataSet.Rental_History);
+            rentalAdapter.Fill(computingResourcesDataSet.Rental_History);
             CollectionViewSource rentalViewSource = ((CollectionViewSource)(this.FindResource("rental_HistoryViewSource")));
             rentalViewSource.View.MoveCurrentToFirst();
+            buildRentals();
+        }
+
+        private void buildRentals()
+        {
+            Rentals = new Rentals();
+            rentalAdapter.getAll().ForEach(Rentals.Add);
         }
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
             checkout = new CheckoutWindow();
+
+            NavigationService.Navigate(checkout);
         }
 
         private void editButton_Click(object sender, RoutedEventArgs e)
@@ -112,7 +124,8 @@ namespace PolyRents.views.manage
         private void updateDataGrid()
         {
             rental_HistoryDataGrid.ItemsSource = null;
-            rental_HistoryDataGrid.ItemsSource = rentals.GetData();
+            buildRentals();
+            rental_HistoryDataGrid.ItemsSource = Rentals;
         }
 
         private void deleteRentalsHelper(IList rowsToDelete)
@@ -122,7 +135,7 @@ namespace PolyRents.views.manage
             foreach (DataRowView row in rowsToDelete)
             {
                 toDelete = rentalConverter.ConvertSingle(row.Row);
-                rentals.deleteSingle(toDelete);
+                rentalAdapter.deleteSingle(toDelete);
             }
         }
     }

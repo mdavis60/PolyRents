@@ -99,9 +99,7 @@ namespace PolyRents.views
                 theResource = new Resource();
             }
 
-            this.isEdit = isEdit;
-
-            SetResourceToView(theResource);
+            SetResourceToView(theResource, isEdit);
             
             InitializeComponent();
 

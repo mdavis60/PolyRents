@@ -271,6 +271,31 @@ namespace PolyRents.views
             renterLibNumber.Text = renter.LibraryNumber;
             renterEmail.Text = renter.CpEmail;
         }
-        
+
+        private void renterEmail_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox sent = sender as TextBox;
+
+            if (string.IsNullOrEmpty(sent.Text))
+            {
+                return;
+            }
+
+            Renter renter = renters.getRenterByEmail(sent.Text);
+
+            if (renter == null)
+            {
+                infoWindow = new InformationWindow("Unrecognized Cal Poly Email");
+
+                infoWindow.setInfoText("A renter with the email:\n" + libNumber + "\nwas not found");
+                infoWindow.ShowDialog();
+
+                return;
+            }
+
+            renterName.Text = renter.FullName;
+            renterLibNumber.Text = renter.LibraryNumber;
+            renterEmail.Text = renter.CpEmail;
+        }
     }
 }

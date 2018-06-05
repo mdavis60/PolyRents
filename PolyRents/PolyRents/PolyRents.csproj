@@ -147,6 +147,9 @@
     <Compile Include="helpers\CardDataReader.cs" />
     <Compile Include="helpers\Logger.cs" />
     <Compile Include="model\CardData.cs" />
+    <Compile Include="model\collections\Rentals.cs" />
+    <Compile Include="model\collections\Renters.cs" />
+    <Compile Include="model\collections\Resources.cs" />
     <Compile Include="model\Status.cs" />
     <Compile Include="model\data providers\abstract\AbstractDAO.cs" />
     <Compile Include="model\data providers\abstract\ComputerDAO.cs" />
