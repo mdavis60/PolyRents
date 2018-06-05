@@ -34,7 +34,7 @@
             <WrapPanel x:Name="stackPanel" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Vertical" ItemWidth="{Binding ActualWidth, ElementName=stackPanel, Mode=OneWay}"> 
                 <Label Content="Rentals" FontSize="16" FontWeight="Bold"/>
 
-                <DataGrid x:Name="rental_HistoryDataGrid" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" 
+                <DataGrid x:Name="rental_HistoryDataGrid" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}"
                           RowDetailsVisibilityMode="VisibleWhenSelected" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" IsReadOnly="True" VerticalAlignment="Bottom"
                           />
             </WrapPanel>

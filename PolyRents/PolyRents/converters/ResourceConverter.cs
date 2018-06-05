@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Data;
 using PolyRents.ComputingResourcesDataSetTableAdapters;
 
-namespace PolyRents.helpers
+namespace PolyRents.converters
 {
     public class ResourceConverter:IConverter<Resource>
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 
-namespace PolyRents.helpers
+namespace PolyRents.converters
 {
     public abstract class IConverter<T>
     {

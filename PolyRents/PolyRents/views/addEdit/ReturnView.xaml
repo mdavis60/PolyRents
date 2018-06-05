@@ -27,7 +27,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Vertical" Grid.Row="0">
+            <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center">
                 <Label Content="Resource" FontSize="14" FontWeight="Bold"/>
                 <WrapPanel Orientation="Horizontal" Margin="0,0,0,10">
                     <Label Content="Resource" Width="75" FontSize="10"/>
@@ -36,7 +36,7 @@
                 
             </StackPanel>
 
-            <StackPanel Orientation="Vertical" Grid.Row="1">
+            <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Center">
                 <Label Content="Renter" FontSize="14" FontWeight="Bold"/>
                 <WrapPanel Orientation="Horizontal" Margin="0,0,0,10">
                     <Label Content="Name" Width="75" FontSize="10"/>
