@@ -1,5 +1,7 @@
 # PolyRents
-Resource checkout system for the OCOB helpdesk.
+PolyRents is an inventory management system for the Cal Poly OCOB Helpdesk. The system integrates a Poly Card swiping so that students can use their Poly Cards to checkout resources from the Helpdesk.  It also allows the Helpdesk staff generate numerous reports which helps the Helpdesk team manage their inventory more securely and effectively.  The project was developed by a Software Engineering student and OCOB Helpdesk employee, Mitchel Davis, during Winter and Spring Quarters of 2018 as a senior project.  
+
+The final project report can be found [here](docs/senior-project-polyrents-v3.pdf)
 ## Diagrams
 
 ### Component Diagram
