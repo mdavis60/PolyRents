@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Collections;
 using System.Timers;
 using PolyRents.converters;
+using PolyRents.model.collections;
 
 namespace PolyRents.views
 {
@@ -31,6 +32,8 @@ namespace PolyRents.views
     {
         private ResourcesTableAdapter resources;
         private ResourceConverter resourceConverter;
+
+        public Resources Resources { get; set; }
 
         private ResourceTypeTableAdapter types;
         private ResourceTypeConverter typeConverter;
@@ -70,7 +73,7 @@ namespace PolyRents.views
             Resource toEdit = null;
             if (resourcesDataGrid.SelectedItem != null)
             {
-                toEdit = resourceConverter.ConvertSingle((resourcesDataGrid.SelectedItem as DataRowView).Row);
+                toEdit = resourcesDataGrid.SelectedItem as Resource;
             }
             addEdit = new AddEditResourceView(toEdit, types.getAll().ToArray(), true);
 
@@ -122,6 +125,14 @@ namespace PolyRents.views
             resources.Fill(computingResourcesDataSet.Resources);
             CollectionViewSource resourcesViewSource = ((CollectionViewSource)(this.FindResource("resourcesViewSource")));
             resourcesViewSource.View.MoveCurrentToFirst();
+            buildResources();
+        }
+
+        private void buildResources()
+        {
+            Resources = new Resources();
+            resources.getAll().ForEach(Resources.Add);
+            resourcesDataGrid.ItemsSource = Resources;
         }
 
         private void updateDataGrid()
@@ -129,19 +140,16 @@ namespace PolyRents.views
             int index = resourcesDataGrid.SelectedIndex;
 
             resourcesDataGrid.ItemsSource = null;
-            resourcesDataGrid.ItemsSource = resources.GetData();
+            buildResources();
 
             resourcesDataGrid.SelectedIndex = index;
         }
 
         private void deleteResourcesHelper(IList rowsToDelete)
         {
-            Resource toDelete;
-
-            foreach (DataRowView row in rowsToDelete)
+            foreach (Resource row in rowsToDelete)
             {
-                toDelete = resourceConverter.ConvertSingle((row as DataRowView).Row);
-                resources.deleteSingle(toDelete);
+                resources.deleteSingle(row);
             }
         }
     }

@@ -32,11 +32,19 @@
                 <RowDefinition Height="9*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            
-            <WrapPanel Grid.Row="0" Grid.ColumnSpan="2">
+
+            <WrapPanel x:Name="wrapPanel" Grid.Row="0" Grid.ColumnSpan="2" ItemWidth="{Binding ActualWidth, ElementName=wrapPanel, Mode=OneWay}">
                 <Label Content="Renters" FontSize="16" FontWeight="Bold"/>
-                <DataGrid x:Name="renterDataGrid" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" IsReadOnly="True">
-                    
+                <DataGrid x:Name="renterDataGrid" ItemsSource="{Binding Source=Renters}" IsReadOnly="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn  Header="Renter ID" Binding="{Binding  IdRenter}" />
+                        <DataGridTextColumn  Header="First Name" Binding="{Binding  FirstName}" />
+                        <DataGridTextColumn  Header="Last Name" Binding="{Binding  LastName}" />
+                        <DataGridTextColumn  Header="Role" Binding="{Binding  Role}" />
+                        <DataGridTextColumn  Header="CP Email" Binding="{Binding  CpEmail}" />
+                        <DataGridTextColumn  Header="Library Number" Binding="{Binding  LibraryNumber}" />
+                        <DataGridCheckBoxColumn Header="Can Rent" Binding="{Binding CanRent}" />
+                    </DataGrid.Columns>
                 </DataGrid>
             </WrapPanel>
 

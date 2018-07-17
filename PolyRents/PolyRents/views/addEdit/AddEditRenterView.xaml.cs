@@ -151,6 +151,7 @@ namespace PolyRents.views
             if (((String)sent.Name).Equals("cancelButton"))
             {
                 NavigationService.GoBack();
+                return;
             }
 
             if (FormValid)

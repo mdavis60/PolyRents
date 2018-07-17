@@ -46,15 +46,13 @@
                 </WrapPanel>
                 <WrapPanel Orientation="Horizontal" Margin="0,0,0,10">
                     <Label Content="Email" Width="75" FontSize="10"/>
-                    <TextBox Name="renterEmail" Width="150" />
+                    <TextBox Name="renterEmail" Width="150" LostFocus="renterEmail_LostFocus"/>
                 </WrapPanel>
                 <WrapPanel Orientation="Horizontal" Margin="0,0,0,10">
                     <Label Content="Library Code" Width="75" FontSize="10"/>
                     <TextBox Name="renterLibNumber" Width="150" TabIndex="1" GotFocus="renterLibNumber_GotFocus" LostFocus="renterLibNumber_LostFocus"/>
                 </WrapPanel>
-                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Name="searchButton" Content="Search..." Width="70" Margin="10,0,0,0" />
-                </WrapPanel>
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
             </StackPanel>
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Bottom">
                 <Button Name="okButton" Content="Ok" Width="70" Margin="0,0,10,0" Click="Submit"/>

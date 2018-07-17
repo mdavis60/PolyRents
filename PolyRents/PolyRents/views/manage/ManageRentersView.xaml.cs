@@ -20,6 +20,7 @@ using System.Data;
 using System.ComponentModel;
 using PolyRents.converters;
 using System.Collections;
+using PolyRents.model.collections;
 
 namespace PolyRents.views
 {
@@ -30,6 +31,8 @@ namespace PolyRents.views
     {
         private RenterTableAdapter renters;
         private RenterConverter renterConverter;
+
+        public Renters Renters { get; set; }
 
         private AddEditRenterView addEdit;
         private ConfirmationDialog deleteConfirmation;
@@ -56,6 +59,14 @@ namespace PolyRents.views
             renters.Fill(computingResourcesDataSet.Renter);
             CollectionViewSource renterViewSource = ((CollectionViewSource)(this.FindResource("renterViewSource")));
             renterViewSource.View.MoveCurrentToFirst();
+            buildRenters();
+        }
+
+        private void buildRenters()
+        {
+            Renters = new Renters();
+            renters.getAll().ForEach(Renters.Add);
+            renterDataGrid.ItemsSource = Renters;
         }
 
         private void newButton_Click(object sender, RoutedEventArgs e)
@@ -71,7 +82,7 @@ namespace PolyRents.views
 
             if (renterDataGrid.SelectedItem != null)
             {
-                toEdit = renterConverter.ConvertSingle((renterDataGrid.SelectedItem as DataRowView).Row);
+                toEdit = renterDataGrid.SelectedItem as Renter;
             }
 
             addEdit = new AddEditRenterView(toEdit, true);
@@ -115,17 +126,16 @@ namespace PolyRents.views
         {
             Renter toDelete;
 
-            foreach (DataRowView row in rowsToDelete)
+            foreach (Renter row in rowsToDelete)
             {
-                toDelete = renterConverter.ConvertSingle(row.Row);
-                renters.deleteSingle(toDelete);
+                renters.deleteSingle(row);
             }
         }
 
         private void updateDataGrid()
         {
             renterDataGrid.ItemsSource = null;
-            renterDataGrid.ItemsSource = renters.GetData();
+            buildRenters();
         }
     }
 }
