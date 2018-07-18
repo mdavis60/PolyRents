@@ -66,6 +66,7 @@ namespace PolyRents.views.manage
         {
             Rentals = new Rentals();
             rentalAdapter.getAll().ForEach(Rentals.Add);
+            rental_HistoryDataGrid.ItemsSource = Rentals;
         }
 
         private void newButton_Click(object sender, RoutedEventArgs e)
@@ -81,7 +82,7 @@ namespace PolyRents.views.manage
 
             if (rental_HistoryDataGrid.SelectedItem != null)
             {
-                toEdit = rentalConverter.ConvertSingle((rental_HistoryDataGrid.SelectedItem as DataRowView).Row);
+                toEdit = rental_HistoryDataGrid.SelectedItem as Rental;
             }
 
             checkout = new CheckoutWindow(toEdit, true);
@@ -130,12 +131,9 @@ namespace PolyRents.views.manage
 
         private void deleteRentalsHelper(IList rowsToDelete)
         {
-            Rental toDelete;
-
-            foreach (DataRowView row in rowsToDelete)
+            foreach (Rental row in rowsToDelete)
             {
-                toDelete = rentalConverter.ConvertSingle(row.Row);
-                rentalAdapter.deleteSingle(toDelete);
+                rentalAdapter.deleteSingle(row);
             }
         }
     }

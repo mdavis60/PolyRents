@@ -2,7 +2,7 @@
 using System.Data;
 using PolyRents.ComputingResourcesDataSetTableAdapters;
 
-namespace PolyRents.helpers
+namespace PolyRents.converters
 {
     public class ResourceTypeConverter : IConverter<ResourceType>
     {

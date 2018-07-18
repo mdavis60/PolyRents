@@ -6,8 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using PolyRents.ComputingResourcesDataSetTableAdapters;
+using PolyRents.helpers;
 
-namespace PolyRents.helpers
+namespace PolyRents.converters
 {
     public class ResourceConverter:IConverter<Resource>
     {

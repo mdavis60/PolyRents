@@ -4,14 +4,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PolyRents.views.manage"
         xmlns:PolyRents="clr-namespace:PolyRents" x:Class="PolyRents.views.manage.ManageRentalsView"
-        xmlns:Collections="clr-namespace:PolyRents.model.collections"
+        xmlns:Views="clr-namespace:PolyRents.views.manage"
         xmlns:Models="clr-namespace:PolyRents.model"
         mc:Ignorable="d"
         Title="ManageRentalsView" Loaded="Window_Loaded">
     <Page.Resources>
         <PolyRents:ComputingResourcesDataSet x:Key="computingResourcesDataSet"/>
         <CollectionViewSource x:Key="rental_HistoryViewSource" Source="{Binding Rental_History, Source={StaticResource computingResourcesDataSet}}"/>
-        <Models:Renter x:Key="renterConverter"/>
+        <Views:ManageRentalsView x:Key="manageRentals"/>
     </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -34,18 +34,17 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <WrapPanel x:Name="stackPanel" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Vertical" ItemWidth="{Binding ActualWidth, ElementName=stackPanel, Mode=OneWay}"> 
+            <WrapPanel x:Name="stackPanel" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Vertical" ItemWidth="{Binding ActualWidth, ElementName=stackPanel, Mode=OneWay}">
                 <Label Content="Rentals" FontSize="16" FontWeight="Bold"/>
-
-                <DataGrid x:Name="rental_HistoryDataGrid" AutoGenerateColumns="False"  ItemsSource="{Binding Source=rentals}" IsReadOnly="True" VerticalAlignment="Bottom">
+                <DataGrid x:Name="rental_HistoryDataGrid" AutoGenerateColumns="False"  ItemsSource="{Binding Source=Rentals}" IsReadOnly="True" VerticalAlignment="Bottom">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Resource ID" Binding="{Binding  IdRental}" />
-                        <DataGridTextColumn Header="Resource Type" Binding="{Binding ResourceType, Source=Resource}">
-                            
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="Renter" Binding="{Binding Renter.FullName}"/>
-                        <DataGridTextColumn Header="Checkin" Binding="{Binding CheckinTime}" />
+                        <DataGridTextColumn Header="Resource Type" Binding="{Binding Resource.Type.ResourceName}"/>
+                        <DataGridTextColumn Header="Renter Name" Binding="{Binding Renter.FullName}"/>
+                        <DataGridTextColumn Header="Renter Email" Binding="{Binding Renter.CpEmail}"/>
+                        <DataGridTextColumn Header="Resource Status" Binding="{Binding Resource.Status}"/>
                         <DataGridTextColumn Header="Checkout" Binding="{Binding CheckoutTime}" />
+                        <DataGridTextColumn Header="Checkin" Binding="{Binding CheckinTime}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </WrapPanel>

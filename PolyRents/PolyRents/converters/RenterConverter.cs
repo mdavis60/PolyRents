@@ -1,5 +1,4 @@
-﻿using PolyRents.helpers;
-using PolyRents.model;
+﻿using PolyRents.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

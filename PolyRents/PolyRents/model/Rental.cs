@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace PolyRents.model
 {
-    public class Rental : IValueConverter
+    public class Rental
     {
         private int idRental;
         private Renter renter;
@@ -127,16 +127,6 @@ namespace PolyRents.model
             return idRental.Equals(other.idRental) && Renter.Equals(other.Renter) &&
                 Resource.Equals(other.Resource) && CheckinTime.Equals(other.checkinTime) &&
                 CheckoutTime.Equals(other.CheckoutTime);
-        }
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
 }

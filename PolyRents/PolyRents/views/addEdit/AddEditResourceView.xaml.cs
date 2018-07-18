@@ -5,6 +5,7 @@ using System.Windows;
 using System.ComponentModel;
 using System.Windows.Controls;
 using PolyRents.helpers;
+using PolyRents.ComputingResourcesDataSetTableAdapters;
 
 namespace PolyRents.views
 {
@@ -15,6 +16,8 @@ namespace PolyRents.views
     {
         private Resource resource;
         private bool isEdit;
+
+        private ResourcesTableAdapter resources;
 
         private Logger logger = Logger.getInstance();
 
@@ -85,7 +88,7 @@ namespace PolyRents.views
 
         public AddEditResourceView(Resource theResource = null, ResourceType[] types = null, bool isEdit = false)
         {
-
+            resources = ResourcesTableAdapter.getInstance();
             if (types == null)
             {
                 types = new ResourceType[0];
@@ -170,6 +173,14 @@ namespace PolyRents.views
                 if (ResourceChanged)
                 {
                     resource = newResource;
+                    if (isEdit)
+                    {
+                        resources.updateSingle(resource);
+                    }
+                    else
+                    {
+                        resources.addSingle(resource);
+                    }
                 }
                 NavigationService.GoBack();
             }

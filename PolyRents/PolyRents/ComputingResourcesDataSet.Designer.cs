@@ -7125,10 +7125,10 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters {
             this._commandCollection[2].CommandText = @"SELECT        [Rental History].ID, [Rental History].idRenter, [Rental History].idResource, [Rental History].checkout, [Rental History].checkin
 FROM            ([Rental History] INNER JOIN
                          Resources ON [Rental History].idResource = Resources.idResource)
-WHERE        (Resources.status = ?) AND ([Rental History].idResource = ?)";
+WHERE        ([Rental History].idResource = ?) AND (Resources.status = ?)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[2].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("status", global::System.Data.OleDb.OleDbType.WChar, 30, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "status", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[2].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("idResource", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "idResource", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[2].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("status", global::System.Data.OleDb.OleDbType.WChar, 30, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "status", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[3] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[3].Connection = this.Connection;
             this._commandCollection[3].CommandText = "UPDATE `Rental History` SET `idRenter` = ?, `idResource` = ?, `checkout` = ?, `ch" +
@@ -7169,19 +7169,19 @@ WHERE        (Resources.status = ?) AND ([Rental History].idResource = ?)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual ComputingResourcesDataSet.Rental_HistoryDataTable GetRentalByResourceId(string status, global::System.Nullable<int> idResource) {
+        public virtual ComputingResourcesDataSet.Rental_HistoryDataTable GetRentalByResourceId(global::System.Nullable<int> idResource, string status) {
             this.Adapter.SelectCommand = this.CommandCollection[2];
-            if ((status == null)) {
+            if ((idResource.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((int)(idResource.Value));
+            }
+            else {
                 this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(status));
-            }
-            if ((idResource.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(idResource.Value));
-            }
-            else {
+            if ((status == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(status));
             }
             ComputingResourcesDataSet.Rental_HistoryDataTable dataTable = new ComputingResourcesDataSet.Rental_HistoryDataTable();
             this.Adapter.Fill(dataTable);

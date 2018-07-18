@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PolyRents.converters.IConverter&lt;T&gt;">
+    <Position X="3.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAQAA=</HashCode>
+      <FileName>converters\IConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PolyRents.converters.ResourceTypeConverter">
+    <Position X="0.5" Y="7" Width="2" />
+    <AssociationLine Name="types" Type="PolyRents.ComputingResourcesDataSetTableAdapters.ResourceTypeTableAdapter" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.5" Y="7" />
+        <Point X="1.5" Y="5.868" />
+        <Point X="1.917" Y="5.868" />
+        <Point X="1.917" Y="4.441" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.11" Y="0.616" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAIAQAA=</HashCode>
+      <FileName>converters\ResourceTypeConverter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="types" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PolyRents.converters.RentalConverter">
+    <Position X="5" Y="7" Width="1.5" />
+    <AssociationLine Name="rentalTable" Type="PolyRents.ComputingResourcesDataSetTableAdapters.Rental_HistoryTableAdapter" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.812" Y="7" />
+        <Point X="5.812" Y="5.979" />
+        <Point X="6.438" Y="5.979" />
+        <Point X="6.438" Y="4.441" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.077" Y="0.416" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="renterTable" Type="PolyRents.ComputingResourcesDataSetTableAdapters.RenterTableAdapter" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.188" Y="7" />
+        <Point X="6.188" Y="6.229" />
+        <Point X="8.917" Y="6.229" />
+        <Point X="8.917" Y="4.441" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.029" Y="0.579" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="resourcesTable" Type="PolyRents.ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.25" Y="7" />
+        <Point X="5.25" Y="5.896" />
+        <Point X="4.25" Y="5.896" />
+        <Point X="4.25" Y="4.441" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.161" Y="0.397" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ABAAAIAAAAAAAAAAAQAAAAAAAAAAAIAAAAAAAAAAQAA=</HashCode>
+      <FileName>converters\RentalConverter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="rentalTable" />
+      <Field Name="renterTable" />
+      <Field Name="resourcesTable" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PolyRents.converters.RenterConverter">
+    <Position X="7" Y="7" Width="1.5" />
+    <AssociationLine Name="renterTable" Type="PolyRents.ComputingResourcesDataSetTableAdapters.RenterTableAdapter" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.688" Y="7" />
+        <Point X="7.688" Y="6.229" />
+        <Point X="8.917" Y="6.229" />
+        <Point X="8.917" Y="4.441" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.027" Y="0.331" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAIAAAAAAAAAAQAA=</HashCode>
+      <FileName>converters\RenterConverter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="renterTable" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PolyRents.converters.ResourceConverter">
+    <Position X="2.75" Y="7" Width="2" />
+    <AssociationLine Name="table" Type="PolyRents.ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.667" Y="7" />
+        <Point X="3.667" Y="5.896" />
+        <Point X="4.25" Y="5.896" />
+        <Point X="4.25" Y="4.441" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.094" Y="0.599" Height="0.182" Width="0.606" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="typeTable" Type="PolyRents.ComputingResourcesDataSetTableAdapters.ResourceTypeTableAdapter" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.25" Y="7" />
+        <Point X="3.25" Y="5.858" />
+        <Point X="1.917" Y="5.858" />
+        <Point X="1.917" Y="4.441" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.061" Y="0.388" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAABAAAAAAAAAAAAAAIAAAAAAAAAAQAA=</HashCode>
+      <FileName>converters\ResourceConverter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="table" />
+      <Field Name="typeTable" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PolyRents.ComputingResourcesDataSetTableAdapters.Rental_HistoryTableAdapter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EATAAGAAUAIQAAcCMgAAADAIACEMCAQAABAIggIABBA=</HashCode>
+      <FileName>ComputingResourcesDataSet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Bottom" Position="0.1" />
+  </Class>
+  <Class Name="PolyRents.ComputingResourcesDataSetTableAdapters.RenterTableAdapter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EATAAGAAUAIAAAcCIgAAADAIACEKCASAAAAIgwICBBA=</HashCode>
+      <FileName>ComputingResourcesDataSet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Bottom" Position="0.1" />
+  </Class>
+  <Class Name="PolyRents.ComputingResourcesDataSetTableAdapters.ResourceTypeTableAdapter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="1" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EATAAGAAUAIAAAdCIAAAADAAACEICAQAAABAggIABBA=</HashCode>
+      <FileName>ComputingResourcesDataSet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Bottom" Position="0.1" />
+  </Class>
+  <Class Name="PolyRents.ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EATAAGAAUAIAAAcCIgAAADAAACEICAQBAABIggIABBE=</HashCode>
+      <FileName>ComputingResourcesDataSet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Bottom" Position="0.1" />
+  </Class>
+  <Class Name="PolyRents.ComputingResourcesDataSetTableAdapters.TableAdapterManager" Collapsed="true">
+    <Position X="4.75" Y="1.5" Width="2" />
+    <NestedTypes>
+      <Enum Name="PolyRents.ComputingResourcesDataSetTableAdapters.TableAdapterManager.UpdateOrderOption" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+      <Class Name="PolyRents.ComputingResourcesDataSetTableAdapters.TableAdapterManager.SelfReferenceComparer" Collapsed="true">
+        <TypeIdentifier />
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <AssociationLine Name="_rental_HistoryTableAdapter" Type="PolyRents.ComputingResourcesDataSetTableAdapters.Rental_HistoryTableAdapter" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.917" Y="2.191" />
+        <Point X="5.917" Y="3.312" />
+        <Point X="6.438" Y="3.312" />
+        <Point X="6.438" Y="3.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.026" Y="0.38" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_renterTableAdapter" Type="PolyRents.ComputingResourcesDataSetTableAdapters.RenterTableAdapter" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.333" Y="2.191" />
+        <Point X="6.333" Y="2.566" />
+        <Point X="8.458" Y="2.566" />
+        <Point X="8.458" Y="3.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.026" Y="0.481" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_resourceTypeTableAdapter" Type="PolyRents.ComputingResourcesDataSetTableAdapters.ResourceTypeTableAdapter" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.917" Y="2.191" />
+        <Point X="4.917" Y="2.566" />
+        <Point X="2.542" Y="2.566" />
+        <Point X="2.542" Y="3.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.043" Y="0.396" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_resourcesTableAdapter" Type="PolyRents.ComputingResourcesDataSetTableAdapters.ResourcesTableAdapter" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.417" Y="2.191" />
+        <Point X="5.417" Y="3.359" />
+        <Point X="4.25" Y="3.359" />
+        <Point X="4.25" Y="3.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.202" Y="0.363" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AQAAACABAEBYDAEBgAQAMCAhACACgAAAQAUEMAAABAQ=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_rental_HistoryTableAdapter" />
+      <Field Name="_renterTableAdapter" />
+      <Field Name="_resourcesTableAdapter" />
+      <Field Name="_resourceTypeTableAdapter" />
+    </ShowAsAssociation>
+  </Class>
+  <Interface Name="PolyRents.repository.AbstractDAO&lt;T&gt;">
+    <Position X="13.25" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAADAAAAAAAAAAAAAAggIAAAA=</HashCode>
+      <FileName>model\data providers\abstract\AbstractDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PolyRents.repository.RentalDAO">
+    <Position X="14.5" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAIAAAEAAAAABAAAAAAAAA=</HashCode>
+      <FileName>model\data providers\abstract\RentalDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PolyRents.repository.RenterDAO">
+    <Position X="16.75" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAIAAAAAACAAAAAAQAAAAA=</HashCode>
+      <FileName>model\data providers\abstract\RenterDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PolyRents.repository.ResourceDAO">
+    <Position X="10.25" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAABAAAAAAAA=</HashCode>
+      <FileName>model\data providers\abstract\ResourceDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PolyRents.repository.ResourceTypeDAO">
+    <Position X="12.25" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>model\data providers\abstract\ResourceTypeDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -118,7 +118,7 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
 
         public List<Rental> getRentalByResourceId(int id)
         {
-            DataRowCollection rows = GetRentalByResourceId("CHECKED_OUT", id).Rows;
+            DataRowCollection rows = GetRentalByResourceId(id, "CHECKED_OUT").Rows;
 
             if (rows.Count <1)
             {

@@ -286,6 +286,7 @@
     <None Include="ComputingResourcesDataSet.xss">
       <DependentUpon>ComputingResourcesDataSet.xsd</DependentUpon>
     </None>
+    <None Include="docs\ModelClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
