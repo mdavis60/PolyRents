@@ -94,7 +94,7 @@ namespace PolyRents.views.addEdit
             if (rentalFound)
             {
                 rental.CheckinTime = DateTime.Now;
-                rental.Resource.Status = Status.ResourceStatus.AVAILABLE;
+                rental.Resource.Status = Resource.ResourceStatus.AVAILABLE;
 
                 rentals.updateSingle(rental);
                 resources.updateSingle(rental.Resource);

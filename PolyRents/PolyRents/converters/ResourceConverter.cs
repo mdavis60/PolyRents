@@ -24,7 +24,7 @@ namespace PolyRents.helpers
         {
             Resource resource = new Resource();
             resource.IdResource = (int)(row["idResource"]);
-            resource.Status = Status.stringToStatus((string)(row["status"]));
+            resource.Status = EnumUtil.ParseEnum<Resource.ResourceStatus>((string)(row["status"]));
             resource.StatusDescription = (row["status description"]).ToString();
             resource.Type = typeTable.getById((int)(row["idResourceType"]));
             return resource;
@@ -35,7 +35,7 @@ namespace PolyRents.helpers
             DataRow row = table.GetData().NewRow();
 
             row["idResource"] = (int) toConvert.IdResource;
-            row["status"] = Status.StatusToString(toConvert.Status);
+            row["status"] = toConvert.Status.ToString();
             row["status description"] = toConvert.StatusDescription;
             row["idResourceType"] = toConvert.Type.IdResourceType;
 

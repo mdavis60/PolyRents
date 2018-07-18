@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using static PolyRents.model.Status;
 using System.ComponentModel;
 using System.Windows.Controls;
 using PolyRents.ComputingResourcesDataSetTableAdapters;
@@ -172,7 +171,7 @@ namespace PolyRents.views
             {
                 renter = renters.getRenterByLibraryNumber(renterLibNumber.Text);
                 Resource resource = resources.getById(int.Parse(resourceId.Text));
-                resource.Status = stringToStatus("CHECKED_OUT");
+                resource.Status = EnumUtil.ParseEnum<Resource.ResourceStatus>("CHECKED_OUT");
 
                 newRental.Renter = renter;
                 newRental.Resource = resource;

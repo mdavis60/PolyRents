@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using static PolyRents.model.Status;
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;

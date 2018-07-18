@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using static PolyRents.model.Status;
 using System.ComponentModel;
 using System.Windows.Controls;
 using PolyRents.helpers;
@@ -80,7 +79,7 @@ namespace PolyRents.views
         {
             get
             {
-                return Status.getStatusEnumeration();
+                return EnumUtil.getEnumerable<Resource.ResourceStatus>();
             }
         }
 
@@ -120,7 +119,7 @@ namespace PolyRents.views
             idResource.Text = resource.IdResource.ToString();
 
             resourceType.SelectedValue = resource.Type;
-            status.SelectedValue = Status.StatusToString(resource.Status);
+            status.SelectedValue = resource.Status.ToString();
 
             resourceType.IsEnabled = !isEdit;
 
@@ -163,7 +162,7 @@ namespace PolyRents.views
             {
                 newResource.IdResource = int.Parse(idResource.Text);
                 newResource.Type = resourceType.SelectedValue as ResourceType;
-                newResource.Status = stringToStatus(status.Text);
+                newResource.Status = EnumUtil.ParseEnum<Resource.ResourceStatus>(status.Text);
                 newResource.StatusDescription = statusDescription.Text;
 
                 ResourceChanged = !resource.Equals(newResource);

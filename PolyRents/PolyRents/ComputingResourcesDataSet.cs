@@ -403,7 +403,7 @@ namespace PolyRents.ComputingResourcesDataSetTableAdapters
 
         public int addSingle(Resource toAdd)
         {
-            return Insert(Status.StatusToString(toAdd.Status), toAdd.StatusDescription, toAdd.Type.IdResourceType);
+            return Insert(toAdd.Status.ToString(), toAdd.StatusDescription, toAdd.Type.IdResourceType);
         }
 
         public void deleteSingle(Resource toDelete)

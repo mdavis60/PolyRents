@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static PolyRents.model.Status;
 
 namespace PolyRents.model
 {
@@ -14,6 +13,15 @@ namespace PolyRents.model
         private ResourceType type;
         private ResourceStatus status;
         private string statusDescription;
+
+        public enum ResourceStatus
+        {
+            AVAILABLE = 0,
+            CHECKED_OUT = 1,
+            NEEDS_MAINTENANCE = 2,
+            UNDER_MAINTENANCE = 3,
+            RETIRED = 4
+        }
 
         public int IdResource
         {
